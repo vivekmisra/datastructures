@@ -1,7 +1,6 @@
 package org.vivek.myinterview.linkedlists.core;
 
 
-
 public class SLLImpl {
 	private int length = 0;
 	SLLNode head;
@@ -62,26 +61,25 @@ public class SLLImpl {
 		return node;
 	}
 	
-	public SLLNode add(Integer data) {
-		SLLNode temp = head;
-		if (head == null) {
-			head = new SLLNode(data, null);			
-			++length;
-			return head;
-		} else {			
-			
-			//traverse to current pos
-			while (head.next != null) {
-				head = head.next;
-			}
-			//construct a node
-			SLLNode node = new SLLNode(data, null);
-			head.next = node;
-			++length;
-			return temp;		
-		}
-
-	}
+	
+	
+	 public SLLNode addNode(Integer  data){
+	        SLLNode temp = head;
+	        SLLNode n = null;
+	    
+	         n =  new SLLNode(data);
+	      
+	        if(head == null){
+	            return n;
+	        }
+	        
+	        while(head.next != null){
+	            head = head.next;
+	        }
+	        
+	        head.next = n;
+	        return temp;
+	    }
 
 	public SLLNode addAtFront(Integer data,SLLNode head) { 
 		SLLNode node = null;

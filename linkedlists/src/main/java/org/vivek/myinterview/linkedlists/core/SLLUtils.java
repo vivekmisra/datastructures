@@ -24,7 +24,7 @@ public class SLLUtils {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		SLLImpl L1 = new SLLImpl();
+		SLL L1 = new SLL();
 		int[] dataForL1 = new int[] {3,1,8,7,-1,6};
 		SLLNode head1 = constructList(L1,dataForL1);
 		System.out.print("L1::");
@@ -38,11 +38,15 @@ public class SLLUtils {
 		
 		SLLNode cirHead = constructCircularList( L1, dataForL1) ;
 		boolean isCircular = hasLoop(cirHead);
+		if( isCircular){
+			System.out.print("Circular List:");
+			L1.printLinkedList(cirHead);
+		}
 		SLLNode loopStartNode = findLoopStart(cirHead);
 		
-		SLLImpl L2 = new SLLImpl(); 
+		SLL L2 = new SLL(); 
 		int[] dataForL2 = new int[] {7,4,12,10,15};
-		SLLNode head2 = constructList(L2,dataForL2);; 
+		SLLNode head2=constructList(L2,dataForL2);; 
 		System.out.print("L2:");
 		printLinkedList(head2);
 		head2 = mergeSort(head2);
@@ -67,12 +71,12 @@ public class SLLUtils {
 
 	}
 
-	public static SLLNode constructList(SLLImpl L1,int[] data) {
-		SLLNode head1 = null;
+	public static SLLNode constructList(SLL L1,int[] data) {
+		//SLLNode head1 = null;
 		for(int datum : data) {
-		    head1 = L1.addNodeAtEnd(datum, head1);
+		   L1.insertAtEnd(datum);
 		}		
-		return head1;
+		return L1.getHead();
 	}
 	
 	public static SLLNode getLast(SLLNode head) {
@@ -92,13 +96,18 @@ public class SLLUtils {
 		return tail;
 	}
 	
-	private static SLLNode constructCircularList(SLLImpl L,int[] data) {
+	private static SLLNode constructCircularList(SLL L,int[] data) {
 		SLLNode head = null;
 		for(int datum : data) {
-		    head = L.addNodeAtEnd(datum, head);
+		    L.insertAtEnd(datum);
 		}
-		SLLNode tail = getLast(head);
-		tail.next = head;
+		System.out.println("Constructing circular list part1:");
+		printLinkedList(L.getHead());
+		SLLNode tail = getLast(L.getHead());
+		System.out.println("Constructing circular list got tail:"+ tail);
+		//tail.next = L.getHead();dont do this infinte loop
+		System.out.println("Constructing circular list part2:");
+		printLinkedList(tail);
 		return head;
 	}
 

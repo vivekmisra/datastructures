@@ -13,14 +13,14 @@ public class ReorderList {
 	
 	public static void main(String[] args) {
 		ReorderList rl = new ReorderList();
-		SLLImpl L1 = new SLLImpl();
+		SLL L1 = new SLL();
 		int[] dataForL1 = new int[] {3,1,8,7,-1,6};
-		SLLNode head = SLLUtils.constructList(L1,dataForL1);
+		SLLUtils.constructList(L1,dataForL1);
 		System.out.println("L1 ORIGINAL:");
-		SLLUtils.printLinkedList(head);
-		rl.reorderList(head);
+		SLLUtils.printLinkedList(L1.getHead());
+		rl.reorderList(L1.getHead());
 		System.out.println("L1 REORDERED:");
-		SLLUtils.printLinkedList(head);
+		SLLUtils.printLinkedList(L1.getHead());
 		
 	}
 	
