@@ -1,5 +1,6 @@
 package org.vivek.myinterview.linkedlists.core;
 
+import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
@@ -15,10 +16,10 @@ public class SLL2<E> {
 		}
 	}
 
-	
 	transient int length = 0;
 	transient Node<E> first;
 	transient Node<E> last;
+	LinkedList ll = new LinkedList();
 
 	/**
 	 * @return the length
@@ -61,6 +62,11 @@ public class SLL2<E> {
 	// ############################################END:GET######################################################################
 	// ############################################START:ADD/REMOVE#############################################################
 
+	public boolean add(E e) {
+		linkLast(e);
+		return true;
+	}
+
 	public void addFirst(E e) {
 		linkFirst(e);
 	}
@@ -81,6 +87,26 @@ public class SLL2<E> {
 		if (l == null)
 			throw new NoSuchElementException();
 		return unlinkLast(l);
+
+	}
+
+	public boolean remove(Object o) {
+		if (o == null) {
+			for (Node<E> node = first; node != null; node = node.next) {
+				if (node.item == null) {
+					unlink(node);
+					return true;
+				}
+			}
+		} else {
+			for (Node<E> node = first; node != null; node = node.next) {
+				if (o.equals(node.item)) {
+					unlink(node);
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private void linkFirst(E e) {
@@ -142,12 +168,29 @@ public class SLL2<E> {
 
 	E unlink(Node<E> node) {
 		final E element = node.item;
-		final Node<E> next = node.next;
-		if (next == null) {
-			node.next = null;
+		if (first == null) {
+			return null;
 		}
-		node.item = null;
-		length--;
+
+		if (node.equals(first)) {
+			first = first.next;
+			// reduce the length of the list
+			length -= 1;
+			return first.item;
+		}
+		Node<E> p = first, q = null;
+		while ((q = p.next) != null) {
+			if (node.equals(q)) {
+				p.next = q.next;
+				// reduce the length of the list
+				length -= 1;
+				return p.item;
+			}
+			p = q;
+		}
+		
+		
+
 		return element;
 	}
 
@@ -177,22 +220,37 @@ public class SLL2<E> {
 		ll.addFirst(3);
 		ll.addFirst(4);
 		ll.addLast(1);
+
 		System.out.println(ll.size());
 		ll.printLinkedList(ll.first);
-		System.out.println("get first:"+ll.getFirst());
-		System.out.println("get last:"+ll.getLast());
+
+		System.out.println("get first:" + ll.getFirst());
+		System.out.println("get last:" + ll.getLast());
+
 		System.out.println("remove first:");
 		ll.removeFirst();
 		ll.printLinkedList(ll.first);
+
 		System.out.println("add first:");
 		ll.addFirst(4);
 		ll.printLinkedList(ll.first);
+
 		System.out.println("remove last:");
 		ll.removeLast();
 		ll.printLinkedList(ll.first);
+
 		System.out.println("add last:");
 		ll.addLast(1);
 		ll.printLinkedList(ll.first);
+
+		System.out.println("add:");
+		ll.add(8);
+		ll.printLinkedList(ll.first);
+
+		System.out.println("remove:");
+		ll.remove(3);
+		ll.printLinkedList(ll.first);
+		System.out.println(ll.size());
 	}
 
 }
