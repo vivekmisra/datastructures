@@ -86,6 +86,9 @@ public class SLL2<E> {
 	}
 
 	public void add(int index, E element) {
+		if(index>length ||index <-1){
+			throw new IndexOutOfBoundsException("Incorrect Index");
+		}
 		if (index == length) {
 			linkLast(element);
 		} else {
@@ -324,18 +327,25 @@ public class SLL2<E> {
 		ll.printLinkedList(ll.first);
 		
 
-		System.out.println("node at index 2:");
+		
 		Node<Integer> n = ll.node(2);
-		System.out.println(n.item);
+		ll.printLinkedList(ll.first);
+		System.out.println("node at index 2:" +n.item);
 		System.out.println("size="+ll.size());
-
-		System.out.println("node at index 6:");
+		
+		
 		n = ll.node(6);
-		System.out.println(n.item);
+		ll.printLinkedList(ll.first);
+		System.out.println("node at index 6:"+n.item);
 		System.out.println("size="+ll.size());
 
 		System.out.println("add node(9) at index 7:");
 		ll.add(7, new Integer(9));
+		ll.printLinkedList(ll.first);
+		System.out.println("size="+ll.size());
+		
+		System.out.println("add node(-1) at index 7:");
+		ll.add(-1, new Integer(9));
 		ll.printLinkedList(ll.first);
 		System.out.println("size="+ll.size());
 	}
