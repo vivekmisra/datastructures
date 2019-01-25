@@ -15,6 +15,21 @@ public class AdjacencyMatrixGraph {
 		// int adjacency_matrix[][] = fillMatrix(number_of_nodes);
 		// print2DArray(adjacency_matrix);
 		AdjacencyMatrixGraph alg = new AdjacencyMatrixGraph();
+		Graph g = constructGraph(number_of_nodes, alg);
+		int adjacency_matrix[][] = g.getAdjMatrix();
+		print2DArray(adjacency_matrix);
+		System.out.println("DFS:");
+		g.dfs(adjacency_matrix,0);
+		System.out.println();
+		AdjacencyMatrixGraph alg2 = new AdjacencyMatrixGraph();
+		 g = constructGraph(number_of_nodes, alg2);
+		System.out.println("BFS:");
+		g.bfs(adjacency_matrix, 0);
+		// int source = 1;
+		// dfs(adjacency_matrix, source);
+	}
+
+	private static Graph constructGraph(int number_of_nodes, AdjacencyMatrixGraph alg) {
 		Graph g = alg.new Graph(number_of_nodes, true);
 
 		g.addVertex(0, 'A');
@@ -26,12 +41,7 @@ public class AdjacencyMatrixGraph {
 		g.addEdge(2, 0);
 		g.addEdge(2, 3);
 		g.addEdge(3, 1);
-		int adjacency_matrix[][] = g.getAdjMatrix();
-		print2DArray(adjacency_matrix);
-		// g.dfs(adjacency_matrix,0);
-		g.bfs(adjacency_matrix, 0);
-		// int source = 1;
-		// dfs(adjacency_matrix, source);
+		return g;
 	}
 
 	private static int[][] fillMatrix(int n) {
@@ -156,6 +166,8 @@ public class AdjacencyMatrixGraph {
 				}
 			}
 		}
+		
+	
 
 		public void addVertex(int id, char label) {
 			vertexArray[id] = new Vertex(id, false, label);
@@ -238,7 +250,7 @@ public class AdjacencyMatrixGraph {
 		}
 
 		public void displayVertex(char i) {
-			System.out.println(i);
+			System.out.print(i);
 		}
 
 		public void addEdge(int start, int end) {
@@ -316,29 +328,36 @@ public class AdjacencyMatrixGraph {
 		}
 
 		public void dfs(int adjacency_matrix[][], int sourceId) {
-			Stack stack = new Stack<Integer>();
+			Stack<Integer> stack = new Stack<Integer>();
 			if (sourceId != 0) {
 				vertexArray[sourceId].visited = true;
+				System.out.print("(");
 				displayVertex(vertexArray[sourceId].label);
+				System.out.print(")-->");
 				stack.push(sourceId);
 			} else {
 				vertexArray[0].visited = true;
+				System.out.print("(");
 				displayVertex(vertexArray[0].label);
+				System.out.print(")-->");
 				stack.push(0);
 			}
 			int number_of_nodes = adjacency_matrix.length - 1;
-			int p = (Integer) stack.peek();
 			while (!stack.isEmpty()) {
-				p = (Integer) stack.peek();
-				int v = getAdjacentVertex(adjacency_matrix, (Integer) stack.peek());
-				if (v == -1) {
-					v = (Integer) stack.pop();
-					System.out.print("pop:");
-					displayVertex(vertexArray[v].label);
-				} else {
-					vertexArray[v].visited = true;
-					displayVertex(vertexArray[v].label);
-					stack.push(v);
+				int currentVertexId = (Integer) stack.peek();
+				int adjacentVertexId = getUnvisitedAdjacentVertexId(adjacency_matrix, currentVertexId);
+				if (adjacentVertexId == -1) {//already visited
+					adjacentVertexId = (Integer) stack.pop();
+					
+					System.out.print("(pop:");
+					displayVertex(vertexArray[adjacentVertexId].label);
+					System.out.print(")--->");
+				} else {//never visited
+					vertexArray[adjacentVertexId].visited = true;//mark as visited
+					System.out.print("(");
+					displayVertex(vertexArray[adjacentVertexId].label);
+					System.out.print(")-->");
+					stack.push(adjacentVertexId);
 				}
 			}
 
@@ -350,35 +369,35 @@ public class AdjacencyMatrixGraph {
 		}
 
 		public void bfs(int adjacency_matrix[][], int sourceId) {
-			Queue q = new LinkedList<Integer>();
+			Queue<Integer> q = new LinkedList<Integer>();
 			if (sourceId != 0) {
 				vertexArray[sourceId].visited = true;
-				System.out.print("Enqueue start vertex in q:");
+				System.out.print("(");
 				displayVertex(vertexArray[sourceId].label);
+				System.out.print(")-->");
 				q.add(sourceId);
 			} else {
 				vertexArray[0].visited = true;
-				System.out.print("Enqueue start vertex in q:");
+				System.out.print("(");
 				displayVertex(vertexArray[0].label);
+				System.out.print(")-->");
 				q.add(0);
 			}
 			int number_of_nodes = adjacency_matrix.length - 1;
-
-			int v2;
 			while (!q.isEmpty()) {
-				int v1 = (Integer) q.poll();
-				System.out.print("Polled from q:");
-				displayVertex(vertexArray[v1].label);
+				int currentVertexId = (Integer) q.poll();
+				System.out.print("(Poll:");
+				displayVertex(vertexArray[currentVertexId].label);
+				System.out.print(")--->");
 				// if (!getAdjacentVertexes(adjacency_matrix, v1).isEmpty()) {
-				for (int i = 0; i < getAdjacentVertexes(adjacency_matrix, v1).size(); i++) {
-
-					v2 = getAdjacentVertex(adjacency_matrix, v1);
-					if (v2 != -1) {
-						vertexArray[v2].visited = true;
-						System.out.print("Enqueue  in q:");
-						displayVertex(vertexArray[v2].label);
-
-						q.add(v2);
+				for (int i = 0; i < getAdjacentVertexes(adjacency_matrix, currentVertexId).size(); i++) {
+					int adjcentVertexId = getUnvisitedAdjacentVertexId(adjacency_matrix, currentVertexId);
+					if (adjcentVertexId != -1) {//never visited
+						vertexArray[adjcentVertexId].visited = true;
+						System.out.print("(");
+						displayVertex(vertexArray[adjcentVertexId].label);
+						System.out.print(")--->");
+						q.add(adjcentVertexId);
 					}
 
 				}
@@ -392,7 +411,7 @@ public class AdjacencyMatrixGraph {
 
 		}
 
-		int getAdjacentVertex(int adjacency_matrix[][], int v) {
+		int getUnvisitedAdjacentVertexId(int adjacency_matrix[][], int v) {
 			for (int j = 0; j < numVertices; j++) {
 				if (adjacency_matrix[v][j] == 1 && vertexArray[j].visited == false) {
 					return j;
