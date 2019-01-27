@@ -1,4 +1,4 @@
-package org.vivek.myinterview.arrays.multidim;
+package org.vivek.myinterview.arrays.multidim.dfs;
 
 /**
  * Find the length of the longest chain of consecutive integers in an unsorted 2D square array (non-diagonal)
