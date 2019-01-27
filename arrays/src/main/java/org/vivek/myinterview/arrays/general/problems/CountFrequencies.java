@@ -60,31 +60,47 @@ public class CountFrequencies {
 			System.out.println(j + 1 + "->" + Math.abs(arr[j]));
 	}
 
-	void printfrequency(int arr[], int n) {
+	static void printfrequency(int arr[]) {
 		// Subtract 1 from every element so that the elements
 		// become in range from 0 to n-1
-		for (int j = 0; j < n; j++)
+		int n = arr.length-1;
+		printArray( arr);
+		for (int j = 0; j < n; j++) {
+			System.out.print(" arr[j]="+ arr[j]+"--->");
 			arr[j] = arr[j] - 1;
-
+			System.out.println("arr[j]="+ arr[j]);
+		}
+		printArray( arr);
 		// Use every element arr[i] as index and add 'n' to
 		// element present at arr[i]%n to keep track of count of
 		// occurrences of arr[i]
 		for (int i = 0; i < n; i++){
+			System.out.println();;
 			int k = arr[i] % n;
-			System.out.println("k="+ k);;
+			System.out.println("i="+i+",arr[i]%n="+ arr[i]+"%"+n+"="+ k);;
 			arr[k] = arr[k] + n;
+			System.out.println(" after :arr["+k+"]+"+n+"="+ arr[k]);;
 			
 		}
-
+		
+		/**
+		 * a[i]-1
+		 * if number is repeated then 
+		 * 1sr occurence value a[i]=(a[i] + n )
+		 * 2nd  a[i] = previous + n ==> a[i]+n + n
+		 * 3rd ...
+		 * then u divide by n so u will get factor of n which will denote number of repetition
+		 */
+		printArray( arr);
 		// To print counts, simply print the number of times n
 		// was added at index corresponding to every element
 		for (int i = 0; i < n; i++)
 			System.out.println(i + 1 + "->" + arr[i] / n);
 	}
 	
-	 public static void countfreq(){
+	 public static void countfreq(int arr[]){
 	        HashMap<Integer,Integer> h = new HashMap<Integer,Integer>();
-	        int arr[] = new int[]{2,2,3,3,5,6,7,9,9,0};
+	       
 	        for(int i=0; i<arr.length; i++){
 	            if(h.containsKey(arr[i])){
 	                h.put(arr[i], h.get(arr[i]) + 1);
@@ -97,40 +113,49 @@ public class CountFrequencies {
 
 	// Driver program to test above functions
 	public static void main(String[] args) {
-		countfreq();
-		/*CountFrequencies count = new CountFrequencies();
+		 int arr1[] = new int[]{2,2,3,3,5,6,7,9,9,0};
+		 printArray(arr1);
+		printfrequency(arr1);
+		countfreq(arr1);
+		CountFrequencies count = new CountFrequencies();
 		System.out.println("************");
-		int arr[] = { 2, 3, 3, 2, 4 };
-		printArray(arr);
-		count.printfrequency(arr, arr.length);
-		count.findCounts(arr, arr.length);
-		System.out.println("************");
-		int arr1[] = { 1 };
-		printArray(arr1);
-		count.findCounts(arr1, arr1.length);
-		System.out.println("************");
-		int arr2[] = { 1, 3, 5, 7, 9, 1, 3, 5, 7, 9, 1 };
+		
+		int arr2[] = { 2, 3, 3, 2, 4 };
 		printArray(arr2);
-		count.findCounts(arr2, arr2.length);
+	    printfrequency(arr2);
+		count.findCounts(arr2, arr2.length);		
 		System.out.println("************");
-
-		int arr3[] = { 4, 4, 4, 4 };
+		
+		
+		int arr3[] = { 1 };
 		printArray(arr3);
 		count.findCounts(arr3, arr3.length);
 		System.out.println("************");
-
-		int arr4[] = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 };
+		
+		int arr4[] = { 1, 3, 5, 7, 9, 1, 3, 5, 7, 9, 1 };
 		printArray(arr4);
 		count.findCounts(arr4, arr4.length);
 		System.out.println("************");
-		int arr5[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+
+		int arr5[] = { 4, 4, 4, 4 };
 		printArray(arr5);
 		count.findCounts(arr5, arr5.length);
 		System.out.println("************");
-		int arr6[] = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
-		printArray(arr5);
+
+		int arr6[] = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 };
+		printArray(arr6);
 		count.findCounts(arr6, arr6.length);
-		System.out.println("************");*/
+		System.out.println("************");
+		
+		int arr7[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+		printArray(arr7);
+		count.findCounts(arr7, arr7.length);
+		System.out.println("************");
+		
+		int arr8[] = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+		printArray(arr8);
+		count.findCounts(arr8, arr8.length);
+		System.out.println("************");
 	}
 
 	public static void printArray(int[] a) {
