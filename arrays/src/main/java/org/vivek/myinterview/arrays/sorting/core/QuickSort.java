@@ -19,7 +19,8 @@ public class QuickSort {
 
 	//static Integer[] a = new Integer[] { 11, 2, 1, 6, 8, 5, 3, 4 };
 	//static Integer[] a = new Integer[] { 3,1,4,5,9,2,6,8,7};
-	static Integer[] a = new Integer[] { 2, 4, 1, 6, 8, 5, 3, 7 };
+	static   Integer a[] = {6, 2, 1, 6, 8, 9, 6};
+	//static Integer[] a = new Integer[] { 2, 4, 1, 6, 8, 5, 3, 7 };
 
 
 	public QuickSort() {
@@ -55,8 +56,33 @@ public class QuickSort {
 		quickSort(a,partitionIndex + 1, end);
 
 	}
+	
+	 private static int partition(Integer[] a, int lo, int hi) {
 
-	public static int partition(Integer a[], int leftCursor, int rightCursor) {
+	        int pivot = a[lo];
+	        int i = lo - 1;
+	        int j = hi + 1;
+
+	        while (true) {
+	            do {
+	                i++;
+	            }
+	            while (a[i] < pivot);
+
+	            do {
+	                j--;
+	            }
+	            while (a[j] > pivot);
+
+	            if (i >= j) {
+	                return j;
+	            }
+	            swap(a, i, j);
+
+	        }
+	    }
+
+	public static int partition1(Integer a[], int leftCursor, int rightCursor) {
 		int pivot = a[leftCursor];
 	
 		System.out.println("*** partition(a[]="+Arrays.deepToString(a)+","+leftCursor +","+ rightCursor+")*****");
@@ -98,7 +124,13 @@ public class QuickSort {
 			System.out.println("  leftCursor:"+leftCursor);
 			System.out.println("  rightCursor:"+rightCursor);
 			System.out.println("  pivot:"+pivot);
-			swap(a, leftCursor, rightCursor);
+			if (leftCursor <= rightCursor) {
+				swap(a, leftCursor, rightCursor);
+                //move index to next position on both sides
+                leftCursor++;
+                rightCursor--;
+            }
+			//swap(a, leftCursor, rightCursor);
 			System.out.println("  After swapping...");
 			System.out.println("  a:"+Arrays.deepToString(a));
 			System.out.println("  leftCursor:"+leftCursor);

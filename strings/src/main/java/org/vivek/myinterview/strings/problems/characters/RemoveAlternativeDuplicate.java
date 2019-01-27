@@ -1,4 +1,4 @@
-package org.vivek.myinterview.strings.problems;
+package org.vivek.myinterview.strings.problems.characters;
 
 public class RemoveAlternativeDuplicate {
 
