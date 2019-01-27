@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 //import java.util.LinkedList.Node;
 
 public class SLL2<E> {
-	private static class Node<E> {
+	static class Node<E> {
 		E item;
 		Node<E> next;
 
@@ -30,6 +30,14 @@ public class SLL2<E> {
 	}
 
 	// ############################################START:GET######################################################################
+	public Node<E> getFirstNode() {
+		final Node<E> f = first;
+		if (f == null)
+			throw new NoSuchElementException();
+		return f;
+	}
+
+	
 	public E getFirst() {
 		final Node<E> f = first;
 		if (f == null)
@@ -37,6 +45,12 @@ public class SLL2<E> {
 		return f.item;
 	}
 
+	public Node<E> getLastNode() {
+		final Node<E> l = last;
+		if (l == null)
+			throw new NoSuchElementException();
+		return l;
+	}
 	public E getLast() {
 		final Node<E> l = last;
 		if (l == null)
@@ -51,19 +65,19 @@ public class SLL2<E> {
 	Node<E> node(int index) {
 		Node<E> node = null;
 		Node<E> nodeAtIndex = null;
-		if (index < length-1) {
+		if (index < length - 1) {
 			node = first;
-			for (int i = 0; i < index; i++){
-				if(node.next!=null){
-					node  = node.next;
-				
-				}else{
-					node =null;
+			for (int i = 0; i < index; i++) {
+				if (node.next != null) {
+					node = node.next;
+
+				} else {
+					node = null;
 				}
-			 
+
 			}
 
-		} else if (index >= length-1) {
+		} else if (index >= length - 1) {
 			node = last;
 		}
 		return node;
@@ -86,7 +100,7 @@ public class SLL2<E> {
 	}
 
 	public void add(int index, E element) {
-		if(index>length ||index <-1){
+		if (index > length || index < -1) {
 			throw new IndexOutOfBoundsException("Incorrect Index");
 		}
 		if (index == length) {
@@ -161,9 +175,9 @@ public class SLL2<E> {
 		final Node<E> pred = previous(succ);
 		final Node<E> newNode = new Node<>(e, succ);
 
-		if (pred == null){
+		if (pred == null) {
 			first = newNode;
-		}else{
+		} else {
 			pred.next = newNode;
 			newNode.next = succ;
 		}
@@ -277,6 +291,27 @@ public class SLL2<E> {
 		head = temp;
 		System.out.println();
 	}
+	
+	public Node<E> reverse() {
+		Node<E> current = first;
+		Node<E> rev = null;
+		while (current != null) {
+           Node<E> newNode = new Node<E>(first.item,null);
+           newNode.next = rev;
+            rev= newNode;
+			current = current.next;
+		}
+		return current;
+
+	}
+
+	public static Node constructList(SLL2 L1,int[] data) {
+		//SLLNode head1 = null;
+		for(int datum : data) {
+		   L1.add(datum);
+		}		
+		return L1.getFirstNode();
+	}
 
 	public static void main(String args[]) {
 		SLL2<Integer> ll = new SLL2<Integer>();
@@ -293,61 +328,72 @@ public class SLL2<E> {
 
 		System.out.println("remove first:");
 		ll.removeFirst();
-		System.out.println("size="+ll.size());
+		System.out.println("size=" + ll.size());
 		ll.printLinkedList(ll.first);
 
 		System.out.println("add first:");
 		ll.addFirst(4);
-		System.out.println("size="+ll.size());
+		System.out.println("size=" + ll.size());
 		ll.printLinkedList(ll.first);
 
 		System.out.println("remove last:");
 		ll.removeLast();
-		System.out.println("size="+ll.size());
+		System.out.println("size=" + ll.size());
 		ll.printLinkedList(ll.first);
 
 		System.out.println("add last:");
 		ll.addLast(1);
-		System.out.println("size="+ll.size());
+		System.out.println("size=" + ll.size());
 		ll.printLinkedList(ll.first);
-        
+
 		System.out.println("add:");
 		ll.add(8);
-		System.out.println("size="+ll.size());
+		System.out.println("size=" + ll.size());
 		ll.printLinkedList(ll.first);
 
 		System.out.println("add 6 at index 3:");
 		ll.add(3, 6);
-		System.out.println("size="+ll.size());
+		System.out.println("size=" + ll.size());
 		ll.printLinkedList(ll.first);
 
 		System.out.println("remove 3:");
 		ll.remove(3);
-		System.out.println("size="+ll.size());
+		System.out.println("size=" + ll.size());
 		ll.printLinkedList(ll.first);
-		
 
-		
 		Node<Integer> n = ll.node(2);
 		ll.printLinkedList(ll.first);
-		System.out.println("node at index 2:" +n.item);
-		System.out.println("size="+ll.size());
-		
-		
+		System.out.println("node at index 2:" + n.item);
+		System.out.println("size=" + ll.size());
+
 		n = ll.node(6);
 		ll.printLinkedList(ll.first);
-		System.out.println("node at index 6:"+n.item);
-		System.out.println("size="+ll.size());
-
-		System.out.println("add node(9) at index 7:");
-		ll.add(7, new Integer(9));
-		ll.printLinkedList(ll.first);
-		System.out.println("size="+ll.size());
+		System.out.println("node at index 6:" + n.item);
+		System.out.println("size=" + ll.size());
+		try {
+			System.out.println("add node(9) at index 7:");
+			ll.add(7, new Integer(9));
+			ll.printLinkedList(ll.first);
+		} catch (Exception e) {
+			System.out.println("Exception caught:" + e.getMessage());
+		}
+		System.out.println("size=" + ll.size());
+		try {
+			System.out.println("add node(-1) at index 7:");
+			ll.add(-1, new Integer(9));
+			ll.printLinkedList(ll.first);
+			System.out.println("size=" + ll.size());
+		} catch (Exception e) {
+			System.out.println("Exception caught:" + e.getMessage());
+		}
 		
-		System.out.println("add node(-1) at index 7:");
-		ll.add(-1, new Integer(9));
+		Node<Integer> rev = ll.reverse();
+		System.out.println("reversing:" );
 		ll.printLinkedList(ll.first);
-		System.out.println("size="+ll.size());
+		ll.printLinkedList(rev);
+		System.out.println("back to original:" );
+		ll.printLinkedList(ll.first);
+		
 	}
 
 }

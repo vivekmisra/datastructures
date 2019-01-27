@@ -30,7 +30,12 @@ public class MatrixInDiagonalOrder {
 	}
 	
 	public static void main(String args[]){
-		int arr[][] = {{1,2,3,4},{1,2,3,4},{1,2,3,4},{1,2,3,4},{1,2,3,4}};
+		int arr[][] = {
+				{1,2,3,4},
+				{1,2,3,4},
+				{1,2,3,4},
+				{1,2,3,4},
+				{1,2,3,4}};
 		MatrixInDiagonalOrder mdo = new MatrixInDiagonalOrder();
 		mdo.printMatrix(arr);
 	}
