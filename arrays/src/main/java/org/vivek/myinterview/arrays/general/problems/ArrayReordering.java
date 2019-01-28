@@ -1,4 +1,4 @@
-package org.vivek.myinterview.arrays.problems;
+package org.vivek.myinterview.arrays.general.problems;
 
 import java.util.Arrays;
 

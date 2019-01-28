@@ -25,7 +25,7 @@ public class RemoveRepeatedOccurrencesOfChars {
 		// System.out.println("strippedString2=" + strippedString2);
 		// String strippedString3 = stripByStringBuilder(s);
 		// System.out.println("strippedString3=" + strippedString3);
-		System.out.println("strippedString4=" + stripNConsecutiveCharacters("aa", 2));
+		System.out.println("strippedString4=" + stripNConsecutiveCharacters("GooGle", 2));
 		System.out.println("strippedString4=" + checkNConsecutiveCharacters("Google"));
 		
 	}
@@ -62,9 +62,9 @@ public class RemoveRepeatedOccurrencesOfChars {
 		int consecutiveRepeatedCharactersCounter = 0;
 		for (int i = 0; i < s.length(); i++) {
 			char currChar = s.charAt(i);
-			int ascii = (int) currChar;
-			acsciiCounter = ascii + acsciiCounter;
-			int totalAscii = acsciiCounter % currChar;
+			int currCharAscii = (int) currChar;
+			acsciiCounter = currCharAscii + acsciiCounter;
+			int totalAscii = acsciiCounter % currCharAscii;
 			if (totalAscii == 0) {
 				consecutiveRepeatedCharactersCounter = consecutiveRepeatedCharactersCounter + 1;
 				if (consecutiveRepeatedCharactersCounter == N) {
@@ -76,7 +76,7 @@ public class RemoveRepeatedOccurrencesOfChars {
 					consecutiveRepeatedCharactersCounter = 0;
 				}
 			} else {
-				acsciiCounter = ascii;
+				acsciiCounter = currCharAscii;
 				consecutiveRepeatedCharactersCounter = 1;
 			}
 		}
