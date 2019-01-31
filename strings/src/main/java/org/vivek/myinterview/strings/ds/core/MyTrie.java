@@ -20,7 +20,7 @@ public class MyTrie {
 	}
 
 	// Function to get the index of a character 't'
-	public  int getIndex(char t) {
+	public int getIndex(char t) {
 		return t - 'a';
 	}
 
@@ -32,27 +32,29 @@ public class MyTrie {
 			return;
 		}
 		key = key.toLowerCase(); // Keys are stored in lowercase
-		TrieNode currentNode = this.root;//assign root to a runner node
+		TrieNode currentNode = this.root;// assign root to a runner node
 		int index = 0; // to store character index
 
 		// Iterate the Trie with given character index,
 		// If it is null, then simply create a TrieNode and go down a level
 		for (int level = 0; level < key.length(); level++) {
-			//get the character
+			// get the character
 			char c = key.charAt(level);
-			//get its index 
+			// get its index
 			index = getIndex(c);
-			//assign/insert value if none present at index
+			// assign/insert value if none present at index
 			if (currentNode.children[index] == null) {
 				currentNode.children[index] = new TrieNode();
 			}
-			//i character exist at index,move down ,currentNode is now the character at current index
+			// i character exist at index,move down ,currentNode is now the
+			// character at current index
 			currentNode = currentNode.children[index];
 		}
-		
+
 		// Mark the end character as leaf node
 		currentNode.markAsLeaf();
 	}
+
 	// Function to search given key in Trie
 	/**
 	 * @param key
@@ -79,12 +81,13 @@ public class MyTrie {
 		// Trie based on the length of the key
 
 		for (int level = 0; level < key.length(); level++) {
-			//get the character
+			// get the character
 			char c = key.charAt(level);
-			//get its index 
+			// get its index
 			index = getIndex(c);
 			if (currentNode.children[index] != null) {
-				// continue & assign currentNode to this child till full key isearched
+				// continue & assign currentNode to this child till full key
+				// isearched
 				currentNode = currentNode.children[index];
 			} else {
 				return false;
@@ -96,9 +99,10 @@ public class MyTrie {
 
 		return false;
 	}
-	
-	//Helper Function to find the position of given (prefix) word in Trie (upto the mark where it matches)
-	private  int findPos( String word) {
+
+	// Helper Function to find the position of given (prefix) word in Trie (upto
+	// the mark where it matches)
+	private int findPos(String word) {
 		int pos = -1;
 		int level = 0;
 		TrieNode currentNode = this.root;
@@ -119,100 +123,102 @@ public class MyTrie {
 		return -1;
 	}
 
-		public  boolean isFormationPossible(String[] dict,String word)
-		{
-		  //Create Trie and insert dictionary elements in it
-		  MyTrie trie = new MyTrie();
-		  
-		  for(int x = 0; x < dict.length; x++){
-		    trie.insert(dict[x]);
-		  }
-		  
-		  //Search for word in Trie and record it's position upto the mark where it matched
-		  int pos_prefix = findPos(word);
-		  
-		  //Match not found
-		  if(pos_prefix == -1){
-		  	return false;
-		  }
-		  
-		  //If the word is partially matched in Trie, then search for the remaining word
-		  //from pos_prefix to the length of given String "word"
-		  
-		  String remaining_word = word.substring(pos_prefix,word.length());
-		  
-		  //Search for the remaining word's Position in Trie
-		  int rest_word_pos = findPos(remaining_word);
-		  
-		  //Word length is possible and given word can be generated from the dictionary by combining
-		  //two words from it
-		  if((pos_prefix + rest_word_pos) == word.length()){
-		  	return true;
-		  }
+	public boolean isFormationPossible(String[] dict, String word) {
+		// Create Trie and insert dictionary elements in it
+		MyTrie trie = new MyTrie();
 
-		  return false;
-		 }
-		
-		public  String longestCommonPrefix(String[] strs)
-		{
-			int prefixIndex =0;
-			int minPrefixMatchingIndex = Integer.MAX_VALUE;
-	
-		  if(strs.length==0||strs==null) {
-			  return "";
-		  }
-		  if(strs.length==1) {
-			  return strs[0];
-		  }else {
-		 
-			  insert(strs[0]);
-		  }
-		  //Search for word in Trie and record it's position upto the mark where it matched
-		    for(int x = 1; x < strs.length; x++){	
-                 int pos_prefix = findPosPrefix(strs[x]);
-		         if(pos_prefix<minPrefixMatchingIndex) {
-		        	 minPrefixMatchingIndex =  pos_prefix;
-		         }
-		    }
-		  
-		  //Match not found
-		  if(prefixIndex == -1){
-		  	return"";
-		  }
-		  return strs[0].substring(0,minPrefixMatchingIndex+1);
+		for (int x = 0; x < dict.length; x++) {
+			trie.insert(dict[x]);
 		}
 
-		
-		//Helper Function to find the position of given (prefix) word in Trie (upto the mark where it matches)
-		private  int findPosPrefix( String word) {
-			int pos = -1;
-			int level = 0;
-			TrieNode currentNode = this.root;
-			word = word.toLowerCase();// Keys are stored in lowercase
-			
-			int index = 0;// to store character index
-			for (level = 0; level < word.length(); level++) {
-				//get the character
-				char c = word.charAt(level);
-				//get its index 
-				 index = getIndex(c);
-				
-				if (currentNode.children[index] == null) {
-					return pos;
-				}else {
-					
-					pos=level;
-				}
-				currentNode = currentNode.children[index];
-			}
+		// Search for word in Trie and record it's position upto the mark where
+		// it matched
+		int pos_prefix = findPos(word);
 
-			// Return the level/position if currentNode is leaf and not null
-			if (currentNode != null ) {
+		// Match not found
+		if (pos_prefix == -1) {
+			return false;
+		}
+
+		// If the word is partially matched in Trie, then search for the
+		// remaining word
+		// from pos_prefix to the length of given String "word"
+
+		String remaining_word = word.substring(pos_prefix, word.length());
+
+		// Search for the remaining word's Position in Trie
+		int rest_word_pos = findPos(remaining_word);
+
+		// Word length is possible and given word can be generated from the
+		// dictionary by combining
+		// two words from it
+		if ((pos_prefix + rest_word_pos) == word.length()) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public String longestCommonPrefix(String[] strs) {
+		int prefixIndex = 0;
+		int minPrefixMatchingIndex = Integer.MAX_VALUE;
+
+		if (strs.length == 0 || strs == null) {
+			return "";
+		}
+		if (strs.length == 1) {
+			return strs[0];
+		} else {
+
+			insert(strs[0]);
+		}
+		// Search for word in Trie and record it's position upto the mark where
+		// it matched
+		for (int x = 1; x < strs.length; x++) {
+			int pos_prefix = findPosPrefix(strs[x]);
+			if (pos_prefix < minPrefixMatchingIndex) {
+				minPrefixMatchingIndex = pos_prefix;
+			}
+		}
+
+		// Match not found
+		if (prefixIndex == -1) {
+			return "";
+		}
+		return strs[0].substring(0, minPrefixMatchingIndex + 1);
+	}
+
+	// Helper Function to find the position of given (prefix) word in Trie (upto
+	// the mark where it matches)
+	private int findPosPrefix(String word) {
+		int pos = -1;
+		int level = 0;
+		TrieNode currentNode = this.root;
+		word = word.toLowerCase();// Keys are stored in lowercase
+
+		int index = 0;// to store character index
+		for (level = 0; level < word.length(); level++) {
+			// get the character
+			char c = word.charAt(level);
+			// get its index
+			index = getIndex(c);
+
+			if (currentNode.children[index] == null) {
 				return pos;
-			}
+			} else {
 
-			return -1;
+				pos = level;
+			}
+			currentNode = currentNode.children[index];
 		}
+
+		// Return the level/position if currentNode is leaf and not null
+		if (currentNode != null) {
+			return pos;
+		}
+
+		return -1;
+	}
 
 	public static int totalWords(TrieNode root) {
 		int totalCount = 0;
@@ -232,7 +238,7 @@ public class MyTrie {
 
 	public static void main(String args[]) {
 		// Input keys (use only 'a' through 'z' and lower case)
-		String words[] = { "the", "a", "there", "answer", "any", "by", "bye", "bed","room", "their", "abc" };
+		String words[] = { "the", "a", "there", "answer", "any", "by", "bye", "bed", "room", "their", "abc" };
 		String output[] = { "Not present in trie", "Present in trie" };
 		MyTrie t = new MyTrie();
 
@@ -244,23 +250,26 @@ public class MyTrie {
 		for (i = 0; i < words.length; i++) {
 			t.insert(words[i]);
 		}
-		 t.search("be");
+		t.search("be");
 
-		
-		 // Search for different keys
-		 if (t.search("the") == true)
-		  System.out.println("the --- " + output[1]); else
-		 System.out.println("the --- " + output[0]);
-		  
-		  if (t.search("these") == true) System.out.println("these --- " + output[1]);
-		  else System.out.println("these --- " + output[0]);
-		  
-		  if (t.search("abc") == true) System.out.println("abc --- " + output[1]); else
-		  System.out.println("abc --- " + output[0]);
-		  
-		  int total = totalWords(t.root); 
-		  System.out.println("total words=" + total);
-		 
+		// Search for different keys
+		if (t.search("the") == true)
+			System.out.println("the --- " + output[1]);
+		else
+			System.out.println("the --- " + output[0]);
+
+		if (t.search("these") == true)
+			System.out.println("these --- " + output[1]);
+		else
+			System.out.println("these --- " + output[0]);
+
+		if (t.search("abc") == true)
+			System.out.println("abc --- " + output[1]);
+		else
+			System.out.println("abc --- " + output[0]);
+
+		int total = totalWords(t.root);
+		System.out.println("total words=" + total);
 
 		List<String> l = findWords(t.root);
 		System.out.println("Words in trie in sorted order");
@@ -269,25 +278,24 @@ public class MyTrie {
 			System.out.print(s);
 		}
 		System.out.println();
-		int pos= t.findPos("bye");
-		System.out.println("findPos(\"bye\"):"+pos);
-		pos= t.findPos("bed");
-		System.out.println("findPos(\"bed\"):"+pos);
-		pos= t.findPos("answ");
-		System.out.println("findPos(\"answ\"):"+pos);
-		pos= t.findPos("answer");
-		System.out.println("findPos(\"answer\"):"+pos);
-		
-		boolean flag= t.isFormationPossible(words,"bedroom");
-		System.out.println("flag="+flag);;
-		
-		String words1[] = {"flower","KK"};
-		String in= t.longestCommonPrefix(words1);
-		 if (t.search("KK") == true) {
-			 System.out.println("TRUE");
-		 }else {
-			 System.out.println("FALSE");
-		 }
+		int pos = t.findPos("bye");
+		System.out.println("findPos(\"bye\"):" + pos);
+		pos = t.findPos("bed");
+		System.out.println("findPos(\"bed\"):" + pos);
+		pos = t.findPos("answ");
+		System.out.println("findPos(\"answ\"):" + pos);
+		pos = t.findPos("answer");
+		System.out.println("findPos(\"answer\"):" + pos);
+
+		boolean flag = t.isFormationPossible(words, "bedroom");
+		System.out.println("flag=" + flag);
+		;
+
+		String words1[] = { "flower", "flow" };
+		String in = t.longestCommonPrefix(words1);
+
+		System.out.println("longestCommonPrefix=" + in);
+
 	}
 
 	// Recursive Function to generate all words
@@ -295,25 +303,27 @@ public class MyTrie {
 
 		// Leaf denotes end of a word
 		if (root.isEndWord) {
-			// extract the current word stored using indices less than the 'wordCharIndex'
+			// extract the current word stored using indices less than the
+			// 'wordCharIndex'
 			// in the character array
 			String temp = "";
 			for (int x = 0; x < wordCharIndex; x++) {
 				temp += Character.toString(word[x]);
 			}
 			result.add(temp + ",");
-		} 
-			// Loop thru all 26 alphabets
-			for (int i = 0; i < 26; i++) {
-				// check if any word out of 26 alphabet starts with & has subsequent letters &
-				// then at each alphabet try to extract word till end of word flag
-				if (root.children[i] != null) {
-					// Non-null child, so add that index to the character array
-					word[wordCharIndex] = (char) (i + 'a');
-					extractWords(root.children[i], result, wordCharIndex + 1, word);
-				}
+		}
+		// Loop thru all 26 alphabets
+		for (int i = 0; i < 26; i++) {
+			// check if any word out of 26 alphabet starts with & has subsequent
+			// letters &
+			// then at each alphabet try to extract word till end of word flag
+			if (root.children[i] != null) {
+				// Non-null child, so add that index to the character array
+				word[wordCharIndex] = (char) (i + 'a');
+				extractWords(root.children[i], result, wordCharIndex + 1, word);
 			}
-		
+		}
+
 	}
 
 	public static ArrayList<String> findWords(TrieNode root) {
