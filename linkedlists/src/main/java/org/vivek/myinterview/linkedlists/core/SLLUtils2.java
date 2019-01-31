@@ -1,6 +1,6 @@
 package org.vivek.myinterview.linkedlists.core;
 
-import com.interview.linklist.Node;
+
 
 public class SLLUtils2 {
 
