@@ -11,25 +11,7 @@ public class AnagramsInSubStrings {
 
 	}
 
-	boolean CheckAna(String s, int start1, int start2, int len)
-
-	{
-		int letters[] = new int[26];
-
-		boolean result = true;
-		for (int n = 0; n < len; n++) {
-			letters[s.charAt(start1 + n) - 'a']++;
-			letters[s.charAt(start2 + n) - 'a']--;
-		}
-		for (int n = 0; n < 26; n++) {
-			if (letters[n] != 0) {
-				result = false;
-				break;
-
-			}
-		}
-		return result;
-	}
+	
 
 	static int sherlockAndAnagrams(String s) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
