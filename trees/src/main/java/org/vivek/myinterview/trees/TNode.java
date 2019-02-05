@@ -6,6 +6,9 @@ public class TNode {
     public TNode left, right;
     public int data,height,size;
 
+    public TNode() {
+        
+    } 
     public TNode(int data) {
         this.data = data;
     } 

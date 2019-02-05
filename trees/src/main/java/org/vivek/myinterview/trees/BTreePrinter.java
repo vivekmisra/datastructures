@@ -53,7 +53,7 @@ public class BTreePrinter {
 	                }
 
 	                if (nodes.get(j).left != null)
-	                    System.out.print(" /");
+	                    System.out.print("/");
 	                else
 	                    BTreePrinter.printWhitespaces(1);
 

@@ -12,6 +12,10 @@ public class RemoveAlternateDuplicateCharacters {
 		String text = "you got beautiful eyes";
 		String expected="you gtbeaiful es";
 		System.out.println( "here="+expected.equals(removeAlternateDuplicates(text)));
+		
+		 text = "Today is the day";
+		
+		System.out.println( "here="+removeAlternateDuplicates(text));
 	    
 	}
 	
@@ -30,7 +34,7 @@ public class RemoveAlternateDuplicateCharacters {
 	 * Remove Alternate Duplicate characters from a char array you have to do it in
 	 * Place.Like keeping only the odd occurences of each character. 
 	 * <p>Example:
-	 * Input: “you got beautiful eyes” Output: ”you gtbeaiful es” 
+	 * Input: â€œyou got beautiful eyesâ€� Output: â€�you gtbeaiful esâ€� 
 	 * Allowed Time
 	 * Complexity was O(n) and Space Complexity was O(1)</p>
 	 * 
@@ -63,18 +67,18 @@ public class RemoveAlternateDuplicateCharacters {
 	
 	public static String removeAlternateDuplicates(String str) {
 		StringBuffer sb = new StringBuffer();
-		int charachters[] = new int[256];
+		int letters[] = new int[256];
 		char c;
 		for (int i = 0; i < str.length(); i++) {
 			c = str.charAt(i);
-			if (c >= 65 && c <= 90) {
+			if (c >= 65 && c <= 90) {//65-90={A-Z},97-122{a=z}
 				c += ('a' - 'A');
 			}
-			if (charachters[c] == 0) {
-				charachters[c]++;
+			if (letters[c] == 0) {
+				letters[c]++;
 				sb.append(str.charAt(i));
 			} else {
-				charachters[c]--;
+				letters[c]--;
 			}
 		}
 		return sb.toString();
