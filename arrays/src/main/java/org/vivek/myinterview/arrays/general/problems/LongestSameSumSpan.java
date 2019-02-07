@@ -31,7 +31,7 @@ public class LongestSameSumSpan {
         for (int i = 0; i < arr1.length ; i++) {
         	 prefix1 = arr1[i];
              prefix2 = arr2[i];
-             arr[i] = prefix1 - prefix2;
+             arr[i] = prefix1 - prefix2;//diff
         }
         
         for (int i = 0; i < arr1.length ; i++) {
