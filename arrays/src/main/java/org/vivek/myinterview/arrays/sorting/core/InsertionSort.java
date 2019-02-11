@@ -31,8 +31,8 @@ public class InsertionSort {
 	private static void sort(Integer[] a) {
 		// Consdier first element as sorted [Left side] and rest as unsorted list
 		//start from index 1 as you consider first element as sorted
-		for (int i = 1; i < a.length; i++) {// loop thru unsorted list
-			for (int j = i; j > 0; j--) {// Loop thru sorted list in reverse
+		for (int i = 1; i < a.length; i++) {// loop thru unsorted list towards right
+			for (int j = i; j > 0; j--) {// Loop thru sorted list in reverse towards left
 				if (a[j-1] > a[j]) {// in case sorted list(j-1) element is greater than unsorted(j)
 					/*
 					 * for each j=i,move towards left till j>0 ,checking if element in

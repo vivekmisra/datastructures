@@ -1,23 +1,23 @@
 package org.vivek.myinterview.arrays.general.problems.slidingwindow;
 
-public class SlidingWindowSum {
+public class SlidingWindowMaxSum {
 
-	public SlidingWindowSum() {
+	public SlidingWindowMaxSum() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String[] args) {
-		int arr[] = {100, 200, 300, 400};
-		System.out.println(bruteforce_maxSum(arr));
-		System.out.println(maxSum(arr));
+		int arr[] = {100, 200, 100,300, 400,500,2,600};
+		System.out.println(bruteforce_maxSum(arr,5));
+		System.out.println(maxSum(arr,5));
 
 
 	}
 
-	private static int bruteforce_maxSum(int[] arr) {
+	private static int bruteforce_maxSum(int[] arr, int k) {
 		int n= arr.length;
 		int max_sum=0;
-		int k=2;
+	
 		for(int i = 0; i < n-k+1; i++){    
 		    int current_sum = 0;
 		     
@@ -29,10 +29,10 @@ public class SlidingWindowSum {
 		return max_sum;
 	}
 	
-	private static int maxSum(int[] arr) {
+	private static int maxSum(int[] arr, int k) {
 		int max_sum = 0, window_sum = 0; 
 		int n= arr.length;
-		int k=2;
+	
 		/* calculate sum of 1st window */
 		for (int i = 0; i < k; i++)  window_sum += arr[i]; 
 		/* slide window from start to end in array. */
