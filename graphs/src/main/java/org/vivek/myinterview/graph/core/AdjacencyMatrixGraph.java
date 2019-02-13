@@ -342,7 +342,7 @@ public class AdjacencyMatrixGraph {
 				System.out.print(")-->");
 				stack.push(0);
 			}
-			int number_of_nodes = adjacency_matrix.length - 1;
+			int number_of_nodes = adjacency_matrix.length;
 			while (!stack.isEmpty()) {
 				int currentVertexId = (Integer) stack.peek();
 				int adjacentVertexId = getUnvisitedAdjacentVertexId(adjacency_matrix, currentVertexId);
@@ -360,7 +360,7 @@ public class AdjacencyMatrixGraph {
 					stack.push(adjacentVertexId);
 				}
 			}
-
+            //reset
 			for (int j = 0; j < number_of_nodes; j++) {
 				vertexArray[j].visited = false;
 
@@ -383,27 +383,24 @@ public class AdjacencyMatrixGraph {
 				System.out.print(")-->");
 				q.add(0);
 			}
-			int number_of_nodes = adjacency_matrix.length - 1;
+			int number_of_nodes = adjacency_matrix.length;
 			while (!q.isEmpty()) {
 				int currentVertexId = (Integer) q.poll();
 				System.out.print("(Poll:");
 				displayVertex(vertexArray[currentVertexId].label);
 				System.out.print(")--->");
-				// if (!getAdjacentVertexes(adjacency_matrix, v1).isEmpty()) {
-				for (int i = 0; i < getAdjacentVertexes(adjacency_matrix, currentVertexId).size(); i++) {
-					int adjcentVertexId = getUnvisitedAdjacentVertexId(adjacency_matrix, currentVertexId);
-					if (adjcentVertexId != -1) {//never visited
-						vertexArray[adjcentVertexId].visited = true;
-						System.out.print("(");
-						displayVertex(vertexArray[adjcentVertexId].label);
-						System.out.print(")--->");
-						q.add(adjcentVertexId);
+			
+				for(int j :getAdjacentVertexes(adjacency_matrix, currentVertexId)) {
+					if (adjacency_matrix[currentVertexId][j] == 1 && vertexArray[j].visited == false) {
+								vertexArray[j].visited = true;
+								System.out.print("(");
+								displayVertex(vertexArray[j].label);
+								System.out.print(")--->");
+								q.add(j);
 					}
-
 				}
 			}
-			// }
-
+			//reset
 			for (int j = 0; j < number_of_nodes; j++) {
 				vertexArray[j].visited = false;
 
@@ -424,14 +421,14 @@ public class AdjacencyMatrixGraph {
 		// if adjacency_matrix[i][j]==1, then nodes at index i and index j are connected
 		public List<Integer> getAdjacentVertexes(int adjacency_matrix[][], int x) {
 			int nodeIndex = -1;
-
+			
 			List<Integer> neighbours = new ArrayList<Integer>();
 			nodeIndex = findIndex(getVertexArray(), x);
 
 			if (nodeIndex != -1) {
 				for (int j = 0; j < adjacency_matrix[nodeIndex].length; j++) {
 					if (adjacency_matrix[nodeIndex][j] == 1) {
-						neighbours.add(nodeIndex);
+						neighbours.add(j);
 					}
 				}
 			}
