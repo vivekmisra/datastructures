@@ -1,4 +1,4 @@
-package org.vivek.myinterview.arrays.general.problems.slidingwindow;
+package org.vivek.myinterview.arrays.general.problems.slidingwindow.subarray;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,9 +41,26 @@ public class SlidingWindowMedianArrays {
 	}
 	public static void main(String[] args) {
 		int [] nums = {1,3,-1,-3,5,3,6,7};
+		//test();
 		SlidingWindowMedianArrays sw = new SlidingWindowMedianArrays();
-		double[] medians = sw.medianSlidingWindow(nums, 3);
+		double[] medians = sw.medianSlidingWindow(nums, 5);
 		printArray(medians);
+	}
+	private static void test() {
+		Integer x=8;
+		Integer[] nums={2,5,7,8,9};
+		Integer i =0;
+    	while (i<nums.length && nums[i] <x){
+    	//as soon as it equals x,come out
+    		i++;
+    	}
+    	Integer[] nums1 = new Integer[nums.length-1];
+    	while(i<nums.length-1){
+    		nums[i] = nums[i+1];
+    		nums1[i]=nums[i];
+    		i++;
+    	}
+    	System.out.println(Arrays.deepToString(nums1));
 	}
 	 public double[] medianSlidingWindow(int[] nums, int k) {
 	        if(nums == null || nums.length < 1 || k < 1) return null;
