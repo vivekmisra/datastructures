@@ -1,0 +1,146 @@
+ 
+https://leetcode.com/articles/two-pointer-technique/https://leetcode.com/articles/two-pointer-technique/Two-pointer Technique 
+Array is one of the fundamental blocks in algorithms. Since a string is just formed by an array of characters, they are both similar. Most interview questions fall into this category. Here we will discuss some common techniques to help you solve these problems.
+I. Two-pointer technique:These kind of problems usually involve two pointers:
+One slow-runner and the other fast-runner.
+A classic example is to remove duplicates from a sorted array, which is available for you 
+to practice here.
+There is another variation to that:
+One pointer starts from the beginning while the other pointer starts from the end.
+They move toward each other until they both meet. Let's take a look at a classic problem:
+
+ Reverse the characters in a string:
+First, let's assume that we already have the swap function defined below:
+	
+	private void swap(char[] str, int i, int j) {   
+		char temp = str[i];    
+		str[i] = str[j]; 
+		str[j] = temp;
+	}
+	
+	The idea is to swap the first character with the end, advance to the next character and 
+	swapping repeatedly until it reaches
+	 the middle position. We calculate the middle position as n/2
+	  You should verify that the middle position works for both odd and even size of array.
+	
+	public void reverse(char[] str) { 
+	  int n = str.length;   
+		for (int i = 0; i < n / 2; i++) {     
+		  swap(str, i, n - i - 1);   
+		}
+	}
+	
+    Or 
+    we can also solve the problem using the two-pointer technique.
+	
+	public void reverse(char[] str) { 
+	  int i = 0, j = str.length - 1;   
+	  while (i < j) {       
+	   swap(str, i, j);       
+	  i++;     
+	    j--;   
+	 }
+	}
+This second approach  is less likely to introduce bugs.
+
+
+What kind of questions does Two Pointers Technique solve?
+
+
+In my opinion, this technique aims at solving problems that 
+compress/shrink/reduce spaces. 
+ 
+ Two Pointers applied to problems involving compress spaces using slow & fast pointers
+ =======================================================================
+  These kind of problems give you 
+         1)a full space, and
+         2)you need to arrange some of these elements into a subspace. 
+         
+So, first point, Two Pointers can be applied to problems involving compress spaces.
+
+Next question. 
+     What does the subspace look like?
+      Or, 
+      where will the subspace exists?
+      
+ For the first usage of Two Pointers, One slow-runner and the other fast-runner:Two potential sub-spaces exist. 
+ One is from the very beginning of the array to the place indicated by the first pointer.
+  Problem 26 & 27 are examples of this situation. The other pointer is from the element 
+  indicated by the first pointer to the placeindicated by the second pointer. The problem you give is an example of this case. 
+ For example,
+ 26. Remove Duplicates from Sorted Array
+  https://leetcode.com/problems/remove-duplicates-from-sorted-array/solution/
+ 
+ Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.
+
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+
+Example 1:
+
+Given nums = [1,1,2],
+
+Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively.
+
+It doesn't matter what you leave beyond the returned length.
+Example 2:
+
+Given nums = [0,0,1,1,1,2,2,3,3,4],
+
+Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4 respectively.
+
+It doesn't matter what values are set beyond the returned length.
+ 
+ 27. Remove Element
+ https://leetcode.com/problems/remove-element/
+  Given an array nums and a value val, remove all instances of that value in-place and return the new length.
+
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+
+The order of elements can be changed. It doesn't matter what you leave beyond the new length.
+
+Example 1:
+
+Given nums = [3,2,2,3], val = 3,
+
+Your function should return length = 2, with the first two elements of nums being 2.
+
+It doesn't matter what you leave beyond the returned length.
+Example 2:
+
+Given nums = [0,1,2,2,3,0,4,2], val = 2,
+
+Your function should return length = 5, with the first five elements of nums containing 0, 1, 3, 0, and 4.
+
+Note that the order of those five elements can be arbitrary.
+
+It doesn't matter what values are set beyond the returned length.
+
+
+
+ Two Pointers :One from beginning and one from end
+ ==================================================================
+For the second usage of Two Pointers, 
+  One pointer starts from the beginning while the other pointer starts from the end,
+            only the second case exist. Which usage to take, where does the sub-space lie is the 
+            first question we need to answer when trying to use Two Pointers.
+To successfully apply Two Pointers Technique, the second question to answer is, when do we forward the first slower pointer? In problem 26, it's when we find a new element. In your problem, it's when the difference between sum of elements between two pointers is larger than the expected value. If the condition is not met, we forward the second pointer.
+So, after answering these questions:
+Is this a problem related to space compression?Where will the sub-space lie?What's the condition to forward the slower pointer(one of the pointers)?I think in most cases the problem can be solved, if Two Pointers Technique can really apply to the problem.
+Classic problems:
+
+Remove Duplicates from Sorted Array
+
+Two Sum II - Input array is sorted
+
+Reverse Words in a String II
+
+Rotate Array
+
+Valid Palindrome
+
+Container With Most Water
+
+Product of Array Except Self
+
+
+ 

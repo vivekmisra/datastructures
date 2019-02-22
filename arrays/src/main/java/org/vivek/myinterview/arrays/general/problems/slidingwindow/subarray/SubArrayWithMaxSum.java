@@ -1,4 +1,4 @@
-package org.vivek.myinterview.arrays.general.problems.slidingwindow;
+package org.vivek.myinterview.arrays.general.problems.slidingwindow.subarray;
 
 import java.util.HashMap;
 /*
@@ -14,11 +14,11 @@ Follow up:
 
 If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
  */
-public class MaxSubArray {
+public class SubArrayWithMaxSum {
 
 	public static void main(String[] args) {
 		int [] nums ={1,1,1};
-		MaxSubArray ms = new MaxSubArray();
+		SubArrayWithMaxSum ms = new SubArrayWithMaxSum();
 		int counts= ms.subarraySum(nums, 2);
 		System.out.println("counts of subarray="+ counts);
 	    counts= ms.subarraySum2(nums, 2);

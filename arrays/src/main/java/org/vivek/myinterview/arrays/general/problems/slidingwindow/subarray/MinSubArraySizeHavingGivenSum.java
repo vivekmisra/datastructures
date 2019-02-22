@@ -1,4 +1,4 @@
-package org.vivek.myinterview.arrays.general.problems.slidingwindow;
+package org.vivek.myinterview.arrays.general.problems.slidingwindow.subarray;
 
 /*
  * https://leetcode.com/problems/minimum-size-subarray-sum/
@@ -10,10 +10,10 @@ Input: s = 7, nums = [2,3,1,2,4,3]
 Output: 2
 Explanation: the subarray [4,3] has the minimal length under the problem constraint.
  */
-public class MinSubArraySizeSum {
+public class MinSubArraySizeHavingGivenSum {
 
 	public static void main(String[] args) {
-		MinSubArraySizeSum ms = new MinSubArraySizeSum();
+		MinSubArraySizeHavingGivenSum ms = new MinSubArraySizeHavingGivenSum();
 		 int[] nums = { 2, 3, 1, 2, 4, 3 };int k =7;
 		//int[] nums = { 1, 1 };int k = 3;
 		int minSize = ms.minSubArrayLen(k, nums);
