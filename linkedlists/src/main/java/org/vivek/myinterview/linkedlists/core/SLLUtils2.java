@@ -11,13 +11,26 @@ public class SLLUtils2 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		SLL2 L1 = new SLL2();
+		int[] dataForL = new int[] { 1,2,3,4,5};
+		SLL2.Node h = L1.constructList(L1, dataForL);
+		System.out.print("L1::");
+		L1.printLinkedList(h);
+		SLL2.Node middle = getFirstMiddle(h);
+		System.out.print("L1 from middle::"+middle.item +" :");
+		L1.printLinkedList(middle);
 		int[] dataForL1 = new int[] { 3, 1, 8, 7, -1, 6 };
 		SLL2.Node head1 = L1.constructList(L1, dataForL1);
 		System.out.print("L1::");
 		L1.printLinkedList(head1);
+		System.out.println();
+		System.out.println("deleting middle node::");
+		deleteMiddleNode(head1);
+		L1.printLinkedList(head1);
+		System.out.println("deleted middle node");
 		/*
 		 * System.out.println("L1:deleting middle::" + middleData(head1));
 		 * deleteMiddleNode(head1);
+		 * L1.printLinkedList(head1);
 		 * 
 		 * 
 		 * SLL2.Node cirHead = constructCircularList( L1, dataForL1) ; boolean
@@ -32,15 +45,16 @@ public class SLLUtils2 {
 		System.out.print("L2:");
 		L2.printLinkedList(head2);
 
-		head1 = mergeSort(head1);
+		head1 = sort(head1);
 		System.out.print("L1 SORTED:");
 		L1.printLinkedList(head1);
 
-		head2 = mergeSort(head2);
+		head2 = sort(head2);
 		System.out.print("L2 SORTED:");
 		L2.printLinkedList(head2);
 
-		SLL2.Node<Integer> head = merge2LinkLists(head1, head2);
+		//SLL2.Node<Integer> head = merge2LinkLists(head1, head2);
+		SLL2.Node<Integer> head = merge(head1, head2);
 		System.out.print("Merging sorted lists L1 + L2::");
 		L2.printLinkedList(head);
 		
@@ -69,13 +83,13 @@ public class SLLUtils2 {
 		return head;
 	}
 
-	public static Integer middleData(SLL2.Node<Integer> head) {
-		if (head == null || head.next == null) {
-			return head.item;
+	public static Integer middleData(SLL2.Node<Integer> first) {
+		if (first == null || first.next == null) {
+			return first.item;
 		}
 
-		SLL2.Node<Integer> slow = head;
-		SLL2.Node<Integer> fast = head.next;
+		SLL2.Node<Integer> slow = first;
+		SLL2.Node<Integer> fast = first.next;
 		while (fast != null && fast.next != null) {
 			slow = slow.next;
 			fast = fast.next.next;
@@ -90,36 +104,36 @@ public class SLLUtils2 {
 		if (head == null || head.next == null) {
 			return;
 		}
-		SLL2.Node<Integer> middle = getMiddle(head);
+		SLL2.Node<Integer> middle = getFirstMiddle(head);
 		middle.item = middle.next.item;
 		middle.next = middle.next.next;
 	}
 
-	static SLL2.Node<Integer> mergeSort(SLL2.Node<Integer> h) {
+	static SLL2.Node<Integer> sort(SLL2.Node<Integer> h) {
 		// Base case : if head is null
 		if (h == null || h.next == null) {
 			return h;
 		}
 
 		// get the middle of the list
-		SLL2.Node<Integer> middle = getMiddle(h);
+		SLL2.Node<Integer> middle = getFirstMiddle(h);
 		SLL2.Node<Integer> nextofmiddle = middle.next;
 
 		// set the next of middleSLLNode to null
 		middle.next = null;
 
 		// Apply mergeSort on left list
-		SLL2.Node<Integer> left = mergeSort(h);
+		SLL2.Node<Integer> left = sort(h);
 
 		// Apply mergeSort on right list
-		SLL2.Node<Integer> right = mergeSort(nextofmiddle);
+		SLL2.Node<Integer> right = sort(nextofmiddle);
 
 		// Merge the left and right lists
-		SLL2.Node<Integer> sortedlist = sortedMerge(left, right);
+		SLL2.Node<Integer> sortedlist = merge(left, right);
 		return sortedlist;
 	}
 
-	static SLL2.Node<Integer> sortedMerge(SLL2.Node<Integer> a, SLL2.Node<Integer> b) {
+	static SLL2.Node<Integer> merge(SLL2.Node<Integer> a, SLL2.Node<Integer> b) {
 		SLL2.Node<Integer> result = null;
 		/* Base cases */
 		if (a == null)
@@ -130,20 +144,20 @@ public class SLLUtils2 {
 		/* Pick either a or b, and recur */
 		if (a.item <= b.item) {
 			result = a;
-			result.next = sortedMerge(a.next, b);
+			result.next = merge(a.next, b);
 		} else {
 			result = b;
-			result.next = sortedMerge(a, b.next);
+			result.next = merge(a, b.next);
 		}
 		return result;
 
 	}
 
-	// Utility function to get the middle of the linked list
-	static SLL2.Node<Integer> getMiddle(SLL2.Node<Integer> h) {
+	// Utility function to get the middle of the linked list(it will get first middle node in case of even nodes)
+	static SLL2.Node<Integer> getFirstMiddle(SLL2.Node<Integer> h) {
 		// Base case
-		if (h == null)
-			return h;
+		if (h == null && h.next==null)
+			return null;
 		SLL2.Node fastptr = h.next;
 		SLL2.Node slowptr = h;
 
@@ -158,6 +172,23 @@ public class SLLUtils2 {
 		}
 		return slowptr;
 	}
+	// Utility function to get the middle of the linked list(it will get second middle node in case of even nodes)
+	public static SLL2.Node middleNode(SLL2.Node head) {
+		 if (head == null)
+				return head;
+			SLL2.Node fastptr = head;
+			SLL2.Node slowptr = head;
+
+			// Move fastptr by two and slow ptr by one
+			// Finally slowptr will point to middleSLLNode
+			while (fastptr != null && fastptr.next!=null) {
+					slowptr = slowptr.next;
+					fastptr = fastptr.next.next;
+				
+			}
+			return slowptr;
+       
+   }
 
 	static SLL2.Node<Integer> merge2LinkLists(SLL2.Node<Integer> L1, SLL2.Node<Integer> L2) {
 		// Creates a placeholder for the result.

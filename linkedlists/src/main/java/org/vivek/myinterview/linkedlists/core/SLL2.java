@@ -37,7 +37,6 @@ public class SLL2<E> {
 		return f;
 	}
 
-	
 	public E getFirst() {
 		final Node<E> f = first;
 		if (f == null)
@@ -51,6 +50,7 @@ public class SLL2<E> {
 			throw new NoSuchElementException();
 		return l;
 	}
+
 	public E getLast() {
 		final Node<E> l = last;
 		if (l == null)
@@ -291,25 +291,25 @@ public class SLL2<E> {
 		head = temp;
 		System.out.println();
 	}
-	
+
 	public Node<E> reverse() {
 		Node<E> current = first;
 		Node<E> rev = null;
 		while (current != null) {
-           Node<E> newNode = new Node<E>(first.item,null);
-           newNode.next = rev;
-            rev= newNode;
+			Node<E> newNode = new Node<E>(current.item, null);
+			newNode.next = rev;
+			rev = newNode;
 			current = current.next;
 		}
-		return current;
+		return rev;
 
 	}
 
-	public static Node constructList(SLL2 L1,int[] data) {
-		//SLLNode head1 = null;
-		for(int datum : data) {
-		   L1.add(datum);
-		}		
+	public static Node constructList(SLL2 L1, int[] data) {
+		// SLLNode head1 = null;
+		for (int datum : data) {
+			L1.add(datum);
+		}
 		return L1.getFirstNode();
 	}
 
@@ -386,14 +386,16 @@ public class SLL2<E> {
 		} catch (Exception e) {
 			System.out.println("Exception caught:" + e.getMessage());
 		}
-		
+
+		System.out.println("reversing:");
+		ll.printLinkedList(ll.first);
 		Node<Integer> rev = ll.reverse();
-		System.out.println("reversing:" );
-		ll.printLinkedList(ll.first);
+		System.out.print("reversed:");
 		ll.printLinkedList(rev);
-		System.out.println("back to original:" );
+		System.out.println();
+		System.out.println("back to original:");
 		ll.printLinkedList(ll.first);
-		
+
 	}
 
 }
