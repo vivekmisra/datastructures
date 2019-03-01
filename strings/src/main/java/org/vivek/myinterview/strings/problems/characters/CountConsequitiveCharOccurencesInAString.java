@@ -1,16 +1,16 @@
 package org.vivek.myinterview.strings.problems.characters;
 
-public class CountACharOccurencesInAString {
+public class CountConsequitiveCharOccurencesInAString {
 
-	public CountACharOccurencesInAString() {
+	public CountConsequitiveCharOccurencesInAString() {
 
 	}
 
 	public static void main(String[] args) {			
-		System.out.println(countRun( "Add dog", 'D' ) ); //should return 0
-		System.out.println(countRun( "Hope you're happy", 'p' )); //should return 1
+		//System.out.println(countRun( "Add dog", 'D' ) ); //should return 0
+		//System.out.println(countRun( "Hope you're happy", 'p' )); //should return 1
 		 System.out.println(countRun( "CCCCCcccC", 'C' )); //should return 5
-		 System.out.println(countRun2( "1010001", '0' )); //should return 5
+		// System.out.println(countRun2( "1010001", '0' )); //should return 3
 	}
 
 	public static int countRun(String s, char c) {

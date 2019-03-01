@@ -10,6 +10,7 @@ public class LongestCommonPrefix {
 		String[] strs = {"leets","leetcode","leet","leeds"};
 		LongestCommonPrefix lcp = new LongestCommonPrefix();
 		String s =lcp.longestCommonPrefix2(strs);
+		System.out.println(s);
 	}
 	
 	
