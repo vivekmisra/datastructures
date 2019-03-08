@@ -10,8 +10,11 @@
  * 
  */
 
-package org.vivek.myinterview.priorityqueues;
-class ListNode {
+package org.vivek.myinterview.priorityqueues.problems;
+
+import java.util.Comparator;
+
+class ListNode implements Comparable<ListNode>{
 	int data;
 	ListNode next;
  
@@ -30,5 +33,15 @@ class ListNode {
 	}
 	public void setNext(ListNode node){
 		this.next = node;
+	}
+//	@Override
+//	public int compare(ListNode o1, ListNode o2) {
+//		// TODO Auto-generated method stub
+//		 return o1.data > o2.data ? 1 : (o1.data < o2.data ? -1 : 0);
+//	}
+	@Override
+	public int compareTo(ListNode o) {
+		// TODO Auto-generated method stub
+		return this.data > o.data ? 1 : (this.data < o.data ? -1 : 0);
 	}
 }

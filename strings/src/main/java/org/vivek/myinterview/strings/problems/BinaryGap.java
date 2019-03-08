@@ -21,8 +21,10 @@ public class BinaryGap {
 	}
 
 	public static int findConsecutiveBinaryGap(int N) {
+		System.out.println("N="+N +",Binary:");
 		String s = Integer.toBinaryString(N);
-		System.out.println(s);
+		System.out.print(s);
+		System.out.println();
 		int[] counts = new int[256];
 		int count = 0;
 		char currChar;

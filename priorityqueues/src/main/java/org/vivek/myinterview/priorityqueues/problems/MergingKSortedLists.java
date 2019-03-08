@@ -10,7 +10,7 @@
  * 
  */
 
-package org.vivek.myinterview.priorityqueues;
+package org.vivek.myinterview.priorityqueues.problems;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,24 +20,24 @@ public class MergingKSortedLists {
     public ListNode mergeKLists(ArrayList<ListNode> lists) {
         if (lists == null || lists.isEmpty()) 
             return null;
-        PriorityQueue<ListNode> heap = new PriorityQueue<ListNode>(lists.size(), new Comparator<ListNode>(){
-            public int compare(ListNode o1, ListNode o2) {
-                return o1.data > o2.data ? 1 : (o1.data < o2.data ? -1 : 0);
-            }
-        });
+       
+        PriorityQueue<ListNode> heap = new PriorityQueue<ListNode>();
+       //add all nodes to heap so that they would be assigned priroty according to node value
         for (ListNode node : lists) {
             if (node != null) {
                 heap.add(node);
             }
         }
         ListNode head = null, cur = null;
+        //now by default lowest gets hig priority unless we change in compare method
+        //polling will output ordered 
         while (!heap.isEmpty()) {
-            if (head == null) {
-                head = heap.poll();
-                cur = head;
-            } else {
-                cur.next = heap.poll();
-                cur = cur.next;
+            if (head == null) {//first time
+                head = heap.poll();//remove max priority(max priririty is given to lowest value as it is min heap by default)
+                cur = head;//assign curr as head to continue 
+            } else {//susequent calls
+                cur.next = heap.poll();//deleted is next pointers
+                cur = cur.next;//keep moving
             }
             if (cur.next != null) {
                 heap.add(cur.next);

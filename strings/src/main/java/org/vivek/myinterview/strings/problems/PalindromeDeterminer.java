@@ -87,6 +87,22 @@ public class PalindromeDeterminer {
 	public String getPal() {
 		return this.pal;
 	}
+	
+	public static boolean isPalindromeIterative(String s){
+		if(s==null||s.length()==0) return false;
+ 
+		s = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+		System.out.println(s);
+ 
+		for(int i = 0; i < s.length() ; i++){
+			if(s.charAt(i) != s.charAt(s.length() - 1 - i)){
+				return false;
+			}
+		}
+ 
+		return true;
+	}
+ 
 
 	/**
 	 * @param args
@@ -98,6 +114,9 @@ public class PalindromeDeterminer {
 		String s = "abba";
 		int rightSide = s.length()-1;
 		boolean result = p.isPalindrome(s);
+		System.out.println("result ="+ result );
+		
+		result = p.isPalindromeIterative(s);
 		System.out.println("result ="+ result );
 		//boolean result2 = p.isPalindrome(7447);
 		boolean result2 = p.isPalindrome(127);
