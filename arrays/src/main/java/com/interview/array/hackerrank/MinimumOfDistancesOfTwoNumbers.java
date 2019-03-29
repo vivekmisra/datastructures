@@ -1,17 +1,24 @@
-package org.vivek.myinterview.arrays.general.problems;
+package com.interview.array.hackerrank;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * https://www.hackerrank.com/challenges/minimum-distances/problem e define the
- * distance between two array values as the number of indices between the two
- * values. Given , find the minimum distance between any pair of equal elements
- * in the array. If no such value exists, print .
+ * https://www.hackerrank.com/challenges/minimum-distances/
  * 
- * For example, if , there are two matching pairs of values: . The indices of
- * the 's are and , so their distance is . The indices of the 's are and , so
- * their distance is .
+ * We define the distance between two array values as the number of indices
+ * between the two values. Given , find the minimum distance between any pair of
+ * equal elements in the array. If no such value exists, print
+ * 
+ * .
+ * 
+ * For example, if int []a={3,2,1,2,3} ;
+ *  
+ * there are two matching pairs of values: 3&2. The indices of
+ * the 3's are 0and 4, so their distance is 4. The indices of the 2's are 1 and 4, 
+ * so their distance is 2.
+ * 
+ * .
  * 
  * Function Description
  * 
@@ -20,10 +27,14 @@ import java.util.Map;
  * 
  * minimumDistances has the following parameter(s):
  * 
- * a: an array of integers Input Format
+ * a: an array of integers
+ * 
+ * Input Format
  * 
  * The first line contains an integer , the size of array . The second line
- * contains space-separated integers .
+ * contains space-separated integers
+ * 
+ * .
  * 
  * Constraints
  * 
@@ -31,12 +42,6 @@ import java.util.Map;
  * 
  * Print a single integer denoting the minimum in . If no such value exists,
  * print .
- * 
- * Sample Input
- * 
- * 6 7 1 3 4 1 7 Sample Output
- * 
- * 3 Explanation Here, we have two options:
  * 
  * and are both , so . and are both , so . The answer is .
  */
@@ -52,12 +57,13 @@ public class MinimumOfDistancesOfTwoNumbers {
 				int x = hm.get(a[i]);
 				int dist = i - x;
 				minDist = Math.min(minDist, dist);
-				System.out.println(a[i]+" x="+x +", i="+ i +" ,dist="+ dist +", min=("+dist+","+minDist+")="+minDist);
-			} else{
+				System.out.println(a[i] + " x=" + x + ", i=" + i + " ,dist=" + dist + ", min=(" + dist + "," + minDist
+						+ ")=" + minDist);
+			} else {
 				hm.put(a[i], i);
 			}
 		}
-		if (minDist == Integer.MAX_VALUE){
+		if (minDist == Integer.MAX_VALUE) {
 			minDist = -1;
 		}
 

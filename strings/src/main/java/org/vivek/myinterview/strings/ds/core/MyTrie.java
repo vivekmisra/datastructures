@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class MyTrie {
 
 	public MyTrie() {
@@ -230,7 +231,7 @@ public class MyTrie {
 
 		for (int i = 0; i < 26; i++) {
 			if (root.children[i] != null) {
-				totalCount += totalWords(root.children[i]);
+				totalCount =totalCount+ totalWords(root.children[i]);
 			}
 		}
 		return totalCount;
@@ -289,8 +290,21 @@ public class MyTrie {
 
 		boolean flag = t.isFormationPossible(words, "bedroom");
 		System.out.println("flag=" + flag);
-		;
+		
 
+	    ArrayList < String > list = t.sortArray(words);
+	    System.out.println("Sorted words");
+	    for(i = 0; i < list.size(); i++) {
+	      System.out.print(list.get(i));
+	    }
+	    System.out.println();
+	   Arrays.sort(words);
+	    System.out.println("After sort :");
+	    for(i = 0;i<words.length;i++)
+	    {
+	      System.out.print(words[i]+",");
+	    }
+	    System.out.println();
 		String words1[] = { "flower", "flow" };
 		String in = t.longestCommonPrefix(words1);
 
@@ -325,6 +339,19 @@ public class MyTrie {
 		}
 
 	}
+	
+	public  ArrayList<String> sortArray(String[] arr){
+	    ArrayList<String> result = new ArrayList<String>();
+	  
+	  	//Creating Trie and Inserting words from array
+	    MyTrie t = new MyTrie();
+	    for (int x = 0; x < arr.length ; x++)
+	     t.insert(arr[x]);
+	  
+	  	char[] char_arr = new char[20];
+	  	extractWords(t.root,result,0,char_arr);  
+	    return result;
+		}
 
 	public static ArrayList<String> findWords(TrieNode root) {
 		ArrayList<String> result = new ArrayList<String>();

@@ -13,5 +13,6 @@
           <module>trees</module>
           <module>graphs</module>
            <module>dp</module>
+           <module>codingchallenges</module>
       </modules>
     </project>

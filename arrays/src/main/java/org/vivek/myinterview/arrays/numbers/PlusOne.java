@@ -6,7 +6,7 @@ public class PlusOne {
 
 	public static void main(String[] args) {
 		//int[] digits = { 1, 2, 9 };
-		int[] digits = { 3, 5,2 };
+		int[] digits = { 3, 5,9 };
 		int[] arr = plus(digits,9);
 		printArray(arr);
 		int[] arr1 = plusOne(digits);
@@ -30,37 +30,45 @@ public class PlusOne {
 		Stack<Integer> s = new Stack();
 		boolean add = true;
 		  int numOfDigits = digits.length;
-		  int unitDigit =0;
 		  int tensDigit =0;
-		 
+		  int onesplaceOfk = 0;
+		  int remainingDigitsOfK =0;
+		  int placeValueSum =0;
+		  int carry =0;
 		for(int i=numOfDigits-1;i>=0;i--){
-			int r =  digits[i];
+			int digit =  digits[i];
 			 int numOfDigitsOfK = (int) Math.log10(k)+1;
 			if(numOfDigitsOfK>=2){
 				int n =k;
-				tensDigit =k/ 10;
-				unitDigit = k% 10;
-				k= unitDigit;
+				remainingDigitsOfK =k/ 10;
+				onesplaceOfk=k% 10;
+				//k= unitDigit;
+				k=onesplaceOfk;
 			}
 			
-			if(add){
-			   r = r +k ;
+			if(add && k>0){
+				placeValueSum = digit +k ;
+				k=0;//reset
+			}else{
+				placeValueSum = digit +carry ;
 			}
-			if (r >= 10) {
-				int n= r;
-				tensDigit =n/ 10;
-				r = r % 10;
-				System.out.println("pushing r=" + r + "to stack");
-				s.push(r);
+			if (placeValueSum >= 10) {
+				int n= digit;
+				carry =placeValueSum/ 10;
+				int onesPlaceOfSum = placeValueSum % 10;
+			System.out.println("pushing onesPlaceOfSum=" + onesPlaceOfSum + "to stack");
+				s.push(onesPlaceOfSum);
 				if(numOfDigitsOfK>=2||tensDigit>0){
-					k= tensDigit;
-					 tensDigit=0;
+					k= remainingDigitsOfK;
+					// tensDigit=0;
 				}
 				add = true;
-				if(i==0 && r==0){
+				if(i==0 && onesPlaceOfSum==0){
+					//just push 1 as number is single digit
 					s.push(1);
 				}
 			}else{
+				carry=0;
 				if(tensDigit>0){
 					k= tensDigit;
 				    add = true;
@@ -69,7 +77,7 @@ public class PlusOne {
 				add = false;
 				}
 				
-				s.push(r);
+				s.push(placeValueSum);
 			}
 		}
 		int[] arr = new int[s.size()];

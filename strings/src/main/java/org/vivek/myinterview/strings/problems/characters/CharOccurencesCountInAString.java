@@ -22,7 +22,7 @@ public class CharOccurencesCountInAString {
 		}		
 		for(char ch = 0; ch < counts.length; ch++) {
 			 if( counts[ch]>0) {
-			 sb.append((char)ch + " has count " + counts[ch]);
+			 sb.append((char)ch + " has count--> " + counts[ch]);
 			 sb.append("\n");
 			 }
 		} 

@@ -15,29 +15,33 @@ public class FindSucessors {
 		int[] num = { 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14 };
 		Arrays.sort(num);
 		TNode root = SortedArrayToBST.sortedArrayToBST(num);
-
+		TNode target =  new TNode(6);
 		BTreePrinter.printNode(root);
-		System.out.println("Successor1 of 5:");
+		System.out.println("Successor1 of :"+target.data);
 		TNode temp1 = root;
-		temp1 = inorderSuccessor(temp1, new TNode(5));
+		temp1 = inorderSuccessor(temp1, target);
 		BTreePrinter.printNode(temp1);
 		TNode temp2 = root;
-		List<Queue<TNode>> listOfStacks = findInorderAncesstorsAndSuccessors(temp2, new TNode(5));
-		System.out.println("List :Ancesstors and Successors of 5:");
-		System.out.println("   Ancesstors of 5:");
+		
+		List<Queue<TNode>> listOfStacks = findInorderAncesstorsAndSuccessors(temp2, target);
+		System.out.println("List :Ancesstors and Successors of :" +target.data);
+		System.out.println("   Ancesstors of :"+target.data);
 		Queue<TNode> ancestors = listOfStacks.get(0);
 		while (!ancestors.isEmpty()) {
 			TNode n = ancestors.poll();
 			System.out.print(n.data);
 		}
 		System.out.println();
-		System.out.println("   Successor of 5:");
+		System.out.println("   Successor of :"+target.data);
 		Queue<TNode> successors = listOfStacks.get(1);
 		while (!successors.isEmpty()) {
 			TNode n = successors.poll();
 			System.out.print(n.data);
 		}
-
+	
+		System.out.println("   Successor of :"+target.data);
+		TNode n = getSuccessor(temp2, new TNode(7));
+        BTreePrinter.printNode(n);
 	}
 
 	public static TNode inorderSuccessor(TNode root, TNode p) {
@@ -126,5 +130,37 @@ public class FindSucessors {
 		listOfStacks.add(1, successors);
 		return listOfStacks;
 	}
+	
+	  
+   static TNode getSuccessor( TNode root, TNode target )
+    {
+      if ( target.right != null )
+      {
+        TNode currNode = target.right;
+        while ( currNode.left != null )
+        {
+          currNode = currNode.left;
+        }
+        return currNode;
+      }
+      else
+      {
+        TNode successor = null;
+        TNode currNode = root;
+        while ( currNode != null &&  currNode != target )
+        {
+          if ( currNode.data >= target.data )
+          {
+            successor = currNode;
+            currNode = currNode.left;
+          }
+          else
+          {
+            currNode = currNode.right;
+          }
+        }
+        return successor;
+      }
+    }
 
 }

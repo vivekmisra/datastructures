@@ -1,10 +1,11 @@
 package org.vivek.myinterview.classictechniques.twopointers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RemoveDuplicatesFromSortedArray {
-	static int[] duplicatenums = { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 };
+	static int[] nums = { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 };
 
 	public RemoveDuplicatesFromSortedArray() {
 		// TODO Auto-generated constructor stub
@@ -12,31 +13,56 @@ public class RemoveDuplicatesFromSortedArray {
 
 	public static void main(String[] args) {
 		System.out.println("Before removeDuplicates :");
-		printArray(duplicatenums);
-		int[] prunednums = removeDuplicates(duplicatenums);
+		int[] nums = { 0, 1, 2, 2,2, 3, 3, 4 };
+		int[] nums1 = Arrays.copyOf(nums, nums.length);
+		printArray(nums1);
+		int[] prunednums = removeDuplicates(nums1);
 		System.out.println("After removeDuplicates :");
 		printArray(prunednums);
+		
+		
+		nums1 = Arrays.copyOf(nums, nums.length);
+		printArray(nums1);
+		 prunednums = removeDuplicates1(nums1);
+		System.out.println("After removeDuplicates :");
+		printArray(prunednums);
+		
+		System.out.println(" removeDuplicates in generic way:");
+		//int[] nums = { 0, 1, 2, 2,2, 3, 3, 4 };
+		System.out.println("   no duplicated allowed:");
+		nums1 = Arrays.copyOf(nums, nums.length);
+		printArray(nums1);
+		int len = removeDuplicates(nums1, 1);
+		printArray(nums1, len);
+		
+		System.out.println("   1 duplicate allowed:");
+		nums1 = Arrays.copyOf(nums, nums.length);
+		printArray(nums1);
+		len = removeDuplicates(nums1, 2);
+		printArray(nums1, len);
 
-		int[] nums = { 1, 5, 8, 4, 7, 6, 5, 3, 1 };
-		printArray(nums);
-		int[] pointerValues = twopointersFromRightClimbing(nums);
+		int []arr = { 1, 5, 8, 4, 7, 6, 5, 3, 1 };
+		printArray(arr);
+		int[] pointerValues = twopointersFromRightClimbing(arr);
 		printArray(pointerValues);
 	}
-
+	
 	public static int[] removeDuplicates(int[] nums) {
-		if (nums.length == 0)
+		int len = nums.length;
+		if (len == 0)
 			return null;
 		List<Integer> list = new ArrayList<Integer>();
-
-		int i = 0;
-		for (int j = 1; j < nums.length; j++) {
-			if (nums[j] != nums[i]) {
+		int i = 0, j = 1;
+		list.add(nums[0]);
+		while (j < len) {
+			if (nums[i] != nums[j]) {
 				i++;
 				nums[i] = nums[j];
 				list.add(nums[i]);
-			}
+			}	 
+	                j++;
 		}
-
+	 
 		if (list.isEmpty())
 			return null;
 		int[] prunednums = new int[list.size()];
@@ -44,6 +70,67 @@ public class RemoveDuplicatesFromSortedArray {
 			prunednums[k] = list.get(k);
 		}
 		return prunednums;
+	}
+
+	public static int[] removeDuplicates1(int[] nums) {
+		int len = nums.length;
+		if (len == 0)
+			return null;
+		List<Integer> list = new ArrayList<Integer>();
+		int i = 1, j = 1;
+		list.add(nums[0]);
+		while (j < len) {
+			 //check if the element at the position current index - 1(previous) is the same as new arriving element
+			//            if same then skip 
+			//            if not,copy current at current index &move forward
+			  if(nums[i-1]!=nums[j]) {
+	            	nums[i]=nums[j];
+	            	list.add(nums[i]);
+	            	i++;
+	          }
+			 ++j;
+		}
+		if (list.isEmpty())
+			return null;
+		int[] prunednums = new int[list.size()];
+		for (int k = 0; k < list.size(); k++) {
+			prunednums[k] = list.get(k);
+		}
+		return prunednums;
+	}
+
+	// generic
+	static int removeDuplicates(int nums[], int k) {
+		/*
+		 * approach is to remain first k elements as it is . Now start from k'th index
+		 * and check if the element at the position current index - k is the same as new
+		 * arriving element then skip this element and continue with next element . here
+		 * the condition nums[i-k]!=nums[j] is very important  because we
+		 * have to look k steps backward in new updated array.
+		 */
+		int len = nums.length;
+		if (len < k)
+			return len; // if array size is less than k then return the same
+		int i=k,j=k;
+       while( j<len) {
+            if(nums[i-k]!=nums[j]) {
+            	nums[i]=nums[j];
+            	i++;
+            }
+            ++j;
+        }
+        return i;
+	}
+
+	private static void printArray(int[] anArray, int length) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < length; i++) {
+			if (i > 0) {
+				sb.append(", ");
+			}
+			sb.append(anArray[i]);
+		}
+		System.out.println(sb.toString());
 	}
 
 	private static void printArray(int[] anArray) {

@@ -13,7 +13,7 @@ public class PalindromeDeterminer {
 
 	
 	public boolean isPalindrome(String s) {
-		pal= s.toUpperCase();
+		String pal= s.toUpperCase();
 		if (pal.length() <= 1) {
 			return true;
 		}
@@ -110,7 +110,7 @@ public class PalindromeDeterminer {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		PalindromeDeterminer p = new PalindromeDeterminer();
-		//System.out.println(p.toString() + ":=:" + p.isPalindrome("Able was I ere I saw Elba"));
+		System.out.println("Able was I ere I saw Elba" + "=" + p.isPalindrome("Able was I ere I saw Elba"));
 		String s = "abba";
 		int rightSide = s.length()-1;
 		boolean result = p.isPalindrome(s);

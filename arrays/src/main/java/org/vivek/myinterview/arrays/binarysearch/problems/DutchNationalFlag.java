@@ -19,16 +19,16 @@ public class DutchNationalFlag {
 		int pivot = 1;// pivot
 		int right = A.length - 1;// tracks 2
 		while (mid <= right) {
-			if (A[mid] < pivot) {// current element is 0
-			
+			if (pivot >A[mid]) {// current element is 0 as pivot value is 1
+			   //move itto left and continue towards right
 				swap(A, left, mid);
 				++left;
 				++mid;
-			} else if (A[mid] > pivot) {// current element is 2
-		
+			} else if (pivot <A[mid]) {// current element is 2 as pivot value is 1
+				//move itto right and continue towards left
 				swap(A, mid, right);
 				--right;
-			} else {// current element is 1
+			} else {// current element is 1 as it is equal tp pivot--do nothing just skip and move
 				++mid;
 			}
 		}

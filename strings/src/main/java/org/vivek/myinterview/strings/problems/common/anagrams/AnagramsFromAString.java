@@ -22,9 +22,9 @@ public class AnagramsFromAString {
            if (s.length()%2 !=0){
                return -1;
            }else{
-               int l = s.length();
-               String s1 = s.substring(0,l/2);
-               String s2 = s.substring(l/2 );
+               int sLength = s.length();
+               String s1 = s.substring(0,sLength/2);
+               String s2 = s.substring(sLength/2 );
                char[] charArray1 = s1.toCharArray();
                char[] charArray2 = s2.toCharArray();
                Arrays.sort(charArray1);

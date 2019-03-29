@@ -17,28 +17,32 @@ public class FindAncestors {
 		BTreePrinter.printNode(temp1);
 		System.out.println("Ancestors:");
 		System.out.println(findAncestors(root, 4));
-		
+		System.out.println("predecessor:");
+		TNode node = predecessor(root, 4);
+		BTreePrinter.printNode(node);
 
 		
 		
 
 	}
-
+	
+	
+	
 	public static String findAncestors(TNode root, int k) {
 		if (root == null) {
 			return "null";
 		}
 		StringBuilder ancestors = new StringBuilder();
-		TNode current = root;
-		while (current != null) {
-			if (k > current.data) {
-				ancestors.append(current.data);
+		//TNode current = root;
+		while (root != null) {
+			if (k > root.data) {
+				ancestors.append(root.data);
 				ancestors.append(",");
-				current = current.right;
-			} else if (k < current.data) {
-				ancestors.append(current.data);
+				root = root.right;
+			} else if (k < root.data) {
+				ancestors.append(root.data);
 				ancestors.append(",");
-				current = current.left;
+				root = root.left;
 			} else {
 				return ancestors.toString().substring(0, ancestors.toString().length() - 1);
 			}
@@ -49,35 +53,38 @@ public class FindAncestors {
 
 	// predecessor
 
-	public static TNode predecessor(TNode root, TNode p) {
+	public static TNode predecessor(TNode root, int k) {
 		if (root == null)
 			return null;
 
 		/*
-		 * if ( p.data>root.data) { return predecessor(root.right, p); } else if
-		 * ( p.data<root.data) { return predecessor(root.left, p); // return
+		 * if ( k>root.data) { return predecessor(root.right, p); } else if
+		 * ( k<root.data) { return predecessor(root.left, p); // return
 		 * (right != null) ? right : root; }
 		 * 
 		 * return (root.left != null) ? root.left : root;
 		 */
 		StringBuilder ancestors = new StringBuilder();
 		TNode current = root;
+		if(root.left==null && root.right==null) {
+			return null;
+		}
 		while (current != null) {
-
-			if (p.data >= current.data) {
-
+			if (k >= current.data) {
 				current = current.right;
-
-			} else if (p.data < current.data) {
-
-				current = current.left;
-				// return (current.left != null) ? current.left : current;
+			} else if (k < current.data) {
+				current = current.left;				
+			}
+			if(current.left==null && current.right==null) {
+				return null;
 			}
 			return (current.right != null) ? current.right : current;
 		}
 		return current;
 
 	}
+	
+  
 
 	
 

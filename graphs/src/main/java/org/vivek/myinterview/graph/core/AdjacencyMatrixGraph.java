@@ -7,8 +7,12 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
-public class AdjacencyMatrixGraph {
+import org.vivek.myinterview.graph.core.DepthFirstSearchExample.Node;
 
+
+
+public class AdjacencyMatrixGraph {
+	static ArrayList<Vertex> nodes=new ArrayList<>();
 	public static void main(String[] args) {
 		int number_of_nodes = 4;
 
@@ -21,6 +25,11 @@ public class AdjacencyMatrixGraph {
 		System.out.println("DFS:");
 		g.dfs(adjacency_matrix,0);
 		System.out.println();
+		AdjacencyMatrixGraph alg3 = new AdjacencyMatrixGraph();
+		Graph g3 = constructGraph(number_of_nodes, alg3);
+		System.out.println();
+		System.out.println("DFS using stack:");
+		g3.dfsUsingStack(adjacency_matrix,nodes.get(0));
 		AdjacencyMatrixGraph alg2 = new AdjacencyMatrixGraph();
 		 g = constructGraph(number_of_nodes, alg2);
 		System.out.println("BFS:");
@@ -44,30 +53,7 @@ public class AdjacencyMatrixGraph {
 		return g;
 	}
 
-	private static int[][] fillMatrix(int n) {
-		int[][] arr = new int[4][4];
-		arr[0][0] = 0;
-		arr[0][1] = 1;
-		arr[0][2] = 1;
-		arr[0][3] = 0;
-
-		arr[1][0] = 0;
-		arr[1][1] = 0;
-		arr[1][2] = 0;
-		arr[1][3] = 0;
-
-		arr[2][0] = 1;
-		arr[2][1] = 0;
-		arr[2][2] = 0;
-		arr[2][3] = 1;
-
-		arr[3][0] = 0;
-		arr[3][1] = 1;
-		arr[3][2] = 0;
-		arr[3][3] = 0;
-		return arr;
-	}
-
+	
 	private static void print2DArray(int[][] array) {
 		System.out.println("----------Printing 2D array----------");
 		int rows = array.length;
@@ -127,6 +113,14 @@ public class AdjacencyMatrixGraph {
 			this.label = label;
 		}
 
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
+		@Override
+		public String toString() {
+			return "Vertex [id=" + id + ", label=" + label + ", visited=" + visited + "]";
+		}
+
 	}
 
 	class Graph {
@@ -171,6 +165,7 @@ public class AdjacencyMatrixGraph {
 
 		public void addVertex(int id, char label) {
 			vertexArray[id] = new Vertex(id, false, label);
+			nodes.add(vertexArray[id]);
 
 		}
 
@@ -367,6 +362,50 @@ public class AdjacencyMatrixGraph {
 			}
 
 		}
+		
+		public void dfsUsingStack(int adjacency_matrix[][], Vertex source) {
+			Stack<Vertex> stack = new Stack();
+			if (source.id != 0) {
+				source.visited = true;
+				System.out.print("Push:(");
+				System.out.println(source);
+				System.out.print(")-->");
+				stack.push(source);
+			} else {
+				source.visited = true;
+				System.out.print("Push:(");
+				System.out.println(source);
+				System.out.print(")-->");
+				stack.push(source);
+			}
+			
+			while (!stack.isEmpty()) {
+				Vertex currentVertex = (Vertex) stack.peek();
+				int currentVertexId =currentVertex.id;
+				List<Vertex> listOfunvisitedVertices =  findUnivistedNeighbours(adjacency_matrix, currentVertex);				
+				for (int i = 0; i < listOfunvisitedVertices.size(); i++) {
+					Vertex n=listOfunvisitedVertices.get(i);
+					if(n!=null &&!n.visited){
+						System.out.print("Push(");
+						stack.add(n);
+						System.out.print(n + " ");
+						System.out.print(")--->");
+						n.visited=true;
+					}else {
+						Vertex adjacentVertex = (Vertex) stack.pop();
+						
+						System.out.print("Pop(");;
+						System.out.print(adjacentVertex + " ");
+						System.out.print(")--->");
+					}
+					
+				}
+				
+			}
+            //reset
+			clearVisitedFlags();
+
+		}
 
 		public void bfs(int adjacency_matrix[][], int sourceId) {
 			Queue<Integer> q = new LinkedList<Integer>();
@@ -416,6 +455,32 @@ public class AdjacencyMatrixGraph {
 			}
 			return -1;
 		}
+		public List<Vertex> findUnivistedNeighbours(int adjacency_matrix[][],Vertex x)
+		{
+			int nodeIndex=-1;
+
+			List<Vertex> neighbours=new ArrayList<>();
+			for (int i = 0; i < nodes.size(); i++) {
+				if(nodes.get(i).equals(x))
+				{
+					nodeIndex=i;
+					break;
+				}
+			}
+
+			if(nodeIndex!=-1)
+			{
+				for (int j = 0; j < adjacency_matrix[nodeIndex].length; j++) {
+					Vertex vertex =nodes.get(j);
+					if(adjacency_matrix[nodeIndex][j]==1 )
+					{
+						neighbours.add(nodes.get(j));
+					}
+				}
+			}
+			return neighbours;
+		}
+
 
 		// find neighbors of node using adjacency matrix
 		// if adjacency_matrix[i][j]==1, then nodes at index i and index j are connected
@@ -463,6 +528,11 @@ public class AdjacencyMatrixGraph {
 		}
 	}
 
-	
+	public static void clearVisitedFlags()
+	{
+		for (int i = 0; i < nodes.size(); i++) {
+			nodes.get(i).visited=false;
+		}
+	}
 
 }

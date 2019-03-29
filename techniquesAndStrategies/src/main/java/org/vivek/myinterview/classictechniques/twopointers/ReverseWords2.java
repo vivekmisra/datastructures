@@ -10,28 +10,29 @@ public class ReverseWords2 {
 	}
 
 	public static void main(String[] args) {
-		char[] str={ 't','h','e',' ','s','k','y',' ','i','s',' ','b','l','u','e'};
-		String input = new String(str);
+		char[] charArray={ 't','h','e',' ','s','k','y',' ','i','s',' ','b','l','u','e'};
+		String input = new String(charArray);
 		//Output: ['b','l','u','e',' ','i','s',' ','s','k','y',' ','t','h','e']
-		printArray(str);
+		printArray(charArray);
 		ReverseWords2 r = new ReverseWords2();
-		r.reverseWords(str);
-		printArray(str);
+		r.reverseWords(charArray);
+		printArray(charArray);
 		char[] str1={ 't','h','e',' ','s','k','y',' ','i','s',' ','b','l','u','e'};
 		doStringReverseWord(str1);
 		printArray(str1);
 	}
 
-	public void reverseWords(char[] str) {
+	public void reverseWords(char[] charArray) {
 		int i = 0;
-		for (int j = 0; j < str.length; j++) {
-			if (str[j] == ' ') {
-				reverse(str, i, j - 1);
-				i = j + 1;
+		for (int j = 0; j < charArray.length; j++) {
+			if (charArray[j] == ' ') {//if blank
+				//==>charArray[j-1] would be non blank
+				reverse(charArray, i, j - 1);
+				i = j + 1;//skip jth blank & go to next
 			}
 		}
-		reverse(str, i, str.length - 1);
-		reverse(str, 0, str.length - 1);
+		reverse(charArray, i, charArray.length - 1);//if ,for the last word there wont be '',this will take care 
+		reverse(charArray, 0, charArray.length - 1);//now reverse all reverses word
 	}
 
 	public void reverse(char[] s, int i, int j) {

@@ -11,93 +11,88 @@ public class ThreeSum {
 	}
 
 	public static void main(String[] args) {
-		int [] nums = { 1, 4, 5, 6, 8 ,10 }; 
-	    int sum = 17; 
-	    List<List<Integer>> result =threeSumToTarget( nums, sum);
+		int[] nums = { 1, 4, 5, 6, 8, 10 };
+		int target = 17;
+		List<List<Integer>> triplets = threeSum(nums, target);
+		for (List<Integer> triplet : triplets) {
+			System.out.println(Arrays.deepToString(triplet.toArray()));
+		}
 	}
-	public static List<List<Integer>>  threeSumToTarget(int[] nums,int target) {
-		List<Integer> l = new ArrayList<Integer>();
+
+	public static List<List<Integer>> threeSum(int[] nums, int target) {
 		List<List<Integer>> result = new ArrayList<List<Integer>>();
-		//for (int i = 0; i < nums.length; i++) {
-			int i =0;
-		    int j = i + 1;
-			int k = j+1;
-			boolean flag= i<nums.length-1&&  j < nums.length-1 &&  k < nums.length -1;
-			while (flag) {
-				int sum = nums[i] + nums[j] + nums[k];
-  				int diff = Math.abs(sum - target);
-	           
-				if(diff == 0) {
-					l.add(i);
-					l.add(j);
-					l.add(k);
-					result.add(l);
+		if (nums == null || nums.length < 3)
+			return result;
+		Arrays.sort(nums);
+		for (int i = 0; i < nums.length - 2; i++) {
+			if (i == 0 || nums[i] > nums[i - 1]) {
+				int iSum = nums[i];
+				int iStep = i + 1;
+				twoSumHelper(nums, target, result, iStep, iSum);
+			}
+		}
+		return result;
+	}
+
+	private static void twoSumHelper(int[] nums, int target, List<List<Integer>> triplets, int iStep, int iSum) {
+		int requiredSum = target - iSum;
+		int left = iStep;
+		int right = nums.length - 1;
+		while (left < right) {
+			target = requiredSum;
+			int sum = nums[left] + nums[right];
+			System.out.println("Current sum s :" + sum + ", and target is :" + target);
+			if (nums[left] + nums[right] < target) {
+				left++;
+			} else if (nums[left] + nums[right] > target) {
+				right--;
+			} else if (nums[left] + nums[right] == target) {
+				List<Integer> l = new ArrayList<Integer>();
+				l.add(iSum);
+				l.add(nums[left]);
+				l.add(nums[right]);
+				triplets.add(l);
+				left++;
+				right--;
+				// handle duplicate here
+				while (left < right && nums[left] == nums[left - 1]) {
+						left++;
 				}
 				
-				if (diff < target) {
-					k++;
-					
-				}else if (diff < target && j <nums.length-1&& k>=nums.length-1) {
-					j++;
-					
-				}else if (diff < target && i <nums.length-1 && k>=nums.length-1 && j>=nums.length-1) {
-					i++;
-					
-				}
-				if (diff > target &&  k>=0) {
-					k--;
-				}else if (diff > target && k ==0 &&  j>=0 &&i>=0) {
-					j--;
-				}else if (diff > target && k ==0 && j==0 && i>0) {
-					i--;
+				while (left < right && nums[right] == nums[right + 1]) {
+					right--;
 				}
 			}
-			return result;
 		}
-	 
-		
-		
-	
-	public static List<List<Integer>> threeSumToZero(int[] nums) {
-	    List<List<Integer>> result = new ArrayList<List<Integer>>();
-	 
-	    if(nums == null || nums.length<3)
-	        return result;
-	 
-	    Arrays.sort(nums);
-	 
-	    for(int i=0; i<nums.length-2; i++){
-	        if(i==0 || nums[i] > nums[i-1]){
-	            int j=i+1;
-	            int k=nums.length-1;
-	 
-	            while(j<k){
-	                if(nums[i]+nums[j]+nums[k]==0){
-	                    List<Integer> l = new ArrayList<Integer>();
-	                    l.add(nums[i]);
-	                    l.add(nums[j]);
-	                    l.add(nums[k]);
-	                    result.add(l);
-	 
-	                    j++;
-	                    k--;
-	 
-	                    //handle duplicate here
-	                    while(j<k && nums[j]==nums[j-1])
-	                        j++;
-	                    while(j<k && nums[k]==nums[k+1])
-	                        k--;
-	 
-	                }else if(nums[i]+nums[j]+nums[k]<0){
-	                    j++;
-	                }else{
-	                    k--;
-	                }
-	            }
-	        }
-	 
-	    }
-	 
-	    return result;
 	}
+
+	public static int[] twoSumSorted(int[] nums, int target) {
+		List<List<Integer>> tuples = new ArrayList<List<Integer>>();
+		int[] result = new int[2];
+		int left = 0;
+		int right = nums.length - 1;
+
+		while (left < right) {
+			if (nums[left] + nums[right] > target) {
+				right--;
+			} else if (nums[left] + nums[right] < target) {
+				left++;
+			} else {
+				List<Integer> l = new ArrayList<Integer>();
+
+				l.add(nums[left]);
+				l.add(nums[right]);
+				tuples.add(l);
+				left++;
+				right--;
+				while (left < right && nums[left] == nums[left - 1])
+					left++;
+				while (left < right && nums[right] == nums[right + 1])
+					right--;
+			}
+
+		}
+		return result;
+	}
+
 }

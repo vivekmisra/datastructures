@@ -44,23 +44,23 @@ public class InOrderRecursive {
 		 * Otherwise, recur down the tree
 		 */
 
-		 boolean compareValue = (root.data> data);
-  System.out.println("root =" +root.data +",data="+ data);
+		boolean compareValue = (root.data > data);
+		System.out.println("root =" + root.data + ",data=" + data);
 		if (compareValue) {
 			root.left = insertRec(root.left, data);
-	    }else { 
+		} else {
 			root.right = insertRec(root.right, data);
-	    }
-		System.out.println( "returning root =" +root.data );
-		if(root.left!= null) {
-			System.out.println("...root.left=" + root.left.data );
-		}else {
-			System.out.println("....root.left=" + null );
 		}
-		if(root.right!= null) {
-			System.out.println("...root.right=" + root.right.data );
-		}else {
-			System.out.println("...root.right=" + null );
+		System.out.println("returning root =" + root.data);
+		if (root.left != null) {
+			System.out.println("...root.left=" + root.left.data);
+		} else {
+			System.out.println("....root.left=" + null);
+		}
+		if (root.right != null) {
+			System.out.println("...root.right=" + root.right.data);
+		} else {
+			System.out.println("...root.right=" + null);
 		}
 		/* return the root */
 		return root;

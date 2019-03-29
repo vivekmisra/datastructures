@@ -1,4 +1,4 @@
-package org.vivek.myinterview.classictechniques.twopointers;
+package org.vivek.myinterview.classictechniques.twopointers.array.rotation;
 
 public class RotateArray {
 

@@ -12,7 +12,7 @@ public class NextPermutation2 {
 		int [] nums = {2,3,5,1,4,7};
 		//int [] nums = {1,1,5};
 		for(int i=0;i<8;i++) {
-		 n.nextPermutation(nums);
+		// n.nextPermutation(nums);
 		 printArray(nums);
 		 /*
 		  * 	2, 3, 5, 1, 7, 4
@@ -38,7 +38,7 @@ public class NextPermutation2 {
 
 	}
 
-	public void nextPermutation(int[]array) {
+/*	public void nextPermutation(int[]array) {
 		 int i = array.length - 1;
 		    while (i > 0 && array[i - 1] >= array[i])
 		        i--;
@@ -71,7 +71,7 @@ public class NextPermutation2 {
 		        i++;
 		        j--;
 		    }
-	}
+	}*/
 	private static void printArray(int[] anArray) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < anArray.length; i++) {
