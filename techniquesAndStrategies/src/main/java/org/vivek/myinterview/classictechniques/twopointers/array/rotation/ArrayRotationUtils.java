@@ -61,28 +61,28 @@ public class ArrayRotationUtils {
 		System.out.println("###############LEFT ROTATE ###########");
 		
 		 int k = 1; 
-        int[]n9= leftRotate(a1,  k); 
+        int[]n9= leftRotateByK(a1,  k); 
         System.out.println("left rotaton by 1:");
     	printArray(n9);
     	
     	
          k = 2; 
-         leftRotate(a1,  k);
-         int[]n10= leftRotate(a1,  k); 
+         leftRotateByK(a1,  k);
+         int[]n10= leftRotateByK(a1,  k); 
          System.out.println("left rotaton by 2:");
      	printArray(n10);
 
 
          k = 3; 
-         leftRotate(a1,  k);
-         int[]n11= leftRotate(a1,  k); 
+         leftRotateByK(a1,  k);
+         int[]n11= leftRotateByK(a1,  k); 
          System.out.println("left rotaton by 3:");
       	printArray(n11);
          
 
          k = 4; 
-         int[]n12= leftRotate(a1,  k); 
-         leftRotate(a1, k); 
+         int[]n12= leftRotateByK(a1,  k); 
+         leftRotateByK(a1, k); 
          System.out.println("left rotaton by 4:");
          printArray(n12);
 	}
@@ -217,42 +217,17 @@ public class ArrayRotationUtils {
 		return rotatedA;
 	}
 
-	public static int[] leftRotationByK(int[] nums, int k) {
+	
+	
+	public static int[] leftRotateByK(int[] nums, int k) {
 		int[] rotatedA = new int[nums.length];
-		int len = nums.length;
-		/*
-		 * To get the starting point of rotated array
-		 */
-		int mod = k % len;
-
-		// Prints the rotated array from
-		// start position
-		for (int i = 0; i < len; ++i) {
-			/*
-			 * System.out.print(nums[(i + mod) % len] + " ");
-			 */
-			rotatedA[i] = nums[(i + mod) % len];
+		for (int i = 0; i < nums.length; i++) {
+			int rotatedIndex = (i+k) % nums.length;;
+			rotatedA[i] = nums[ rotatedIndex];
 		}
-		System.out.println();
 		return rotatedA;
 	}
 
-	static  int[]  leftRotate(int nums[], int k) {
-		/*
-		 * To get the starting point of rotated array
-		 */
-		int n = nums.length;
-		int mod = k % n;
-		int[] rotatedA = new int[nums.length];
-
-		// Prints the rotated array from
-		// start position
-		for (int i = 0; i < n; ++i) {
-			//System.out.print(nums[(i + mod) % n] + " ");
-			rotatedA[i]= nums[(i + mod) % n];
-		}
-
-		return rotatedA;
-	}
+	
 
 }

@@ -64,6 +64,8 @@ public class TrieDemo {
 		return false;
 	}
 	
+	
+	
 	public static void main(String args[]) {
 		// Input keys (use only 'a' through 'z' and lower case)
 		String keys[] = {  "the","a", null, "there", "answer", "any", "by", "bye", "their", "abc" };
@@ -135,37 +137,30 @@ public class TrieDemo {
 
 		public static boolean isFormationPossible(String[] dict, String word) {
 			// Create Trie and insert dictionary elements in it
-			MyTrie trie = new MyTrie();
+			if(word.length() < 2 || dict.length < 2){
+			      return false;
+			    }
 
-			for (int x = 0; x < dict.length; x++) {
-				trie.insert(dict[x]);
-			}
+			    //Create Trie and insert dictionary elements in it
+			    MyTrie trie = new MyTrie();
 
-			// Search for word in Trie and record it's position upto the mark where it
-			// matched
-			int pos_prefix = findPos(trie.getRoot(), word);
+			    for(int i = 0; i < dict.length; i++){
+			      trie.insert(dict[i]);
+			    }
 
-			// Match not found
-			if (pos_prefix == -1) {
-				return false;
-			}
+			    for(int i = 0; i < word.length(); i++){
+			      //Slice the word into two strings in each iteration
+			      String first = word.substring(0, i);
+			      String second = word.substring(i, word.length());
 
-			// If the word is partially matched in Trie, then search for the remaining word
-			// from pos_prefix to the length of given String "word"
+			      //If both substrings are present in the trie, the condition is fulfilled
+			      if(trie.search(first) && trie.search(second)){
+			        return true;
+			      }
+			    }
 
-			String remaining_word = word.substring(pos_prefix, word.length());
-
-			// Search for the remaining word's Position in Trie
-			int rest_word_pos = findPos(trie.getRoot(), remaining_word);
-
-			// Word length is possible and given word can be generated from the dictionary
-			// by combining
-			// two words from it
-			if ((pos_prefix + rest_word_pos) == word.length()) {
-				return true;
-			}
-
-			return false;
+			    return false;
+			  }
 		}
 	//}
 }

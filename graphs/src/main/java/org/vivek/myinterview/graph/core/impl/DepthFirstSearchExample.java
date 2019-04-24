@@ -1,4 +1,4 @@
-package org.vivek.myinterview.graph.core;
+package org.vivek.myinterview.graph.core.impl;
 
 
 import java.util.ArrayList;

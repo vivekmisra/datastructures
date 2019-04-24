@@ -33,7 +33,7 @@ public class BinarySearchIterative {
 			int mid = left + (right - left) / 2;
 			
 			printArray(A, data, left, mid, right);
-			if (A[mid] == data)
+			if (data==A[mid])
 				return true;
 
 			if (data < A[mid]) {

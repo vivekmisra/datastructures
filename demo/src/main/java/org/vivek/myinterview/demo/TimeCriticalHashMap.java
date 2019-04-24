@@ -1,6 +1,7 @@
 package org.vivek.myinterview.demo;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TimeCriticalHashMap<K,V>  {
 

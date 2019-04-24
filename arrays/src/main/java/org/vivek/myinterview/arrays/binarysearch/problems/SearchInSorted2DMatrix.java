@@ -31,10 +31,10 @@ public class SearchInSorted2DMatrix {
 	private boolean searchMatrix1(int[][] matrix, int target)
 	    {
 	        if(matrix.length == 0) return false;
-	        int M = matrix.length;
-	        int N = matrix[0].length;
-	        int r = 0, c = N - 1;
-	        while(r < M && c >= 0)
+	        int R = matrix.length;
+	        int C = matrix[0].length;
+	        int r = 0, c = C - 1;
+	        while(r < R && c >= 0)
 	        {
 	            if(matrix[r][c] == target) return true;
 	            else if(target < matrix[r][c]) --c;

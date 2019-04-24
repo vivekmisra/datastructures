@@ -1,10 +1,12 @@
-package org.vivek.myinterview.graph.core;
+package org.vivek.myinterview.graph.core.impl;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
+
+import org.vivek.myinterview.graph.core.impl.AdjacencyMatrixGraph.Vertex;
 
 public class NeighbourListGraph {
 	
@@ -30,6 +32,9 @@ public class NeighbourListGraph {
 			public void setNeighbours(List<AdjacencyListNode> neighbours) {
 				this.neighbours = neighbours;
 			}
+			
+		
+
 		}
 
 	public NeighbourListGraph() {
@@ -85,6 +90,7 @@ public class NeighbourListGraph {
 			List<AdjacencyListNode> neighbours = element.getNeighbours();
 			for (int i = 0; i < neighbours.size(); i++) {
 				AdjacencyListNode n = neighbours.get(i);
+				
 				if (n != null && !n.visited) {
 					stack.add(n);
 					n.visited = true;

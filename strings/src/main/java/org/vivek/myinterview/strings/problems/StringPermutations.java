@@ -38,6 +38,12 @@ public class StringPermutations {
 		for (String s : set) {
 			System.err.println(s);
 		}*/
+		Set<String> permutatedStringSet2 = generateUniquePermutationsForPalindrome("ab",'c');
+		for(String s : permutatedStringSet2) {
+			count++;
+			System.out.println(s);
+		}
+		System.out.println("***********TOTAL2:"+ count + "generateUniquePermutationsForPalindrome************");
 	}
 
 	
@@ -172,6 +178,26 @@ public class StringPermutations {
 		}
 
 	}
+	public static Set<String> generateUniquePermutationsForPalindrome(String input,char c) {
+		String prefix="";
+		String suffix =input;
+		Set<String> permutatedList = new HashSet<String>();
+		uniquePermutationForPalindrome(prefix, suffix,permutatedList,c);
+		return permutatedList;
+	}
+	
+	private static void uniquePermutationForPalindrome(String prefix, String suffix, Set<String> permutatedList,char ch) {
+		if (suffix.isEmpty()) {
+			String s=prefix + (ch == 0 ? "" : ch) + new StringBuffer(new String(prefix)).reverse();
+			permutatedList.add(s);
+		} else {
+			for (int i = 0; i < suffix.length(); i++) {
+				uniquePermutationForPalindrome(prefix+ suffix.charAt(i), suffix.substring(0,i)+suffix.substring(i + 1, suffix.length()),permutatedList,ch);
+			}
+		}
+
+	}
+
 
 	public static Set<String> generateUniquePerm(String input) {
 		Set<String> set = new HashSet<String>();
@@ -195,4 +221,8 @@ public class StringPermutations {
 		}
 		return set;
 	}
+	
+	
+	
+	
 }

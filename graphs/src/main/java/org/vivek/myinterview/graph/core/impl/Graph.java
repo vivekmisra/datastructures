@@ -1,4 +1,4 @@
-package org.vivek.myinterview.graph.core;
+package org.vivek.myinterview.graph.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,30 +10,33 @@ public class Graph<T>{
 
     private List<Edge<T>> allEdges;
     private Map<Long,Vertex<T>> allVertex;
-    boolean isDirected = false;
+    public boolean isDirected = false;
     
     public Graph(boolean isDirected){
         allEdges = new ArrayList<Edge<T>>();
         allVertex = new HashMap<Long,Vertex<T>>();
         this.isDirected = isDirected;
     }
-    
+    //wrapper to connect to vertices given their id
     public void addEdge(long id1, long id2){
         addEdge(id1,id2,0);
     }
     
     //This works only for directed graph because for undirected graph we can end up
     //adding edges two times to allEdges
+    //this method is adding vertex(if not added) and associating relevant connecting edge 
     public void addVertex(Vertex<T> vertex){
         if(allVertex.containsKey(vertex.getId())){
             return;
         }
         allVertex.put(vertex.getId(), vertex);
-        for(Edge<T> edge : vertex.getEdges()){
-            allEdges.add(edge);
+        //get the list of connecting edges for this vertex
+        for(Edge<T> edge : vertex.getConnectingEdgeList()){
+            allEdges.add(edge);//update edgelist for this graph
         }
     }
-    
+    //this methos just puts a vertex in map of vertices
+    //this DOES NOT assciate the connecting edge for added vertex
     public Vertex<T> addSingleVertex(long id){
         if(allVertex.containsKey(id)){
             return allVertex.get(id);
@@ -48,16 +51,22 @@ public class Graph<T>{
     }
     
     public void addEdge(long id1,long id2, int weight){
-        Vertex<T> vertex1 = createVertex(id1);
+        // get Vertex from map allVertex
+    	//or if not in map allVertex, add new Vertex with id  to map allVertex  get Vertex
+    	Vertex<T> vertex1 = createVertex(id1);
         Vertex<T> vertex2 = createVertex(id2);
-
+        //create an edge
         Edge<T> edge = new Edge<T>(vertex1,vertex2,isDirected,weight);
+        //update edge list of graph
         allEdges.add(edge);
+        //do necessary logic to add  2 vertices
         connectVertices(vertex1, vertex2, edge);
 
     }
 
 	private void connectVertices(Vertex<T> vertex1, Vertex<T> vertex2, Edge<T> edge) {
+		  //update adjacent vertices list
+		   //update connecting edge list of vertices
 		vertex1.addAdjacentVertex(edge, vertex2);
         if(!isDirected){
             vertex2.addAdjacentVertex(edge, vertex1);
@@ -109,7 +118,7 @@ public class Graph<T>{
 		  
 		for(Vertex<Long> v : allVertex){
 			
-			List<Edge<Long>> eList = v.getEdges();
+			List<Edge<Long>> eList = v.getConnectingEdgeList();
 			   for(Edge<Long> e: eList) {
 				   System.out.println(e.toString());
 				   System.out.println(">");
@@ -128,10 +137,10 @@ public class Graph<T>{
 			//g.printGraph(g);
 			System.out.println(g);
 		}
-}
 
 
-class Vertex<T> {
+
+/*static class Vertex<T> {
     long id;
     private T data;
     private List<Edge<T>> connectingEdgeList = new ArrayList<Edge<T>>();
@@ -154,8 +163,8 @@ class Vertex<T> {
     }
     
     public void addAdjacentVertex(Edge<T> e, Vertex<T> v){
-        connectingEdgeList.add(e);//dependency, add e to neighbouring connecting edge  List
-        adjacentVertexList.add(v);//self, add v to neighbouring vertex   List 
+        connectingEdgeList.add(e);//vertex "has-a"/composition relationship with edge,so whenever we add a adjacent vertex, we add connecting edge
+        adjacentVertexList.add(v);//self, add v to adjacacent vertex list  to update
     }
     
     public String toString(){
@@ -166,13 +175,15 @@ class Vertex<T> {
         return adjacentVertexList;
     }
     
-    public List<Edge<T>> getEdges(){
+    public List<Edge<T>> getConnectingEdgeList(){
         return connectingEdgeList;
     }
+    
     
     public int getDegree(){
         return connectingEdgeList.size();
     }
+    
     
     @Override
     public int hashCode() {
@@ -195,9 +206,10 @@ class Vertex<T> {
             return false;
         return true;
     }
-}
+    
+}*/
 
-class Edge<T>{
+/*class Edge<T>{
     private boolean isDirected = false;
     private Vertex<T> vertex1;
     private Vertex<T> vertex2;
@@ -277,6 +289,6 @@ class Edge<T>{
  
     
  
-}
+}*/
 
- 
+}

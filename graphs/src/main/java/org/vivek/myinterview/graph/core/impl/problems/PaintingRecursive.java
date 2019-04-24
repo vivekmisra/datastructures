@@ -1,5 +1,5 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
-package org.vivek.myinterview.graph.problems;
+package org.vivek.myinterview.graph.core.impl.problems;
 
 import java.util.ArrayList;
 import java.util.List;

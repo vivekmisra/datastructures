@@ -1,4 +1,4 @@
-package org.vivek.myinterview.graph.problems;
+package org.vivek.myinterview.graph.core.impl.problems;
 
 /*
 @slug

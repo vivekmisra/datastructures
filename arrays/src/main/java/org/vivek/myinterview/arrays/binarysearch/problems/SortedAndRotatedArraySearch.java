@@ -18,26 +18,26 @@ public class SortedAndRotatedArraySearch {
     /**
      * Duplicates are not allowed in arr.
      */
-    public int search(int arr[],int search){
-        int low =0;
-        int high = arr.length-1;
-        while(low <= high){
-            int mid = (low + high)/2;
-            if(arr[mid] == search){
+    public int search(int nums[],int target){
+        int l =0;
+        int r = nums.length-1;
+        while(l <= r){
+            int mid = (l + r)/2;
+            if(nums[mid] == target){
                 return mid;
             }
-            
-            if(arr[mid] < arr[high]){
-                if(arr[mid] < search && search <= arr[high]){
-                    low = mid+1;
+            //right is sorted
+            if(nums[mid] < nums[r]){
+                if(nums[mid] < target && target <= nums[r]){
+                    l = mid+1;
                 }else{
-                    high = mid-1;
+                    r = mid-1;
                 }
             }else{
-                if(search >= arr[low] && search < arr[mid]){
-                    high = mid-1;
+                if(target >= nums[l] && target < nums[mid]){
+                    r = mid-1;
                 }else{
-                    low = mid+1;
+                    l = mid+1;
                 }
             }
         }

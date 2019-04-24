@@ -6,18 +6,18 @@ import java.util.List;
 import java.util.Queue;
 
 import org.vivek.myinterview.trees.BTreePrinter;
-import org.vivek.myinterview.trees.TNode;
+import org.vivek.myinterview.trees.TreeNode;
 
 public class AverageOfLevels {
 
 	public static void main(String[] args) {
 
-		TNode root = new TNode(3);
-		root.left = new TNode(9);
-		root.right = new TNode(20);
+		TreeNode root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
 	
-		root.right.left = new TNode(15);
-		root.right.right = new TNode(7);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
 
 		BTreePrinter.printNode(root);
 		AverageOfLevels aol = new AverageOfLevels();
@@ -37,15 +37,15 @@ public class AverageOfLevels {
 		System.out.println();;
 	}
 
-	public List<Double> findAverageOfLevelsByBFS(TNode root) {
+	public List<Double> findAverageOfLevelsByBFS(TreeNode root) {
 		List<Double> list = new LinkedList<>();
-		Queue<TNode> queue = new LinkedList<>();
+		Queue<TreeNode> queue = new LinkedList<>();
 		queue.offer(root);
 		while (!queue.isEmpty()) {
 			int count = queue.size();
 			double sum = 0;
 			for (int i = 0; i < count; i++) {
-				TNode cur = queue.poll();
+				TreeNode cur = queue.poll();
 				sum += cur.data;
 				if (cur.left != null)
 					queue.offer(cur.left);
@@ -67,7 +67,7 @@ public class AverageOfLevels {
 		}
 	}
 
-	public List<Double> findAverageOfLevelsByDFS(TNode root) {
+	public List<Double> findAverageOfLevelsByDFS(TreeNode root) {
 		List<Node> temp = new ArrayList<>();
 		helper(root, temp, 0);
 		List<Double> result = new LinkedList<>();
@@ -77,7 +77,7 @@ public class AverageOfLevels {
 		return result;
 	}
 
-	public void helper(TNode root, List<Node> temp, int level) {
+	public void helper(TreeNode root, List<Node> temp, int level) {
 		if (root == null)
 			return;
 		if (level == temp.size()) {

@@ -6,7 +6,10 @@ import java.util.Map;
 public class MaximumSizeSubarraySumEqualsK325 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		int[] nums = { 1, -1, 5, -2, 3 };
+		int k = 3;
+		int max = maxSubArrayLen(nums, k);
+		System.out.println(max);
 
 	}
 
@@ -42,20 +45,23 @@ such that you get the range sum in constant time.
 	  the max j - i, so we want to keep i as left as possible.
 	 */
 // @formatter:on
-	public int maxSubArrayLen(int[] nums, int k) {
+	public static int maxSubArrayLen(int[] nums, int k) {
 		if (nums == null || nums.length == 0)
 			return 0;
 		int n = nums.length;
-		for (int i = 1; i < n; i++)
-			nums[i] += nums[i - 1];
+		for (int i = 1; i < n; i++) {
+			nums[i] = nums[i] + nums[i - 1];
+		}
 		Map<Integer, Integer> map = new HashMap<>();
 		map.put(0, -1); // add this fake entry to make sum from 0 to j consistent
 		int max = 0;
 		for (int i = 0; i < n; i++) {
-			if (map.containsKey(nums[i] - k))
+			if (map.containsKey(nums[i] - k)) {
 				max = Math.max(max, i - map.get(nums[i] - k));
-			if (!map.containsKey(nums[i])) // keep only 1st duplicate as we want first index as left as possible
+			}
+			if (!map.containsKey(nums[i])) {// keep only 1st duplicate as we want first index as left as possible
 				map.put(nums[i], i);
+			}
 		}
 		return max;
 	}

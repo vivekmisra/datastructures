@@ -1,4 +1,4 @@
-package org.vivek.myinterview.demo;
+package org.vivek.myinterview.demo.ratelimiter;
 
 import java.util.Map;
 import java.util.Optional;

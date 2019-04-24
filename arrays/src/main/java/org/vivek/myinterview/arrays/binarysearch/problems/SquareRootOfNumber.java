@@ -6,50 +6,60 @@ package org.vivek.myinterview.arrays.binarysearch.problems;
  */
 public class SquareRootOfNumber {
     public static int mySqrt(int x) {
-        if (x == 0) {
+        if (x == 0)
             return 0;
-        }
-       //============IMPORTANT:start=================
-       
-  /*
-   * we need to find largest number num scuh that its square <x
-   * therefore our range search is (1,x)
-   */
         int left = 1, right = x;
-      //============IMPORTANT:end=================
         while (true) {
             int mid = left + (right - left)/2;
-            System.out.println("boundary range-->[left="+left+",right="+ right+"]");
-            System.out.println("mid="+mid +" and midsq ="+ (mid*mid));
-            if (mid>x/mid) {//mid*mid >x but we want to find mid*mid<x
-            	System.out.println(" midsq ="+ (mid*mid)+" is greater than "+ x);
-            	System.out.println(" re-setting right boundary="+ (mid-1));
+            if (mid > x/mid) {
                 right = mid - 1;
             } else {
-            	System.out.println("  in else mid="+mid);
-            	System.out.println("   mid+1sq ="+ (mid+1*(mid+1)));
-                if (mid + 1 > x/(mid + 1)) {
-                	System.out.println(" (mid+1)sq ="+ ((mid+1)*(mid+1))+" is greater than "+ x);
+                if (mid + 1 > x/(mid + 1))
                     return mid;
-                }
                 left = mid + 1;
             }
         }
     }
-    static int sqrtByNewton(int x) {
-    	/*
-    	we need to find largest number scuh that its square <x
-    	
-    	*/
-    	long r =x;
-    	while(r*r > x) {
-    		r = (r+x/r)/2;
-    	}
-    	return (int)r;
-    	
+    /*
+     * Babylonian Sqaure Root is a method to find Square Root of a number by simple mathematical operations.
+     * The steps involved in calculating the square root are :
+     * 1) Start with an arbitrary positive start value x (the closer to the root, the better).
+     * 2) Initialize y = 1.
+     * 3) Do following until desired approximation is achieved.
+     *		a) Get the next approximation for root using average of x and y
+     *		b) Set y = n/x
+     */
+    private static float babylonianSquareRoot(float num) throws ArithmeticException {
+
+        if (num < 0)
+            throw new ArithmeticException("NaN");
+        float x = num;
+        float y = 1;
+        float e = 0.00000001f;    // e decides the accuracy level. Smaller the value of e, more is the answer accurate, but also more are the steps involved
+
+        // Looping while the difference between x and y is greater than e
+        while (x - y > e) {
+            x = (x + y) / 2;    // Updating x with the average of x and y
+            y = num / x;        // Updating y with original number divided by the average
+        }
+        return x;
     }
-    public static void main (String[] args){
-    	System.out.println(mySqrt(16));
-    	System.out.println(sqrtByNewton(17));
+    
+    
+    /*Newton method*/
+    
+    public static double sqrt(double c) {
+        if (c < 0) return Double.NaN;
+        double EPSILON = 1E-15;
+        double t = c;
+        while (Math.abs(t - c/t) > EPSILON*t)
+            t = (c/t + t) / 2.0;
+        return t;
+    }
+    
+    public static void main(String[] args) {
+    	System.out.println(mySqrt(52));
+    	System.out.println(babylonianSquareRoot(52));
+        System.out.println(sqrt(52));
     }
 }

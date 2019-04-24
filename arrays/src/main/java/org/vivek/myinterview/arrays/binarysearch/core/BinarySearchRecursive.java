@@ -39,7 +39,7 @@ public class BinarySearchRecursive {
 			return false;
 		}
 		printArray(A, data, left, mid, right);
-		if (A[mid] == data) {
+		if (data==A[mid]) {
 			return true;
 		} else if (data < A[mid]) {
 			 right = mid-1;
