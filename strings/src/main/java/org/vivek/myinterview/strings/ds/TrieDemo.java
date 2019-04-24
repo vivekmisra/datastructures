@@ -39,8 +39,8 @@ public class TrieDemo {
 			currentNode = currentNode.children[index];
 		}
 		// Mark the end character as leaf node :
-		//a)after inserting new nodes(characters) for the key
-		//b)if the key [word] is already present in the prefix
+		// a)after inserting new nodes(characters) for the key
+		// b)if the key [word] is already present in the prefix
 		currentNode.markAsLeaf();
 	}
 
@@ -63,12 +63,10 @@ public class TrieDemo {
 		}
 		return false;
 	}
-	
-	
-	
+
 	public static void main(String args[]) {
 		// Input keys (use only 'a' through 'z' and lower case)
-		String keys[] = {  "the","a", null, "there", "answer", "any", "by", "bye", "their", "abc" };
+		String keys[] = { "the", "a", null, "there", "answer", "any", "by", "bye", "their", "abc" };
 		String output[] = { "Not present in trie", "Present in trie" };
 		TrieDemo t = new TrieDemo();
 
@@ -97,70 +95,69 @@ public class TrieDemo {
 		} else {
 			System.out.println("abc --- " + output[0]);
 		}
-		
-		int rest_word_pos = findPos(t.root,"these");
+
+		int rest_word_pos = findPos(t.root, "these");
 		System.out.println("rest_word_pos " + rest_word_pos);
 	}
 
-//	static class dictWord {
+	// static class dictWord {
 
-		// Helper Function to find the position of given (prefix) word in Trie (upto the
-		// mark where it matches if prefix exists in trie )
-		private static int findPos(TrieNode root, String word) {
-			int pos = -1;
-			int level = 0;
-			TrieNode currentNode = root;
+	// Helper Function to find the position of given (prefix) word in Trie (upto the
+	// mark where it matches if prefix exists in trie )
+	private static int findPos(TrieNode root, String word) {
+		int pos = -1;
+		int level = 0;
+		TrieNode currentNode = root;
 
-			for (level = 0; level < word.length(); level++) {
-				int index = getIndex(word.charAt(level));;
-				if (currentNode.isEndWord == true)
-					pos = level;
-				if (currentNode.children[index] == null) {
-					/*Supose  ["the","there",etc ]is present in Trie and
-					 * "these" is searched
-					 *At "e" isEndPoint=true and this is point after which  start differing
-					 * after "e" ,there is no node child "s" then this pos
-					 * is the the positon upto which prefic "the" of "these" is matched
-					 * note:In a search impl ,you return false from here
-					 */
-					return pos;
-				}
-				currentNode = currentNode.children[index];
+		for (level = 0; level < word.length(); level++) {
+			int index = getIndex(word.charAt(level));
+			;
+			if (currentNode.isEndWord == true)
+				pos = level;
+			if (currentNode.children[index] == null) {
+				/*
+				 * Supose ["the","there",etc ]is present in Trie and "these" is searched At "e"
+				 * isEndPoint=true and this is point after which start differing after "e"
+				 * ,there is no node child "s" then this pos is the the positon upto which
+				 * prefic "the" of "these" is matched note:In a search impl ,you return false
+				 * from here
+				 */
+				return pos;
 			}
-
-			// Return the level/position if currentNode is leaf and not null
-			if (currentNode != null && currentNode.isEndWord)
-				return level;
-
-			return -1;
+			currentNode = currentNode.children[index];
 		}
 
-		public static boolean isFormationPossible(String[] dict, String word) {
-			// Create Trie and insert dictionary elements in it
-			if(word.length() < 2 || dict.length < 2){
-			      return false;
-			    }
+		// Return the level/position if currentNode is leaf and not null
+		if (currentNode != null && currentNode.isEndWord)
+			return level;
 
-			    //Create Trie and insert dictionary elements in it
-			    MyTrie trie = new MyTrie();
+		return -1;
+	}
 
-			    for(int i = 0; i < dict.length; i++){
-			      trie.insert(dict[i]);
-			    }
-
-			    for(int i = 0; i < word.length(); i++){
-			      //Slice the word into two strings in each iteration
-			      String first = word.substring(0, i);
-			      String second = word.substring(i, word.length());
-
-			      //If both substrings are present in the trie, the condition is fulfilled
-			      if(trie.search(first) && trie.search(second)){
-			        return true;
-			      }
-			    }
-
-			    return false;
-			  }
+	public static boolean isFormationPossible(String[] dict, String word) {
+		// Create Trie and insert dictionary elements in it
+		if (word.length() < 2 || dict.length < 2) {
+			return false;
 		}
-	//}
+
+		// Create Trie and insert dictionary elements in it
+		MyTrie trie = new MyTrie();
+
+		for (int i = 0; i < dict.length; i++) {
+			trie.insert(dict[i]);
+		}
+
+		for (int i = 0; i < word.length(); i++) {
+			// Slice the word into two strings in each iteration
+			String first = word.substring(0, i);
+			String second = word.substring(i, word.length());
+
+			// If both substrings are present in the trie, the condition is fulfilled
+			if (trie.search(first) && trie.search(second)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
