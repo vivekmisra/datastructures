@@ -35,10 +35,10 @@ import org.vivek.myinterview.trees.traversal.TreeTraversals;
  */
 public class AVLTree {
 
-    private TNode leftRotate(TNode root){
-    	 System.out.println("leftRotate on root:" +root.data + " resulting in new root :" +root.right.data);
+    private TreeNode leftRotate(TreeNode root){
+    	 System.out.println("leftRotate on root:" +root.val + " resulting in new root :" +root.right.val);
     	
-        TNode newRoot = root.right;
+        TreeNode newRoot = root.right;
         root.right = root.right.left;
         newRoot.left = root;
         root.height = setHeight(root);
@@ -48,9 +48,9 @@ public class AVLTree {
         return newRoot;
     }
     
-    private TNode rightRotate(TNode root){
-    	 System.out.println("rightRotate on root:" +root.data+ " resulting in new root :" +root.left.data);;
-        TNode newRoot = root.left;
+    private TreeNode rightRotate(TreeNode root){
+    	 System.out.println("rightRotate on root:" +root.val+ " resulting in new root :" +root.left.val);;
+        TreeNode newRoot = root.left;
         root.left = root.left.right;
         newRoot.right = root;
         root.height = setHeight(root);
@@ -60,13 +60,13 @@ public class AVLTree {
         return newRoot;
     }
 
-    private int setHeight(TNode root){
+    private int setHeight(TreeNode root){
        int height = height(root);
-        System.out.println("height for root:" +root.data + " is :"+ height );
+        System.out.println("height for root:" +root.val + " is :"+ height );
         return  height;
     }
     
-    private int height(TNode root){
+    private int height(TreeNode root){
     	 int rootLeftHeight=0,rootRightHeight=0;
     	
         if(root == null){
@@ -82,31 +82,31 @@ public class AVLTree {
         }
     }
     
-    private int setSize(TNode root){
+    private int setSize(TreeNode root){
         if(root == null){
             return 0;
         }
         return 1 + Math.max((root.left != null ? root.left.size : 0), (root.right != null ? root.right.size : 0));
     }
     
-    public TNode insert(TNode root, int data){
+    public TreeNode insert(TreeNode root, int data){
         if(root == null){
-            return new TNode(data);
+            return new TreeNode(data);
         }
-        if( data >= root.data){
+        if( data >= root.val){
             root.right = insert(root.right,data);
         }
         else{
             root.left = insert(root.left,data);
         }
-        System.out.println("printng before checking balance atr root:" +root.data);
+        System.out.println("printng before checking balance atr root:" +root.val);
         BTreePrinter.printNode(root);
         int balance = balance(root.left, root.right);
-        System.out.println("checked balance at root:" +root.data + ",balance=" +balance);
+        System.out.println("checked balance at root:" +root.val + ",balance=" +balance);
         if(balance > 1){
         	System.out.println("START :balance > 1:");
         	if(null!=root.left.left) {
-        	System.out.println(" root.left.left=" +root.left.left.data + ",height(root.left.left)=" +height(root.left.left));
+        	System.out.println(" root.left.left=" +root.left.left.val + ",height(root.left.left)=" +height(root.left.left));
         	}else{
         		System.out.println(" root.left.left is null");	
         	}
@@ -137,7 +137,7 @@ public class AVLTree {
             }
         }
         else{
-        	 System.out.println("Setting height of root:" +root.data);
+        	 System.out.println("Setting height of root:" +root.val);
             root.height = setHeight(root);
           	 System.out.println("=> height of root:" + root.height);
             root.size = setSize(root);
@@ -147,14 +147,14 @@ public class AVLTree {
         return root;
     }
     
-    private int balance(TNode rootLeft, TNode rootRight){
+    private int balance(TreeNode rootLeft, TreeNode rootRight){
     	int rootLeftData=0 , rootLeftHeight=0,rootRightData=0 ,rootRightHeight=0;
     	if(null!=rootLeft){
-    		 rootLeftData = rootLeft.data;
+    		 rootLeftData = rootLeft.val;
     		 rootLeftHeight=height(rootLeft);
     	}
     	if(null!=rootRight){
-    		rootRightData = rootRight.data;
+    		rootRightData = rootRight.val;
     		rootRightHeight=height(rootRight);
    	}
     	System.out.println("left: "+ rootLeftData +",left height: "+ rootLeftHeight +"+,rootRight="+rootRightData+",right height="+rootRightHeight);
@@ -165,24 +165,24 @@ public class AVLTree {
     }
     
     public static void main(String args[]){
-    	TNode root = test1();
+    	TreeNode root = test1();
     	System.out.println("***Initial Binary tree:****");
     	//BTreePrinter.printNode(test1());
-    	TNode bstroot =constructBinarySearchTree();
+    	TreeNode bstroot =constructBinarySearchTree();
     	BTreePrinter.printNode(bstroot);
        
        // BTreePrinter.printNode(bstroot);
        // TNode avlroot = constructAVLTree();
     	System.out.println("***Initial AVL tree:****");
     	AVLTree avlTree = new AVLTree();
-    	TNode avlroot = constructAVLTree();
+    	TreeNode avlroot = constructAVLTree();
     	 BTreePrinter.printNode(avlroot);
     	 System.out.println("***********************************************" );
-    	TNode avlroot2 =  constructAVLTree2();
+    	TreeNode avlroot2 =  constructAVLTree2();
     	
     	 BTreePrinter.printNode(avlroot2);
     	 System.out.println("***********************************************" );
-    	 System.out.println("***Add 4 to Initial AVL tree with root:" + avlroot.data);
+    	 System.out.println("***Add 4 to Initial AVL tree with root:" + avlroot.val);
     	avlroot = avlTree.insert(avlroot, 4);
     	 BTreePrinter.printNode(avlroot);
         System.out.println("*****************************START:LR DEMO*****************************");
@@ -195,9 +195,9 @@ public class AVLTree {
         System.out.println("*****************************END:LR DEMO*****************************");
     }
 
-	private static TNode constructBinarySearchTree() {
+	private static TreeNode constructBinarySearchTree() {
 		BinaryTree bt = new BinaryTree();
-        TNode head = null;
+        TreeNode head = null;
      
         head = bt.addNode(10, head);
         head = bt.addNode(8, head);
@@ -213,9 +213,9 @@ public class AVLTree {
         return head;
 	}
 
-	private static TNode constructAVLTree() {
+	private static TreeNode constructAVLTree() {
 		AVLTree avlTree = new AVLTree();
-        TNode root = null;
+        TreeNode root = null;
         /*root = avlTree.insert(root, -10);
         root = avlTree.insert(root, 2);
         root = avlTree.insert(root, 13);
@@ -260,15 +260,15 @@ public class AVLTree {
         root = avlTree.insert(root, 18);   
         BTreePrinter.printNode(root);
         
-        System.out.println("*** End:AVL tree: root :" + root.data);
+        System.out.println("*** End:AVL tree: root :" + root.val);
         
        
 		return root;
 	}
 	
-	private static TNode constructAVLTree2() {
+	private static TreeNode constructAVLTree2() {
 		AVLTree avlTree = new AVLTree();
-        TNode root = null;
+        TreeNode root = null;
         int[] arr = {6,7,12,15,17,18,16,8,10};
         System.out.println("***Start  AVL tree add 6 root :****");
         for(int k : arr) {
@@ -277,15 +277,15 @@ public class AVLTree {
         }
        
       
-        System.out.println("*** End:AVL tree: root :" + root.data);
+        System.out.println("*** End:AVL tree: root :" + root.val);
         
        
 		return root;
 	}
 	
-	private static TNode constructAVLTreeForLR() {
+	private static TreeNode constructAVLTreeForLR() {
 		AVLTree avlTree = new AVLTree();
-        TNode root = null;
+        TreeNode root = null;
         int[] arr = {10,7,4,2,9,13,14,16};
         System.out.println("***Start  constructAVLTreeForLR :****");
         for(int k : arr) {
@@ -295,24 +295,24 @@ public class AVLTree {
         }
        
       
-        System.out.println("*** End:AVLconstructAVLTreeForLR root :" + root.data);
+        System.out.println("*** End:AVLconstructAVLTreeForLR root :" + root.val);
         
        
 		return root;
 	}
 	
-	private static TNode test1() {
-		TNode root = new TNode(10);
-		TNode n1 = new TNode(8);
-		TNode n2 = new TNode(7);
-		TNode n3 = new TNode(6);
+	private static TreeNode test1() {
+		TreeNode root = new TreeNode(10);
+		TreeNode n1 = new TreeNode(8);
+		TreeNode n2 = new TreeNode(7);
+		TreeNode n3 = new TreeNode(6);
 		//TNode n4 = new TNode(4);
 		//TNode n5 = new TNode(9);
-		TNode n6 = new TNode(15);
-		TNode n7 = new TNode(12);
-		TNode n8 = new TNode(16);
-		TNode n9 = new TNode(17);
-		TNode n10 = new TNode(18);
+		TreeNode n6 = new TreeNode(15);
+		TreeNode n7 = new TreeNode(12);
+		TreeNode n8 = new TreeNode(16);
+		TreeNode n9 = new TreeNode(17);
+		TreeNode n10 = new TreeNode(18);
 	
 		
 

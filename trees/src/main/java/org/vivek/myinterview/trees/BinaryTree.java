@@ -7,23 +7,23 @@ public class BinaryTree {
 	public BinaryTree() {
 		// TODO Auto-generated constructor stub
 	}
-	public TNode addNode(int data, TNode head){
-        TNode tempHead = head;
-        TNode n = new TNode(data);
+	public TreeNode addNode(int data, TreeNode head){
+        TreeNode tempHead = head;
+        TreeNode n = new TreeNode(data);
         if(head == null){
             head = n;
             return head;
         }
-        TNode prev = null;
+        TreeNode prev = null;
         while(head != null){
             prev = head;
-            if(head.data < data){
+            if(head.val < data){
                 head = head.right;
             }else{
                 head = head.left;
             }
         }
-        if(prev.data < data){
+        if(prev.val < data){
             prev.right = n;
         }else{
             prev.left = n;
@@ -35,7 +35,7 @@ public class BinaryTree {
         int height;
     }
     
-    public int height(TNode root){
+    public int height(TreeNode root){
         if(root == null){
             return 0;
         }

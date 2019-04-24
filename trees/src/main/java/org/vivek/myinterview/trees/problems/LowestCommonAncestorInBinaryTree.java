@@ -1,6 +1,6 @@
 package org.vivek.myinterview.trees.problems;
 
-import org.vivek.myinterview.trees.TNode;
+import org.vivek.myinterview.trees.TreeNode;
 
 /**
  * Date 04/27/2016
@@ -13,7 +13,7 @@ import org.vivek.myinterview.trees.TNode;
  */
 public class LowestCommonAncestorInBinaryTree {
 
-    public TNode lca(TNode root, TNode n1, TNode n2){
+    public TreeNode lca(TreeNode root, TreeNode n1, TreeNode n2){
         if(root == null){
             return null;
         }
@@ -21,8 +21,8 @@ public class LowestCommonAncestorInBinaryTree {
             return root;
         }
         
-        TNode left = lca(root.left, n1, n2);
-        TNode right = lca(root.right, n1, n2);
+        TreeNode left = lca(root.left, n1, n2);
+        TreeNode right = lca(root.right, n1, n2);
 
         if(left != null && right != null){
             return root;

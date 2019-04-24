@@ -1,6 +1,6 @@
 package org.vivek.myinterview.trees.problems;
 
-import org.vivek.myinterview.trees.TNode;
+import org.vivek.myinterview.trees.TreeNode;
 
 /**
  * Date 05/04/2016
@@ -15,10 +15,10 @@ import org.vivek.myinterview.trees.TNode;
  */
 public class LowestCommonAncestoryBinarySearchTree {
 
-    public TNode lowestCommonAncestor(TNode root, int p, int q) {
-        if (root.data > Math.max(p, q)) {
+    public TreeNode lowestCommonAncestor(TreeNode root, int p, int q) {
+        if (root.val > Math.max(p, q)) {
             return lowestCommonAncestor(root.left, p, q);
-        } else if (root.data < Math.min(p, q)) {
+        } else if (root.val < Math.min(p, q)) {
             return lowestCommonAncestor(root.right, p, q);
         } else {
             return root;

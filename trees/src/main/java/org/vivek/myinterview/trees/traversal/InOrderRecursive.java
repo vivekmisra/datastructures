@@ -1,20 +1,20 @@
 package org.vivek.myinterview.trees.traversal;
 
 import org.vivek.myinterview.trees.BTreePrinter;
-import org.vivek.myinterview.trees.TNode;
+import org.vivek.myinterview.trees.TreeNode;
 
 public class InOrderRecursive {
 	static Integer arr[] = { 50, 25, 1, 12, 75, 62, 100 };
-	static TNode root = null;
+	static TreeNode root = null;
 
 	public InOrderRecursive() {
 		// TODO Auto-generated constructor stub
 		root = null;
 	}
 
-	static TNode treeins(Integer arr[]) {
+	static TreeNode treeins(Integer arr[]) {
 		for (int i = 0; i < arr.length; i++) {
-			TNode root = insert(arr[i]);
+			TreeNode root = insert(arr[i]);
 		}
 		return root;
 
@@ -22,7 +22,7 @@ public class InOrderRecursive {
 
 	// This method mainly
 	// calls insertRec()
-	static TNode insert(Integer data) {
+	static TreeNode insert(Integer data) {
 
 		return root = insertRec(root, data);
 	}
@@ -30,13 +30,13 @@ public class InOrderRecursive {
 	/*
 	 * A recursive function to insert a new key in BST
 	 */
-	static TNode insertRec(TNode root, Integer data) {
+	static TreeNode insertRec(TreeNode root, Integer data) {
 
 		/*
 		 * If the tree is empty, return a new node
 		 */
 		if (root == null) {
-			root = new TNode(data);
+			root = new TreeNode(data);
 			return root;
 		}
 
@@ -44,21 +44,21 @@ public class InOrderRecursive {
 		 * Otherwise, recur down the tree
 		 */
 
-		boolean compareValue = (root.data > data);
-		System.out.println("root =" + root.data + ",data=" + data);
+		boolean compareValue = (root.val > data);
+		System.out.println("root =" + root.val + ",data=" + data);
 		if (compareValue) {
 			root.left = insertRec(root.left, data);
 		} else {
 			root.right = insertRec(root.right, data);
 		}
-		System.out.println("returning root =" + root.data);
+		System.out.println("returning root =" + root.val);
 		if (root.left != null) {
-			System.out.println("...root.left=" + root.left.data);
+			System.out.println("...root.left=" + root.left.val);
 		} else {
 			System.out.println("....root.left=" + null);
 		}
 		if (root.right != null) {
-			System.out.println("...root.right=" + root.right.data);
+			System.out.println("...root.right=" + root.right.val);
 		} else {
 			System.out.println("...root.right=" + null);
 		}
@@ -66,14 +66,14 @@ public class InOrderRecursive {
 		return root;
 	}
 
-	public static void inOrder(TNode root) {
+	public static void inOrder(TreeNode root) {
 		if (root != null) {
 			if (root.left != null) {
 				// System.out.print("-->");
 				inOrder(root.left);
 			}
 			System.out.print(" ");
-			System.out.print(root.data);
+			System.out.print(root.val);
 			if (root.right != null) {
 				// System.out.print("-->");
 				inOrder(root.right);
@@ -81,14 +81,14 @@ public class InOrderRecursive {
 		}
 	}
 
-	private static TNode constructTree() {
-		TNode root = new TNode(50);
-		TNode n11L = new TNode(25);
-		TNode n12R = new TNode(75);
-		TNode n11L_21L = new TNode(1);
-		TNode n11L_22R = new TNode(12);
-		TNode n12R_21L = new TNode(62);
-		TNode n12R_22R = new TNode(100);
+	private static TreeNode constructTree() {
+		TreeNode root = new TreeNode(50);
+		TreeNode n11L = new TreeNode(25);
+		TreeNode n12R = new TreeNode(75);
+		TreeNode n11L_21L = new TreeNode(1);
+		TreeNode n11L_22R = new TreeNode(12);
+		TreeNode n12R_21L = new TreeNode(62);
+		TreeNode n12R_22R = new TreeNode(100);
 
 		root.left = n11L;
 		root.right = n12R;

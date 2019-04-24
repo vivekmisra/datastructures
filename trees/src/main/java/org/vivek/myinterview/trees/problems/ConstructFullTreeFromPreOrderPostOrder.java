@@ -1,7 +1,7 @@
 package org.vivek.myinterview.trees.problems;
 
 import org.vivek.myinterview.trees.BTreePrinter;
-import org.vivek.myinterview.trees.TNode;
+import org.vivek.myinterview.trees.TreeNode;
 import org.vivek.myinterview.trees.traversal.TreeTraversals;
 
 /**
@@ -13,22 +13,22 @@ import org.vivek.myinterview.trees.traversal.TreeTraversals;
 public class ConstructFullTreeFromPreOrderPostOrder {
 	static int preindex;
 
-	public TNode constructTree(int preorder[], int postorder[]) {
+	public TreeNode constructTree(int preorder[], int postorder[]) {
 
 		return constructTree(preorder, postorder, 0, postorder.length - 2, 0);
 
 	}
 
-	private TNode constructTree(int preorder[], int postorder[], int low, int high, int index) {
+	private TreeNode constructTree(int preorder[], int postorder[], int low, int high, int index) {
 
 		if (low > high || index >= preorder.length - 1) {
-			TNode node = new TNode();
-			node.data = preorder[index];
+			TreeNode node = new TreeNode();
+			node.val = preorder[index];
 			return node;
 		}
 
-		TNode node = new TNode();
-		node.data = preorder[index];
+		TreeNode node = new TreeNode();
+		node.val = preorder[index];
 		int i = 0;
 		for (i = low; i <= high; i++) {
 			if (preorder[index + 1] == postorder[i]) {
@@ -45,7 +45,7 @@ public class ConstructFullTreeFromPreOrderPostOrder {
 	// to keep track of index in pre[]. l is
 	// low index and h is high index for the
 	// current subarray in post[]
-	static TNode buildTree(int pre[], int post[], int l, int h, int size) {
+	static TreeNode buildTree(int pre[], int post[], int l, int h, int size) {
 
 		// Base case
 		if (preindex >= size || l > h)
@@ -56,7 +56,7 @@ public class ConstructFullTreeFromPreOrderPostOrder {
 		// preorder and make it root, and increment
 		// preIndex
 		int preValue = pre[preindex];
-		TNode root = new TNode(preValue);
+		TreeNode root = new TreeNode(preValue);
 		preindex++;
 
 		// If the current subarry has only one
@@ -92,7 +92,7 @@ public class ConstructFullTreeFromPreOrderPostOrder {
 	// Binary Tree from given preorder and
 	// postorder traversals. This function
 	// mainly uses constructTreeUtil()
-	static TNode createTree(int pre[], int post[], int size) {
+	static TreeNode createTree(int pre[], int post[], int size) {
 		preindex = 0;
 		return buildTree(pre, post, 0, size - 1, size);
 	}
@@ -103,7 +103,7 @@ public class ConstructFullTreeFromPreOrderPostOrder {
 		//int postorder[] = { 2, 6, 8, 9, 7, 3, 1 };
 		 int preorder[] = { 1, 2, 4, 8, 9, 5, 3, 6, 7 }; 
 	        int postorder[] = { 8, 9, 4, 5, 2, 6, 7, 3, 1 }; 
-		TNode root = cft.constructTree(preorder, postorder);
+		TreeNode root = cft.constructTree(preorder, postorder);
 	    //BTreePrinter.printNode(root);
 		TreeTraversals tt = new TreeTraversals();
 		System.out.println("Inorder:");

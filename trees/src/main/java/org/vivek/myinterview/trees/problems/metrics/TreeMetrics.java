@@ -1,11 +1,17 @@
 package org.vivek.myinterview.trees.problems.metrics;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 import org.vivek.myinterview.trees.BTreePrinter;
-import org.vivek.myinterview.trees.TNode;
+import org.vivek.myinterview.trees.TreeNode;
+
+
 
 
 
@@ -27,26 +33,49 @@ public class TreeMetrics {
 
 	public static void main(String[] args) {
 
-		TNode root = new TNode(1);
-		root.left = new TNode(2);
-		root.right = new TNode(3);
-		root.left.left = new TNode(4);
-		root.left.right = new TNode(5);
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);
+		root.left.left = new TreeNode(4);
+		root.left.right = new TreeNode(5);
 		BTreePrinter.printNode(root);
 		int minimumDepth = minimumDepth(root);
 		System.out.println("Minimum Depth=" + minimumDepth);
+		int minDepth1 = minDepth1(root);
+		System.out.println("Minimum Depth1=" +minDepth1);
 		int height = height(root);
 		System.out.println("Maximum Depth or heightof tree=" + height);
+		int height2 = height2(root);
+		System.out.println("Maximum Depth or heightof tree2=" + height2);
 
 		System.out.println("Sum of all node dats is : " + diameter(root));
 		System.out.println("Sum of all nodes data in tree  : " +sumOfAllNodeData(root) );
 		System.out.println("Level by level  Sum of nodes data in tree  : " );
 		List<Integer> sumList = sumAtEachLevel(root);
 		sumList.forEach(levelSum ->System.out.println(levelSum));
+		System.out.println();
+		System.out.println("Level by level  max Sum of nodes data in tree  : " +maxsumLevel(root) );
+		
 		System.out.println("Average of nodes data  at each level in tree  : "  );
 		List<Double> avgLevelValueList =  averageOfEachLevelNodeData(root) ;
 		avgLevelValueList.forEach(avg ->System.out.println(avg));
-
+		
+		TreeNode root1 = new TreeNode(4);
+		root1.left = new TreeNode(5);
+		root1.right = new TreeNode(6);
+		root1.left.left = new TreeNode(4);
+		root1.left.left.left= new TreeNode(5);
+		root1.right.left = new TreeNode(1);
+		//root1.right.left.left = new TNode(7);
+		//root1.right.left.left.left = new TNode(1);
+		root1.right.right = new TreeNode(7);
+		root1.right.right.right = new TreeNode(8);
+		root1.right.right.left = new TreeNode(9);
+		BTreePrinter.printNode(root1);
+		int count = countDistinctNodes(root1);
+		System.out.println("DISTINCT:"+count);
+	
+      
 	}
 
 	//@formatter:off
@@ -72,13 +101,13 @@ public class TreeMetrics {
 	 *
 	 */
 	//@formatter:on
-	static int minimumDepth(TNode root) {
+	static int minimumDepth(TreeNode root) {
 		// Corner case. Should never be hit unless the code is
 		// called on root = NULL
 		if (root == null) {
 			return 0;
 		}
-
+          //here we shud look for nearest leaf
 		// Base case : Leaf Node. This accounts for height = 1.
 		if (root.left == null && root.right == null) {
 			return 1;
@@ -103,8 +132,61 @@ public class TreeMetrics {
 
 		return minimum;
 	}
+	//easier
+	static int minDepth1(TreeNode root)  
+    { 
+		if (root == null) {
+			return 0;
+		}else if (root.left == null && root.right == null) {
+          //here we shud look for nearest leaf
+		// Base case : Leaf Node. This accounts for height = 1.
+		
+			return 1;
+		}
+        else 
+        { 
+            /* compute the depth of each subtree */
+            int lDepth = minDepth1(root.left); 
+            int rDepth = minDepth1(root.right); 
+   
+            /* use the larger one */
+            return (1 + Math.min(lDepth, rDepth)); 
+        } 
+    } 
+	
+	//HEIGHT
+	  static int maxDepth(TreeNode node)  
+	    { 
+	        if (node == null) 
+	            return 0; 
+	        else 
+	        { 
+	            /* compute the depth of each subtree */
+	            int lDepth = maxDepth(node.left); 
+	            int rDepth = maxDepth(node.right); 
+	   
+	            /* use the larger one */
+	            return (1 + Math.max(lDepth, rDepth));  
+	        } 
+	    } 
+	  
+	  static int height(TreeNode node)  
+	    { 
+	        if (node == null) 
+	            return 0; 
+	        else 
+	        { 
+	            /* compute the depth of each subtree */
+	            int lHeight = height(node.left); 
+	            int rHeight = height(node.right); 
+	   
+	            /* use the larger one */
+	            return (1 + Math.max(lHeight, rHeight)); 
+	        } 
+	    } 
+	       
 
-	static int height(TNode root) {
+	static int height2(TreeNode root) {
 		// Corner case. Should never be hit unless the code is
 		// called on root = NULL
 		if (root == null) {
@@ -152,7 +234,7 @@ public class TreeMetrics {
 	 * 
 	 * ThErefore Diameter of Tree T =max(A,B,C)
 	 */
-	static int diameter(TNode root) {
+	static int diameter(TreeNode root) {
 		/* base case if tree is empty */
 		if (root == null)
 			return 0;
@@ -177,15 +259,15 @@ public class TreeMetrics {
 	}
 	
 	
-	 static int sumOfAllNodeData(TNode root) {
+	 static int sumOfAllNodeData(TreeNode root) {
 		int sum = 0;
 		if (root == null)
 			return 0;
-		Queue<TNode> q = new LinkedList<TNode>();
+		Queue<TreeNode> q = new LinkedList<TreeNode>();
 		q.offer(root);
 		while (!q.isEmpty()) {
-			TNode tmp = q.poll();
-			sum += tmp.data;
+			TreeNode tmp = q.poll();
+			sum += tmp.val;
 			if (tmp.left != null)
 				q.offer(tmp.left);
 			if (tmp.right != null)
@@ -195,16 +277,18 @@ public class TreeMetrics {
 	}
 	
 	
-	static List<Integer> sumAtEachLevel(TNode root) {
+	static List<Integer> sumAtEachLevel(TreeNode root) {
 		List<Integer> list = new LinkedList<>();
-			Queue<TNode> queue = new LinkedList<>();
+			Queue<TreeNode> queue = new LinkedList<>();
 			queue.offer(root);
 			while (!queue.isEmpty()) {
 				int count = queue.size();
 				int sum = 0;
+				///loop over current level queue
+				//add level sum as a element of list 
 				for (int i = 0; i < count; i++) {
-					TNode cur = queue.poll();
-					sum += cur.data;
+					TreeNode cur = queue.poll();
+					sum += cur.val;
 					if (cur.left != null) {
 						queue.offer(cur.left);
 					}
@@ -218,16 +302,20 @@ public class TreeMetrics {
 		}
 	
 	
-	static List<Integer>maxsumLevel(TNode root) {
+	static int maxsumLevel(TreeNode root) {
 		List<Integer> list = new LinkedList<>();
-			Queue<TNode> queue = new LinkedList<>();
+			Queue<TreeNode> queue = new LinkedList<>();
 			queue.offer(root);
+			int localSum = 0;
+			int maxSum = Integer.MIN_VALUE;
 			while (!queue.isEmpty()) {
 				int count = queue.size();
 				int sum = 0;
+				//loop over current level queue
+				//find level sum and find max 
 				for (int i = 0; i < count; i++) {
-					TNode cur = queue.poll();
-					sum += cur.data;
+					TreeNode cur = queue.poll();
+					sum += cur.val;
 					if (cur.left != null) {
 						queue.offer(cur.left);
 					}
@@ -235,21 +323,28 @@ public class TreeMetrics {
 						queue.offer(cur.right);
 					}
 				}
+				localSum = sum;
+				if (localSum > maxSum) {
+					maxSum = localSum;
+					
+				}
 				list.add(sum );
 			}
-			return list;
+			return maxSum;
 		}
 	
-	  static List<Double> averageOfEachLevelNodeData(TNode root) {
+	  static List<Double> averageOfEachLevelNodeData(TreeNode root) {
 		List<Double> list = new LinkedList<>();
-		Queue<TNode> queue = new LinkedList<>();
+		Queue<TreeNode> queue = new LinkedList<>();
 		queue.offer(root);
 		while (!queue.isEmpty()) {
 			int count = queue.size();
 			double sum = 0;
+			//loop over current level queue
+			//find level sum and divide by queue size
 			for (int i = 0; i < count; i++) {
-				TNode cur = queue.poll();
-				sum += cur.data;
+				TreeNode cur = queue.poll();
+				sum += cur.val;
 				if (cur.left != null)
 					queue.offer(cur.left);
 				if (cur.right != null)
@@ -260,5 +355,96 @@ public class TreeMetrics {
 		return list;
 	}
 	
+		
+	  public static int countDistinctNodes(TreeNode T) {
+	        // write your code in Java SE 8
+	      Set<Integer> uniq = new HashSet<>();
+			if(T == null){
+				return 0;
+			}
+			return getDistinctNodeCount(T, uniq);
+		}
+		
+		private static int getDistinctNodeCount(TreeNode root, Set<Integer> set){
+			
+			if( root==null){
+				int max = set.size()-1;
+				return max;
+			}
+			int leftCount = 0;
+			int rightCount  = 0;
+			if(set.add(root.val)){
+			    leftCount = getDistinctNodeCount(root.left, set);
+				rightCount = getDistinctNodeCount(root.right, set);
+				
+			}
+			else{
+				leftCount = getDistinctNodeCount(root.left, set);
+				rightCount = getDistinctNodeCount(root.right,set);
+				
+			}
+			return Math.max(leftCount, rightCount);
+		}
+
+		
+
+		 public boolean rootToLeafSum(TreeNode root, int sum, List<TreeNode> path){
+		        if(root == null){
+		            return false;
+		        }
+		       //leaf check
+		        if(root.left == null && root.right == null){
+		            if(root.val == sum){
+		                path.add(root);
+		                return true;
+		            }else{
+		                return false;
+		            }
+		        }
+		        if(rootToLeafSum(root.left, sum-root.val, path) || rootToLeafSum(root.right, sum - root.val, path)){
+		            path.add(root);
+		            return true;
+		        }
+		        return false;
+		    }
+		 /*
+		  * 222. Count Complete Tree Nodes
+			Medium
+
+			Given a complete binary tree, count the number of nodes.
+			
+			Note:
+			
+			Definition of a complete binary tree from Wikipedia:
+			In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.
+			
+			Example:
+			
+			Input: 
+			    1
+			   / \
+			  2   3
+			 / \  /
+			4  5 6
+			
+			Output: 6
+		  */
+		 public static int countNodesOfCompleteBinaryTree(TreeNode root) {
+		        int[] nodes = new int[1];
+		           countNodes(root, nodes);
+		           return nodes[0];
+		       }
+		       
+		       static void countNodes(TreeNode root, int[] nodes) {
+		           
+		           if(root == null) {
+		               return;
+		           }
+		           
+		           nodes[0]++;
+		           
+		           countNodes(root.left, nodes);
+		           countNodes(root.right, nodes);
+		       }
    
 }

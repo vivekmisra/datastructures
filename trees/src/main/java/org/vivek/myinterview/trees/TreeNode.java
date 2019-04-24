@@ -2,22 +2,22 @@ package org.vivek.myinterview.trees;
 
 
 
-public class TNode {
-    public TNode left, right;
-    public int data,height,size;
+public class TreeNode {
+    public TreeNode left, right;
+    public int val,height,size;
 
-    public TNode() {
+    public TreeNode() {
         
     } 
-    public TNode(int data) {
-        this.data = data;
+    public TreeNode(int data) {
+        this.val = data;
     } 
     
     class IntegerRef{
         int height;
     }
     
-    public int height(TNode root){
+    public int height(TreeNode root){
         if(root == null){
             return 0;
         }

@@ -9,13 +9,13 @@ public class BTreePrinter {
 	public BTreePrinter() {
 		// TODO Auto-generated constructor stub
 	}
-	 public static  void printNode(TNode root) {
+	 public static  void printNode(TreeNode root) {
 	        int maxLevel = BTreePrinter.maxLevel(root);
-	        System.out.println("Printing treee with maxLevel:"+maxLevel);;
+	        System.out.println("Printing tree with maxLevel:"+maxLevel);;
 	        printNodeInternal(Collections.singletonList(root), 1, maxLevel);
 	    }
 
-	    private static  void printNodeInternal(List<TNode> nodes, int level, int maxLevel) {
+	    private static  void printNodeInternal(List<TreeNode> nodes, int level, int maxLevel) {
 	        if (nodes.isEmpty() || BTreePrinter.isAllElementsNull(nodes))
 	            return;
             
@@ -27,12 +27,14 @@ public class BTreePrinter {
 
 	        BTreePrinter.printWhitespaces(firstSpaces);
 
-	        List<TNode> newNodes = new ArrayList<TNode>();
-	        for (TNode node : nodes) {
+	        List<TreeNode> newNodes = new ArrayList<TreeNode>();
+	        for (TreeNode node : nodes) {
 	            if (node != null) {
-	                System.out.print(node.data);
-	                newNodes.add(node.left);
+	            
+	                System.out.print(node.val);
+	                newNodes.add(node.left);	               
 	                newNodes.add(node.right);
+	               
 	            } else {
 	                newNodes.add(null);
 	                newNodes.add(null);
@@ -78,7 +80,7 @@ public class BTreePrinter {
 	            System.out.print(" ");
 	    }
 
-	    private static int maxLevel(TNode node) {
+	    private static int maxLevel(TreeNode node) {
 	        if (node == null)
 	            return 0;
 

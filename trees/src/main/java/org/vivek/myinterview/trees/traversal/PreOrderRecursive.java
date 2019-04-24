@@ -1,7 +1,7 @@
 package org.vivek.myinterview.trees.traversal;
 
 import org.vivek.myinterview.trees.BTreePrinter;
-import org.vivek.myinterview.trees.TNode;
+import org.vivek.myinterview.trees.TreeNode;
 
 public class PreOrderRecursive {
 
@@ -9,9 +9,9 @@ public class PreOrderRecursive {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void preOrder(TNode root){
+	public static void preOrder(TreeNode root){
 		if(root != null) {
-			System.out.print(root.data);
+			System.out.print(root.val);
 			if(root.left!=null) {
 			System.out.print("-->");
 			preOrder(root.left);
@@ -25,14 +25,14 @@ public class PreOrderRecursive {
 		//System.out.println();
 	}
 	
-	private static TNode constructTree() {
-        TNode root = new TNode(50);
-        TNode n11L = new TNode(25);
-        TNode n12R = new TNode(75);
-        TNode n11L_21L = new TNode(1);
-        TNode n11L_22R = new TNode(12);
-        TNode n12R_21L = new TNode(62);
-        TNode n12R_22R = new TNode(100);
+	private static TreeNode constructTree() {
+        TreeNode root = new TreeNode(50);
+        TreeNode n11L = new TreeNode(25);
+        TreeNode n12R = new TreeNode(75);
+        TreeNode n11L_21L = new TreeNode(1);
+        TreeNode n11L_22R = new TreeNode(12);
+        TreeNode n12R_21L = new TreeNode(62);
+        TreeNode n12R_22R = new TreeNode(100);
         
         root.left = n11L;
         root.right = n12R;

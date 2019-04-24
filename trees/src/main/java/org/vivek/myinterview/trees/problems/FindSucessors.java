@@ -7,51 +7,51 @@ import java.util.List;
 import java.util.Queue;
 
 import org.vivek.myinterview.trees.BTreePrinter;
-import org.vivek.myinterview.trees.TNode;
+import org.vivek.myinterview.trees.TreeNode;
 
 public class FindSucessors {
 
 	public static void main(String[] args) {
 		int[] num = { 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14 };
 		Arrays.sort(num);
-		TNode root = SortedArrayToBST.sortedArrayToBST(num);
-		TNode target =  new TNode(6);
+		TreeNode root = SortedArrayToBST.sortedArrayToBST(num);
+		TreeNode target =  new TreeNode(6);
 		BTreePrinter.printNode(root);
-		System.out.println("Successor1 of :"+target.data);
-		TNode temp1 = root;
+		System.out.println("Successor1 of :"+target.val);
+		TreeNode temp1 = root;
 		temp1 = inorderSuccessor(temp1, target);
 		BTreePrinter.printNode(temp1);
-		TNode temp2 = root;
+		TreeNode temp2 = root;
 		
-		List<Queue<TNode>> listOfStacks = findInorderAncesstorsAndSuccessors(temp2, target);
-		System.out.println("List :Ancesstors and Successors of :" +target.data);
-		System.out.println("   Ancesstors of :"+target.data);
-		Queue<TNode> ancestors = listOfStacks.get(0);
+		List<Queue<TreeNode>> listOfStacks = findInorderAncesstorsAndSuccessors(temp2, target);
+		System.out.println("List :Ancesstors and Successors of :" +target.val);
+		System.out.println("   Ancesstors of :"+target.val);
+		Queue<TreeNode> ancestors = listOfStacks.get(0);
 		while (!ancestors.isEmpty()) {
-			TNode n = ancestors.poll();
-			System.out.print(n.data);
+			TreeNode n = ancestors.poll();
+			System.out.print(n.val);
 		}
 		System.out.println();
-		System.out.println("   Successor of :"+target.data);
-		Queue<TNode> successors = listOfStacks.get(1);
+		System.out.println("   Successor of :"+target.val);
+		Queue<TreeNode> successors = listOfStacks.get(1);
 		while (!successors.isEmpty()) {
-			TNode n = successors.poll();
-			System.out.print(n.data);
+			TreeNode n = successors.poll();
+			System.out.print(n.val);
 		}
 	
-		System.out.println("   Successor of :"+target.data);
-		TNode n = getSuccessor(temp2, new TNode(7));
+		System.out.println("   Successor of :"+target.val);
+		TreeNode n = getSuccessor(temp2, new TreeNode(7));
         BTreePrinter.printNode(n);
 	}
 
-	public static TNode inorderSuccessor(TNode root, TNode p) {
+	public static TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
 		if (root == null)
 			return null;
 
-		TNode next = null;
-		TNode currentNode = root;
-		while (currentNode != null && currentNode.data != p.data) {
-			if (p.data < currentNode.data) {
+		TreeNode next = null;
+		TreeNode currentNode = root;
+		while (currentNode != null && currentNode.val != p.val) {
+			if (p.val < currentNode.val) {
 				next = currentNode;// grab node before it diqualifies condition
 
 				currentNode = currentNode.left;
@@ -79,18 +79,18 @@ public class FindSucessors {
 		return currentNode;
 	}
 
-	public static List<Queue<TNode>> findInorderAncesstorsAndSuccessors(TNode root, TNode p) {
+	public static List<Queue<TreeNode>> findInorderAncesstorsAndSuccessors(TreeNode root, TreeNode p) {
 
 		if (root == null)
 			return null;
-		Queue<TNode> ancestors = new LinkedList();
-		Queue<TNode> successors = new LinkedList();
-		List<Queue<TNode>> listOfStacks = new ArrayList<>();
-		TNode next = null;
-		TNode currentNode = root;
+		Queue<TreeNode> ancestors = new LinkedList();
+		Queue<TreeNode> successors = new LinkedList();
+		List<Queue<TreeNode>> listOfStacks = new ArrayList<>();
+		TreeNode next = null;
+		TreeNode currentNode = root;
 		// until this node grab all BST nodes
-		while (currentNode != null && currentNode.data != p.data) {
-			if (p.data < currentNode.data) {
+		while (currentNode != null && currentNode.val != p.val) {
+			if (p.val < currentNode.val) {
 				next = currentNode;// grab node before it diqualifies condition
 				ancestors.add(next);
 				currentNode = currentNode.left;
@@ -132,11 +132,11 @@ public class FindSucessors {
 	}
 	
 	  
-   static TNode getSuccessor( TNode root, TNode target )
+   static TreeNode getSuccessor( TreeNode root, TreeNode target )
     {
       if ( target.right != null )
       {
-        TNode currNode = target.right;
+        TreeNode currNode = target.right;
         while ( currNode.left != null )
         {
           currNode = currNode.left;
@@ -145,11 +145,11 @@ public class FindSucessors {
       }
       else
       {
-        TNode successor = null;
-        TNode currNode = root;
+        TreeNode successor = null;
+        TreeNode currNode = root;
         while ( currNode != null &&  currNode != target )
         {
-          if ( currNode.data >= target.data )
+          if ( currNode.val >= target.val )
           {
             successor = currNode;
             currNode = currNode.left;

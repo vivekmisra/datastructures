@@ -9,7 +9,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 import org.vivek.myinterview.trees.BTreePrinter;
-import org.vivek.myinterview.trees.TNode;
+import org.vivek.myinterview.trees.TreeNode;
 
 public class DoesNodeExistCompleteTree {
 
@@ -19,12 +19,12 @@ public class DoesNodeExistCompleteTree {
 
 		// root = ConstructCompleteBinaryTreeFromArray.insertLevelOrder(nums,
 		// root, 0);
-		TNode root = new TNode(1);
-		root.left = new TNode(2);
-		root.right = new TNode(3);
-		root.left.left = new TNode(4);
-		root.left.right = new TNode(5);
-		root.right.left = new TNode(6);
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);
+		root.left.left = new TreeNode(4);
+		root.left.right = new TreeNode(5);
+		root.right.left = new TreeNode(6);
 		root.right.right = null;
 
 		BTreePrinter.printNode(root);
@@ -34,8 +34,8 @@ public class DoesNodeExistCompleteTree {
 		System.out.println("complete =" + complete );
 	}
 
-	public static boolean isComplete(TNode root) {
-		Queue<TNode> queue = new LinkedList<TNode>();
+	public static boolean isComplete(TreeNode root) {
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
 		queue.offer(root);
 		boolean foundFirstNonFull = false;
 		while (!queue.isEmpty()) {
@@ -66,7 +66,7 @@ public class DoesNodeExistCompleteTree {
 	 * > 1 While poping element from the stack, check if I should go left child
 	 * or right child. If the value is not found, return false
 	 */
-	static boolean doesNodeExist(TNode root, int target) {
+	static boolean doesNodeExist(TreeNode root, int target) {
 		if (root == null)
 			return false;
 		Stack<Integer> stack = new Stack<>();
