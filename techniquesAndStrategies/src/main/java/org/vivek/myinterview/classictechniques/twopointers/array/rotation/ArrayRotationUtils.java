@@ -13,6 +13,7 @@ public class ArrayRotationUtils {
 		a.add(2);
 		a.add(8);
 		int[] nums = a.stream().mapToInt(i -> i).toArray();
+	
 		int[] a1 = Arrays.copyOf(nums, nums.length);
 		List<Integer> rotate = new ArrayList();
 		rotate.add(1);
@@ -210,7 +211,9 @@ public class ArrayRotationUtils {
 		int[] rotatedA = new int[nums.length];
 		for (int i = 0; i < nums.length; i++) {
 			// rotated index needs to "wrap" around end of array
+		  
 			int indx = (i + k) % nums.length;
+			System.out.println("rightRotationByK wher k="+k + ",i= "+i +",and rotatedIndex = "+indx);
 			int rotatedIndex = indx;
 			rotatedA[rotatedIndex] = nums[i];
 		}

@@ -66,6 +66,7 @@ public class HashMapCustom<K, V> {
 
 			while (current != null) { // we have reached last entry of bucket.
 				if (current.key.equals(newKey)) {
+					//if first record
 					if (previous == null) { // node has to be insert on first of bucket.
 						newEntry.next = current.next;
 						bucket[index] = newEntry;
@@ -96,11 +97,11 @@ public class HashMapCustom<K, V> {
 		if (bucket[index] == null) {
 			return null;
 		} else {
-			HashEntry<K, V> temp = bucket[index];
-			while (temp != null) {
-				if (temp.key.equals(key))
-					return temp.value;
-				temp = temp.next; // return value corresponding to key.
+			HashEntry<K, V> current = bucket[index];
+			while (current != null) {
+				if (current.key.equals(key))
+					return current.value;
+				current = current.next; // return value corresponding to key.
 			}
 			return null; // returns null if key is not found.
 		}

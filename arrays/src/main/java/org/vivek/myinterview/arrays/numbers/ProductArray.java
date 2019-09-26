@@ -30,6 +30,7 @@ public class ProductArray {
 		 * excluding arr[i]
 		 */
 		for (i = n - 1; i >= 0; i--) {
+			System.out.println("product["+i+"]="+product[i]);
 			product[i] =product[i]* temp;
 			temp = temp*arr[i];
 		}

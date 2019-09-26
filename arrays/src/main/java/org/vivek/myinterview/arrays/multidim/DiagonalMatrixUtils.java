@@ -1,6 +1,8 @@
 package org.vivek.myinterview.arrays.multidim;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class DiagonalMatrixUtils {
 
@@ -12,6 +14,9 @@ public class DiagonalMatrixUtils {
 		// TODO Auto-generated method stub
 		String str = "agbdba";
 		int[][] T = initializeArray();
+		int[] firstcolumn= getColumn(T, 0);
+		Arrays.sort(firstcolumn);
+		 System.out.println("sorted="+Arrays.toString(firstcolumn));     
 		int rows = T.length;
 		int cols = T[0].length;
 		print2DArray(T);
@@ -37,17 +42,12 @@ public class DiagonalMatrixUtils {
 	}
 
 	private static int[][] initializeArray() {
-		System.out.println("Enter the size of square matrix");
-
-		// Scanner in = new Scanner(System.in);
-		int n = 4;
-		int T[][] = new int[n][n];
-		for (int a_i = 0; a_i < n; a_i++) {
-			for (int a_j = 0; a_j < n; a_j++) {
-				T[a_i][a_j] = 4;
-			}
-		}
-		return T;
+	  int[][] m = { {5, 12, 17, 21, 23},
+          {1,  2,  4,  6,  8},
+          {12, 14, 18, 19, 27},
+          {3,  7,  9, 15, 25}
+};
+		return m;
 	}
 
 	private static void print2DArray(int[][] array) {
@@ -62,6 +62,11 @@ public class DiagonalMatrixUtils {
 			System.out.println();
 		}
 		System.out.println("--------------------");
+	}
+	
+	static int[] getColumn(int[][] matrix, int column) {
+	    return IntStream.range(0, matrix.length)
+	        .map(i -> matrix[i][column]).toArray();
 	}
 
 	private static void print2DArrayValues(int[][] array, int rows, int cols) {

@@ -32,6 +32,7 @@ public class ReverseWords2 {
 			}
 		}
 		reverse(charArray, i, charArray.length - 1);//if ,for the last word there wont be '',this will take care 
+		System.out.println("Before full revrise="+ new String(charArray));
 		reverse(charArray, 0, charArray.length - 1);//now reverse all reverses word
 	}
 

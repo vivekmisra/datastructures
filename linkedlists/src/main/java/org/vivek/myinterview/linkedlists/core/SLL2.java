@@ -9,7 +9,15 @@ public class SLL2<E> {
 	static class Node<E> {
 		E item;
 		Node<E> next;
+		Node() {
+			
 
+		}
+		Node(E element) {
+			this.item = element;
+			this.next =null;;
+
+		}
 		Node(E element, Node<E> next) {
 			this.item = element;
 			this.next = next;

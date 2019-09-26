@@ -46,7 +46,7 @@ public class AverageOfLevels {
 			double sum = 0;
 			for (int i = 0; i < count; i++) {
 				TreeNode cur = queue.poll();
-				sum += cur.data;
+				sum += cur.val;
 				if (cur.left != null)
 					queue.offer(cur.left);
 				if (cur.right != null)
@@ -81,10 +81,10 @@ public class AverageOfLevels {
 		if (root == null)
 			return;
 		if (level == temp.size()) {
-			Node node = new Node((double) root.data, 1);
+			Node node = new Node((double) root.val, 1);
 			temp.add(node);
 		} else {
-			temp.get(level).sum += root.data;
+			temp.get(level).sum += root.val;
 			temp.get(level).count++;
 		}
 		helper(root.left, temp, level + 1);

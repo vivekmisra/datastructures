@@ -55,6 +55,8 @@ public class RemoveDuplicatesFromSortedArray {
 		int i = 0, j = 1;
 		list.add(nums[0]);
 		while (j < len) {
+			//If not same,copy nums[j] to nums[i]and increment index
+			//This way nums[i] ,nums[i+1] ...etx will be distinct numbers
 			if (nums[i] != nums[j]) {
 				i++;
 				nums[i] = nums[j];

@@ -2,32 +2,17 @@ package org.vivek.myinterview.trees.problems.metrics;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.vivek.myinterview.trees.BTreePrinter;
 import org.vivek.myinterview.trees.TreeNode;
 
-
-
-
-
-class TreeLevelDetails{
-	  Integer levelNumber=1;
-	  Integer  levelSum;
-	  Double averageLevelSum;
-	  /*TreeLevelDetails( ){
-		  this.levelNumber = 1;
-	  }
-	  TreeLevelDetails( Integer levelNumber){
-		  this.levelNumber = levelNumber;
-	  }*/
-	  
-	  
-}
 
 public class TreeMetrics {
 
@@ -59,8 +44,8 @@ public class TreeMetrics {
 		System.out.println("Average of nodes data  at each level in tree  : "  );
 		List<Double> avgLevelValueList =  averageOfEachLevelNodeData(root) ;
 		avgLevelValueList.forEach(avg ->System.out.println(avg));
-		
-		TreeNode root1 = new TreeNode(4);
+		 Set<Integer> uniq = new HashSet<>();
+		/*TreeNode root1 = new TreeNode(4);
 		root1.left = new TreeNode(5);
 		root1.right = new TreeNode(6);
 		root1.left.left = new TreeNode(4);
@@ -73,9 +58,40 @@ public class TreeMetrics {
 		root1.right.right.left = new TreeNode(9);
 		BTreePrinter.printNode(root1);
 		int count = countDistinctNodes(root1);
-		System.out.println("DISTINCT:"+count);
-	
-      
+		
+		System.out.println("DISTINCT:"+count +","+getNumberOfNodes(root1,uniq));
+		TreeNode root2 = new TreeNode(12);
+		root2.left = new TreeNode(9);
+		root2.right = new TreeNode(16);
+		root2.left.left = new TreeNode(7);
+		root2.left.right= new TreeNode(11);
+		root2.right.left = new TreeNode(13);
+		root2.right.left.left = new TreeNode(12);
+		count = countDistinctNodes(root2);
+		BTreePrinter.printNode(root2);
+		System.out.println("DISTINCT2:"+count +","+getNumberOfNodes(root2,uniq));
+		/*
+		 * TreeNode root3 = new TreeNode(1); root3.left = new TreeNode(2); root3.right =
+		 * new TreeNode(3); root3.left.left = new TreeNode(4); root3.left.right = new
+		 * TreeNode(5); root3.right.left = new TreeNode(6); root3.right.right = new
+		 * TreeNode(7); root3.right.left.right = new TreeNode(8);
+		 * root3.right.right.right = new TreeNode(9);
+		 */
+		TreeNode root3 = new TreeNode(4); 
+	    root3.left = new TreeNode(5); 
+	    root3.right = new TreeNode(6); 
+	    root3.left.left = new TreeNode(4); 
+	    root3.left.left.left = new TreeNode(5); 
+	   
+	    root3.right.left = new TreeNode(1); 
+	    root3.right.right = new TreeNode(6); 
+	   
+		    BTreePrinter.printNode(root3);
+		   int  count = countDistinctNodes(root3);
+		   Set<Integer> set = new LinkedHashSet<>();
+		   set.add(root3.val);
+		   count=1;
+			System.out.println("DISTINCT3:"+count +","+getNumberOfNodes(root3,count,set));
 	}
 
 	//@formatter:off
@@ -358,35 +374,134 @@ public class TreeMetrics {
 		
 	  public static int countDistinctNodes(TreeNode T) {
 	        // write your code in Java SE 8
-	      Set<Integer> uniq = new HashSet<>();
+	      Set<Integer> uniq = new LinkedHashSet<>();
 			if(T == null){
 				return 0;
 			}
-			return getDistinctNodeCount(T, uniq);
+			uniq.add(T.val);
+			int c= getDistinctNodeCount(T, uniq);
+			return c;
 		}
+	  
+	  public static int getDisCnt(TreeNode root){
+			Set<Integer> uniq = new LinkedHashSet<>();
+			if(root == null){
+				return 0;
+			}
+			return getMaxHelper(root, uniq);
+		}
+		
+		private static int getMaxHelper(TreeNode root, Set<Integer> uniq){
+			if(root == null ||(root.left==null && root.right==null)){
+				int size = uniq.size();
+				return size;
+			}
+			int l = 0;
+			int r  = 0;
+			if(uniq.add(root.val)){
+				l = getMaxHelper(root.left, uniq);
+				r = getMaxHelper(root.right, uniq);
+				uniq.remove(uniq.size()-1);
+			}
+			else{
+				l = getMaxHelper(root.left, uniq);
+				uniq.clear();
+				uniq.add(root.val);
+				r = getMaxHelper(root.right, uniq);
+				if(root.left==null &&root.right==null){
+					uniq.clear();
+				}
+			}
+			
+			return Math.max(l, r);
+		
+	}
 		
 		private static int getDistinctNodeCount(TreeNode root, Set<Integer> set){
 			
-			if( root==null){
-				int max = set.size()-1;
+			if(root==null ||(root.left==null && root.right==null)) {
+				int max = set.size();
+				set.clear();
 				return max;
 			}
 			int leftCount = 0;
 			int rightCount  = 0;
-			if(set.add(root.val)){
-			    leftCount = getDistinctNodeCount(root.left, set);
-				rightCount = getDistinctNodeCount(root.right, set);
+			boolean exists =set.contains(root.val);
+			
+			if(exists!=true){
+				TreeNode l = root.left;
+				if(l!=null) {
+					set.add(l.val);
+				}
+			    leftCount = getDistinctNodeCount(l, set);
+			    TreeNode r = root.right;
+			    if(r!=null) {
+					set.add(r.val);
+				}
+				rightCount = getDistinctNodeCount(r, set);
 				
 			}
 			else{
-				leftCount = getDistinctNodeCount(root.left, set);
-				rightCount = getDistinctNodeCount(root.right,set);
+				
+				TreeNode l = root.left;
+				if(l!=null) {
+					set.add(l.val);
+				}
+				leftCount = getDistinctNodeCount(l, set);
+				
+				TreeNode r = root.right;
+				if(r!=null) {
+					set.add(r.val);
+				}
+				rightCount = getDistinctNodeCount(r,set);
+				
 				
 			}
 			return Math.max(leftCount, rightCount);
 		}
-
 		
+		
+		static int getNumberOfNodes(TreeNode node,  int count,Set<Integer>  uniqueValues)
+		{
+		    if (node !=null)
+		    {
+		     
+		       if ( !uniqueValues.contains(node.val) )
+		       {
+		          count = count+ 1;
+		          uniqueValues.add ( node.val);
+		       }
+
+		       int leftcount= getNumberOfNodes(node.left,count,uniqueValues) ;
+		       uniqueValues.clear();
+		       int rightcount= getNumberOfNodes(node.right,count,uniqueValues);
+		       return leftcount+1+rightcount;
+		    }
+		    else
+		        return 0;
+		}
+
+		/**
+		 * Date 04/11/2015
+		 * @author tusroy
+		 * 
+		 * Youtube link - https://youtu.be/Jg4E4KZstFE
+		 * 
+		 * Given a binary tree and a sum, find if there is a path from root to leaf
+		 * which sums to this sum.
+		 * 
+		 * Solution
+		 * Keep going left and right and keep subtracting node value from sum.
+		 * If leaf node is reached check if whatever sum is remaining same as leaf node data.
+		 * 
+		 * Time complexity is O(n) since all nodes are visited.
+		 * 
+		 * Test cases:
+		 * Negative number, 0 and positive number
+		 * Tree with 0, 1 or more nodes
+		 * 
+		 * Reference http://www.geeksforgeeks.org/root-to-leaf-path-sum-equal-to-a-given-number/
+		 */
 
 		 public boolean rootToLeafSum(TreeNode root, int sum, List<TreeNode> path){
 		        if(root == null){

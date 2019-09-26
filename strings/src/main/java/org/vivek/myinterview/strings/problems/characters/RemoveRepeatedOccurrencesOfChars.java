@@ -1,7 +1,5 @@
 package org.vivek.myinterview.strings.problems.characters;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.*;
 import java.text.*;
 import java.math.*;
@@ -25,8 +23,17 @@ public class RemoveRepeatedOccurrencesOfChars {
 		// System.out.println("strippedString2=" + strippedString2);
 		// String strippedString3 = stripByStringBuilder(s);
 		// System.out.println("strippedString3=" + strippedString3);
-		System.out.println("strippedString4=" + stripNConsecutiveCharacters("GooGle", 2));
-		System.out.println("strippedString4=" + checkNConsecutiveCharacters("Google"));
+		//System.out.println("strippedString4=" + stripNConsecutiveCharacters("GooGle", 2));
+		//3,1,2,2,2,1,1,1,2,2,3,1,1,2,2,2,1,1,1,2,3
+		//System.out.println("strippedString4=" + checkNConsecutiveCharacters("Google"));
+		int[] nums = {3,1,2,2,2,1,1,1,2,2,3,1,1,2,2,2,1,1,1,2,3};
+		Set set = new HashSet();
+		for(int i : nums) {
+			set.add(i);
+		}
+		int[] foo = removeDuplicates(nums);
+		//System.out.println("strippedString4=" + stripConsecutive(nums));
+		
 		
 	}
 	// s = strip(s);
@@ -55,7 +62,91 @@ public class RemoveRepeatedOccurrencesOfChars {
 		return sb.toString();
 	}
 
-	private static String stripNConsecutiveCharacters(String s, int N) {
+	private static int[] stripConsecutive(int [] nums ) {
+	//	int prunedList = new ArrayList<Integer>();
+		
+		int acsciiCounter = 0;
+		int consecutiveRepeatedCharactersCounter = 0;
+		for (int i = 0; i < nums.length; i++) {
+			
+			int currCharAscii= 48+ nums[i];
+		
+			
+			acsciiCounter = currCharAscii + acsciiCounter;
+			int totalAscii = acsciiCounter % currCharAscii;
+			if (totalAscii == 0) {
+				consecutiveRepeatedCharactersCounter = consecutiveRepeatedCharactersCounter + 1;
+				if (consecutiveRepeatedCharactersCounter == 2) {
+					nums[i] = nums[++i];
+					acsciiCounter = 0;
+					consecutiveRepeatedCharactersCounter = 0;
+				}
+			} else {
+				acsciiCounter = currCharAscii;
+				consecutiveRepeatedCharactersCounter = 1;
+			}
+		}
+	
+		return nums;
+		//System.out.println("Stripped "+N+" consecutive character string=" + s);
+		
+	}
+	public static int[] removeDuplicates(int[] nums) {
+		int len = nums.length;
+		int acsciiCounter = 0;
+		int consecutiveRepeatedCharactersCounter = 0;
+		if (len == 0)
+			return null;
+		List<Integer> list = new ArrayList<Integer>();
+		int i = 0, j = 1;
+		list.add(nums[0]);
+		while (j < len) {
+            int currCharAscii= 48+ nums[i];
+		
+			
+			acsciiCounter = currCharAscii + acsciiCounter;
+			int totalAscii = acsciiCounter % currCharAscii;
+			if (totalAscii == 0) {
+				
+				consecutiveRepeatedCharactersCounter = consecutiveRepeatedCharactersCounter + 1;
+				if (nums[i] != nums[j] && consecutiveRepeatedCharactersCounter==1) {
+					i++;
+					nums[i] = nums[j];
+					
+					list.add(nums[i]);
+				}else 	 
+				if (consecutiveRepeatedCharactersCounter == 2) {
+					
+			                
+					acsciiCounter = 0;
+					consecutiveRepeatedCharactersCounter = 0;
+				}
+			} else {
+				acsciiCounter = currCharAscii;
+				consecutiveRepeatedCharactersCounter = 1;
+				/*if (nums[i] != nums[j]) {
+					i++;
+					nums[i] = nums[j];
+					
+					list.add(nums[i]);
+				}*/
+			}
+			j++;
+			//If not same,copy nums[j] to nums[i]and increment index
+			//This way nums[i] ,nums[i+1] ...etx will be distinct numbers
+			
+		}
+	 
+		if (list.isEmpty())
+			return null;
+		int[] prunednums = new int[list.size()];
+		for (int k = 0; k < list.size(); k++) {
+			prunednums[k] = list.get(k);
+		}
+		return prunednums;
+	}
+	
+	private static String stripNConsecutiveCharacters(String s) {
 		StringBuilder sb = new StringBuilder(s);
 		//System.out.println("Orignal string=" + s);
 		int acsciiCounter = 0;
@@ -67,8 +158,8 @@ public class RemoveRepeatedOccurrencesOfChars {
 			int totalAscii = acsciiCounter % currCharAscii;
 			if (totalAscii == 0) {
 				consecutiveRepeatedCharactersCounter = consecutiveRepeatedCharactersCounter + 1;
-				if (consecutiveRepeatedCharactersCounter == N) {
-					int startIndex = i - N + 1;
+				if (consecutiveRepeatedCharactersCounter >1) {
+					int startIndex = i - 1 + 1;
 					sb = sb.delete(startIndex, i + 1);
 					s = sb.toString();
 					i = -1;

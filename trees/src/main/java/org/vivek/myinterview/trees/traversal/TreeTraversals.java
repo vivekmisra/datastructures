@@ -29,27 +29,27 @@ public class TreeTraversals {
 		if (root == null) {
 			return;
 		}
-		inOrder(root.left);
-		System.out.print(root.val + " ");
-		inOrder(root.right);
+		inOrder(root.left);//L
+		System.out.print(root.val + " ");//V
+		inOrder(root.right);//R
 	}
 
 	public void preOrder(TreeNode root) {
 		if (root == null) {
 			return;
 		}
-		System.out.print(root.val + " ");
-		preOrder(root.left);
-		preOrder(root.right);
+		System.out.print(root.val + " ");//V
+		preOrder(root.left);//L
+		preOrder(root.right);//R
 	}
 
 	public void postOrder(TreeNode root) {
 		if (root == null) {
 			return;
 		}
-		postOrder(root.left);
-		postOrder(root.right);
-		System.out.print(root.val + " ");
+		postOrder(root.left);//L
+		postOrder(root.right);//R
+		System.out.print(root.val + " ");//V
 	}
 
 	// LVR
@@ -94,8 +94,11 @@ public class TreeTraversals {
 		}
 	}
 
-	// LRV
-	public void postOrderItr(TreeNode root) {
+	// LRV-+
+	
+	
+	
+		public void postOrderItr(TreeNode root) {
 		Deque<TreeNode> stack1 = new LinkedList<TreeNode>();
 		Deque<TreeNode> stack2 = new LinkedList<TreeNode>();
 		stack1.addFirst(root);

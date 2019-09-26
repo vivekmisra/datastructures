@@ -2,9 +2,12 @@ package org.vivek.myinterview.strings.problems;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 public class CommonInterviewQuestionsOnStrings {
 	//@formatter:off
@@ -41,6 +44,69 @@ public class CommonInterviewQuestionsOnStrings {
 		System.out.println("shortest1 of s1=" + s1 + " is-->"+ shortestPalindrome(s1)+" shortest1 of s2=" + s2 + " is-->"+ shortestPalindrome(s2)); 
 	}
 
+	/*
+	 * 20. Valid Parentheses
+		Easy
+		
+		Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+		
+		An input string is valid if:
+		
+		Open brackets must be closed by the same type of brackets.
+		Open brackets must be closed in the correct order.
+		Note that an empty string is also considered valid.
+		
+		Example 1:
+		
+		Input: "()"
+		Output: true
+		Example 2:
+		
+		Input: "()[]{}"
+		Output: true
+		Example 3:
+		
+		Input: "(]"
+		Output: false
+		Example 4:
+		
+		Input: "([)]"
+		Output: false
+		Example 5:
+		
+		Input: "{[]}"
+		Output: true
+	 */
+	public boolean isValid(String s) {
+        Map<Character,Character> m = new HashMap<>();
+        m.put('(', ')');
+        m.put('{', '}');
+        m.put('[' ,']');
+        Stack<Character> stack = new Stack<>();
+        for(int i = 0 ; i < s.length();i++){
+            char c = s.charAt(i);
+            Set<Character> set = m .keySet();
+            java.util.Collection<Character> collectionValues =  m.values();
+            
+            if(set.contains(c)){//valid key
+                stack.push(c);
+            }else if(collectionValues.contains(c)){
+                if(!stack.empty() && m.get(stack.peek())==c){
+                    stack.pop();
+                }else{
+                    return false;
+                }
+                
+            }
+            
+            
+            
+        }
+        
+        
+        return stack.empty();
+        
+    }
 	/*
 	 * https://leetcode.com/problems/valid-palindrome/ 
 	 * 125. Valid Palindrome
@@ -301,5 +367,102 @@ public class CommonInterviewQuestionsOnStrings {
 	}
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	/*
+	 * https://leetcode.com/problems/group-anagrams/
+	 * 49. Group Anagrams
+		Medium
+		
+		
+		Given an array of strings, group anagrams together.
+		
+		Example:
+		
+		Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
+		Output:
+		[
+		  ["ate","eat","tea"],
+		  ["nat","tan"],
+		  ["bat"]
+		]
+		
+	 */
+	public List<List<String>> groupAnagrams(String[] strs) {
+        if (strs.length == 0) return new ArrayList();
+        Map<String, List> anagramGroup = new HashMap<String, List>();
+        for (String s : strs) {
+            char[] ca = s.toCharArray();
+            Arrays.sort(ca);
+            String sortedKey = String.valueOf(ca);
+            if (!anagramGroup.containsKey(sortedKey)) {
+            	anagramGroup.put(sortedKey, new ArrayList());//create a record
+            } 
+            List value = anagramGroup.get(sortedKey);
+            value.add(s);
+        }
+        return new ArrayList(anagramGroup.values());
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/* Reverse Vowels of a String
+	 * https://leetcode.com/problems/reverse-vowels-of-a-string/
+	Easy
 
+
+	Write a function that takes a string as input and reverse only the vowels of a string.
+
+	Example 1:
+
+	Input: "hello"
+	Output: "holle"
+	Example 2:
+
+	Input: "leetcode"
+	Output: "leotcede"
+*/
+	public String reverseVowels(String s) {
+        if (s.length() < 2)
+          return s;	
+         char[] charArray = s.toCharArray();
+         int left = 0;
+         int right = s.length()-1;
+         while(left<right){
+             while(left<right  && !isVowel(charArray[left])){
+                 left++;
+             }
+             while(left<right  && !isVowel(charArray[right])){
+                right--;
+             }
+             swap(charArray,left,right);
+             left++;
+             right--;
+         }
+
+         return new String(charArray);
+
+    }
+  
+     boolean isVowel(char c){
+          switch (c) {
+              case 'a':
+              case 'e':
+              case 'i':
+              case 'o':
+              case 'u':
+              case 'A':
+              case 'E':
+              case 'I':
+              case 'O':
+              case 'U':
+                  return true;
+              default:
+                  return false;
+          }
+     }
+
+
+   void swap( char[] charArray,int left,int right ){
+         char temp = charArray[right];
+         charArray[right]= charArray[left];
+         charArray[left] = temp;
+   }
 }

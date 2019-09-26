@@ -14,8 +14,8 @@
 package org.vivek.myinterview.arrays.sorting.core;
 
 public class MergeSort {
-	 static Integer[] a = new Integer[] { 2,4, 1, 6, 8, 5, 3, 7 };
-	//static Integer[] a = new Integer[] { 3, 1, 4, 5, 9, 2, 6, 8, 7 };
+	 //static Integer[] a = new Integer[] { 2,4, 1, 6, 8, 5, 3, 7 };
+	static Integer[] a = new Integer[] { 3, 1, 4, 5, 9, 2, 6, 8, 7 };
 
 	public MergeSort() {
 		// TODO Auto-generated constructor stub
@@ -68,9 +68,8 @@ public class MergeSort {
 		int leftLength = left.length;
 		int rightLength = right.length;
 		int aLength = a.length;
-		int i = 0;
-		int j = 0;
-		int k = 0;
+		int i = 0,j=0,k=0;
+		
 		while (i < leftLength && j < right.length) {
 			System.out.println("*** (left[" + i + "].compareTo(right[" + j + "])=" + (left[i].compareTo(right[j])));
 			if (left[i].compareTo(right[j]) <= 0) {

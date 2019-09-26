@@ -17,13 +17,13 @@ package org.vivek.myinterview.arrays.binarysearch.problems;
  */
 public class MedianOfTwoSortedArrayOfDifferentLength {
 
-    public double findMedianSortedArrays(int input1[], int input2[]) {
+    public double findMedianSortedArrays(int nums1[], int nums2[]) {
         //if input1 length is greater than switch them so that input1 is smaller than input2.
-        if (input1.length > input2.length) {
-            return findMedianSortedArrays(input2, input1);
+        if (nums1.length > nums2.length) {
+            return findMedianSortedArrays(nums2, nums1);
         }
-        int x = input1.length;
-        int y = input2.length;
+        int x = nums1.length;
+        int y = nums2.length;
 
         int low = 0;
         int high = x;
@@ -33,11 +33,11 @@ public class MedianOfTwoSortedArrayOfDifferentLength {
 
             //if partitionX is 0 it means nothing is there on left side. Use -INF for maxLeftX
             //if partitionX is length of input then there is nothing on right side. Use +INF for minRightX
-            int maxLeftX = (partitionX == 0) ? Integer.MIN_VALUE : input1[partitionX - 1];
-            int minRightX = (partitionX == x) ? Integer.MAX_VALUE : input1[partitionX];
+            int maxLeftX = (partitionX == 0) ? Integer.MIN_VALUE : nums1[partitionX - 1];
+            int minRightX = (partitionX == x) ? Integer.MAX_VALUE : nums1[partitionX];
 
-            int maxLeftY = (partitionY == 0) ? Integer.MIN_VALUE : input2[partitionY - 1];
-            int minRightY = (partitionY == y) ? Integer.MAX_VALUE : input2[partitionY];
+            int maxLeftY = (partitionY == 0) ? Integer.MIN_VALUE : nums2[partitionY - 1];
+            int minRightY = (partitionY == y) ? Integer.MAX_VALUE : nums2[partitionY];
 
             if (maxLeftX <= minRightY && maxLeftY <= minRightX) {
                 //We have partitioned array at correct place

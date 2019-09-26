@@ -17,10 +17,10 @@ import java.util.Arrays;
 
 public class QuickSort {
 
-	//static Integer[] a = new Integer[] { 11, 2, 1, 6, 8, 5, 3, 4 };
-	//static Integer[] a = new Integer[] { 3,1,4,5,9,2,6,8,7};
-	static   Integer a[] = {6, 2, 1, 6, 8, 9, 6};
-	//static Integer[] a = new Integer[] { 2, 4, 1, 6, 8, 5, 3, 7 };
+	//static Integer[] nums = new Integer[] { 11, 2, 1, 6, 8, 5, 3, 4 };
+	//static Integer[] nums = new Integer[] { 3,1,4,5,9,2,6,8,7};
+	static   Integer nums[] = {6, 2, 1, 6, 8, 9, 6};
+	//static Integer[] nums = new Integer[] { 2, 4, 1, 6, 8, 5, 3, 7 };
 
 
 	public QuickSort() {
@@ -29,17 +29,17 @@ public class QuickSort {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		sort(a);
-		printArray(a);
+		sort(nums);
+		printArray(nums);
 	}
 
 	public static void sort(Integer[] inputArr) {
 
-		if (a == null || a.length == 0) {
+		if (nums == null || nums.length == 0) {
 			return;
 		}
-		int length = a.length;
-		quickSort(a,0, length - 1);
+		int numsLength = nums.length;
+		quickSort(nums,0, numsLength - 1);
 	}
 
 	private static void quickSort(Integer[] a,int start, int end) {

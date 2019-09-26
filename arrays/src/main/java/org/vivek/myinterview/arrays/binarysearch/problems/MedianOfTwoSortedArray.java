@@ -5,25 +5,25 @@ package org.vivek.myinterview.arrays.binarysearch.problems;
  */
 public class MedianOfTwoSortedArray {
 
-    public double median(int arr1[],int arr2[]){
+    public double median(int nums1[],int nums2[]){
         int low1 = 0;
-        int high1 = arr1.length-1;
+        int high1 = nums1.length-1;
         
         int low2 = 0;
-        int high2 = arr2.length-1;
+        int high2 = nums2.length-1;
 
         while(true){
             
             if(high1 == low1){
-                return (arr1[low1] + arr2[low2])/2;
+                return (nums1[low1] + nums2[low2])/2;
             }
             
             if(high1 - low1 == 1){
-                return (double)(Math.max(arr1[low1], arr2[low2]) + Math.min(arr1[high1], arr2[high2]))/2;
+                return (double)(Math.max(nums1[low1], nums2[low2]) + Math.min(nums1[high1], nums2[high2]))/2;
             }
             
-            double med1 = getMedian(arr1,low1,high1);
-            double med2 = getMedian(arr2,low1,high2);
+            double med1 = getMedian(nums1,low1,high1);
+            double med2 = getMedian(nums2,low1,high2);
             if(med1 <= med2){
                 if((high1-low1 + 1) % 2 == 0){
                     low1 = (high1+low1)/2;
